@@ -11,32 +11,6 @@ import (
 	"github.com/ananrafs/descartes/law"
 )
 
-type serviceFlags struct {
-	folderLocation string
-	factFileName   string
-	lawFileName    string
-	outputFileName string
-}
-
-func ParseFlag(sf *serviceFlags) {
-
-	folderLocation := flag.String("folder", "./dump/law_2", "folder location")
-	fact := flag.String("fact", "fact", "fact file name")
-	law := flag.String("law", "law", "law file name")
-	out := flag.String("out", "output", "output file name")
-
-	// Parse the command-line arguments
-	flag.Parse()
-	sf = &serviceFlags{
-		folderLocation: *folderLocation,
-		factFileName:   *fact,
-		lawFileName:    *law,
-		outputFileName: *out,
-	}
-}
-
-var sf serviceFlags
-
 func main() {
 	folderLocation := flag.String("folder", "./dump/law_2", "folder location")
 	factFile := flag.String("fact", "fact", "fact file name")
@@ -100,7 +74,7 @@ func getStringFromFile(fileLocation string) string {
 
 func writeToFile(fileLocation string, obj interface{}) {
 	// Marshal the interface{} to JSON.
-	jsonData, err := json.Marshal(obj)
+	jsonData, err := json.MarshalIndent(obj, "", " ")
 	if err != nil {
 		fmt.Println("Error marshaling data to JSON:", err)
 		return
