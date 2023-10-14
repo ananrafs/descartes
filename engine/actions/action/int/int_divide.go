@@ -22,36 +22,16 @@ func (c *ActionIntDivide) New() actions.ActionsItf {
 
 func (c *ActionIntDivide) Do(param map[string]interface{}) (res interface{}, err error) {
 	// collecting values
-	dividedParams := [2]interface{}{c.Numerator, c.Denominator}
-	dividedValues := [2]int{0, 0}
+	_params := [2]interface{}{c.Numerator, c.Denominator}
+	_values := [2]int{0, 0}
 
-	for i, params := range dividedParams {
-		val, numField := new(int), new(string)
-
-		// first check if value was int
-		if err = common.ConvertToInt(params, val); err == nil {
-			dividedValues[i] = *val
-			continue
+	for i, _param := range _params {
+		if err = common.ConvertInt().WithFromMap(param)(_param, &_values[i]); err != nil {
+			return false, err
 		}
-
-		// check if its using template
-		if match := common.ParseFromMustacheTemplate(params, numField); !match {
-			return nil, common.ErrorCasting(params)
-		}
-
-		v, ok := param[*numField]
-		if !ok {
-			return nil, common.ErrorNotFoundOnMap(*numField)
-		}
-
-		if err = common.ConvertToInt(v, val); err != nil {
-			return nil, err
-		}
-
-		dividedValues[i] = *val
 	}
 
-	param[c.Field] = dividedValues[0] / dividedValues[1]
+	param[c.Field] = _values[0] / _values[1]
 
 	return
 }

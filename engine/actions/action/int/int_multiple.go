@@ -21,38 +21,16 @@ func (c *ActionIntMultiple) New() actions.ActionsItf {
 
 func (c *ActionIntMultiple) Do(param map[string]interface{}) (res interface{}, err error) {
 	total := 0
-	for i, params := range c.Factors {
-		val, numField := new(int), new(string)
-		// first check if value was int
-		if err = common.ConvertToInt(params, val); err == nil {
-			if i == 0 {
-				total = *val
-			} else {
-				total *= *val
-			}
-			continue
+	for i, _param := range c.Factors {
+		val := new(int)
+		if err = common.ConvertInt().WithFromMap(param)(_param, val); err != nil {
+			return false, err
 		}
-
-		// check if its using template
-		if match := common.ParseFromMustacheTemplate(params, numField); !match {
-			return nil, common.ErrorCasting(params)
-		}
-
-		v, ok := param[*numField]
-		if !ok {
-			return nil, common.ErrorNotFoundOnMap(*numField)
-		}
-
-		if err = common.ConvertToInt(v, val); err != nil {
-			return nil, err
-		}
-
 		if i == 0 {
 			total = *val
 		} else {
 			total *= *val
 		}
-
 	}
 	param[c.Field] = total
 

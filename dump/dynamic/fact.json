@@ -1,0 +1,31 @@
+[
+    {
+        "slug": "geometry_dynamic",
+        "param": {
+            "name": "square",
+            "side": 11
+        }
+    },
+    {
+        "slug": "geometry_dynamic",
+        "param": {
+            "name": "rectangle",
+            "length": 11,
+            "width": 5
+        }
+    },
+    {
+        "slug": "geometry_dynamic",
+        "param": {
+            "name": "circle",
+            "radius": 12
+        }
+    },
+    {
+        "slug": "geometry_dynamic",
+        "param": {
+            "name": "gundam",
+            "grade": "master grade"
+        }
+    }
+]
