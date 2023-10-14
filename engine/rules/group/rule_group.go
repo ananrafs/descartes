@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 
 	"github.com/ananrafs/descartes/common"
-	"github.com/ananrafs/descartes/rules"
+	"github.com/ananrafs/descartes/engine/rules"
 )
 
 type RuleGroup []rules.RulesItf
@@ -21,7 +21,7 @@ func (r *RuleGroup) UnmarshalJSON(data []byte) (err error) {
 			return err
 		}
 
-		rule := rules.GetRules(typeCheker.Type)
+		rule := rules.Get(typeCheker.Type)
 		newInstance := rule.New()
 		err = json.Unmarshal(raw, newInstance)
 		if err != nil {

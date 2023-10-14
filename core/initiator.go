@@ -3,18 +3,22 @@ package core
 import (
 	"fmt"
 
-	"github.com/ananrafs/descartes/evaluators"
-	"github.com/ananrafs/descartes/evaluators/evaluator"
-	"github.com/ananrafs/descartes/evaluators/group"
+	"github.com/ananrafs/descartes/engine/actions"
+	"github.com/ananrafs/descartes/engine/actions/action"
+	action_int "github.com/ananrafs/descartes/engine/actions/action/int"
+	"github.com/ananrafs/descartes/engine/evaluators"
+	"github.com/ananrafs/descartes/engine/evaluators/evaluator"
+	"github.com/ananrafs/descartes/engine/evaluators/group"
+	"github.com/ananrafs/descartes/engine/rules"
+	rulesgroup "github.com/ananrafs/descartes/engine/rules/group"
+	rule_int "github.com/ananrafs/descartes/engine/rules/rule/int"
+	rule_string "github.com/ananrafs/descartes/engine/rules/rule/string"
 	"github.com/ananrafs/descartes/law"
-	"github.com/ananrafs/descartes/rules"
-	rulesgroup "github.com/ananrafs/descartes/rules/group"
-	rule_int "github.com/ananrafs/descartes/rules/rule/int"
-	rule_string "github.com/ananrafs/descartes/rules/rule/string"
 )
 
 type RuleCreateFunction func() []rules.RulesItf
-type EvalCreateFunction func() []evaluators.EvaluatorItf
+type EvalCreateFunction func() []evaluators.EvaluatorsItf
+type ActionCreateFunction func() []actions.ActionsItf
 
 func Register(law law.Law) error {
 	_, ok := lawDictionary[law.Slug]
@@ -31,15 +35,23 @@ func InitRule(funcs ...RuleCreateFunction) {
 	for _, ruleInstance := range funcs {
 		ruleList = append(ruleList, ruleInstance()...)
 	}
-	rules.InitRules(ruleList...)
+	rules.Init(ruleList...)
 }
 
 func InitEvaluator(funcs ...EvalCreateFunction) {
-	evalList := make([]evaluators.EvaluatorItf, 0)
-	for _, evalInstance := range funcs {
-		evalList = append(evalList, evalInstance()...)
+	evalList := make([]evaluators.EvaluatorsItf, 0)
+	for _, createFunc := range funcs {
+		evalList = append(evalList, createFunc()...)
 	}
-	evaluators.InitEvaluators(evalList...)
+	evaluators.Init(evalList...)
+}
+
+func InitActions(funcs ...ActionCreateFunction) {
+	actionList := make([]actions.ActionsItf, 0)
+	for _, createFunc := range funcs {
+		actionList = append(actionList, createFunc()...)
+	}
+	actions.Init(actionList...)
 }
 
 func WithDefaultRules() []rules.RulesItf {
@@ -55,9 +67,20 @@ func WithDefaultRules() []rules.RulesItf {
 	}
 }
 
-func WithDefaultEvaluators() []evaluators.EvaluatorItf {
-	return []evaluators.EvaluatorItf{
+func WithDefaultEvaluators() []evaluators.EvaluatorsItf {
+	return []evaluators.EvaluatorsItf{
 		&evaluator.Evaluator{},
 		&group.FirstMatch{},
+	}
+}
+
+func WithDefaultActions() []actions.ActionsItf {
+	return []actions.ActionsItf{
+		&action.Action{},
+		&action_int.ActionIntDivide{},
+		&action_int.ActionIntMod{},
+		&action_int.ActionIntMultiple{},
+		&action_int.ActionIntSubstract{},
+		&action_int.ActionIntSum{},
 	}
 }

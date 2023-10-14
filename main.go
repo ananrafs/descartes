@@ -13,6 +13,7 @@ func main() {
 
 	core.InitRule(core.WithDefaultRules)
 	core.InitEvaluator(core.WithDefaultEvaluators)
+	core.InitActions(core.WithDefaultActions)
 
 	l, err := law.CreateLaw(getStringFromFile("./dump/rule_random/law.json"))
 	if err != nil {

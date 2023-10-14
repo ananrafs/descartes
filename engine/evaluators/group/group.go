@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 
 	"github.com/ananrafs/descartes/common"
-	"github.com/ananrafs/descartes/evaluators"
+	"github.com/ananrafs/descartes/engine/evaluators"
 )
 
-type EvaluatorGroup []evaluators.EvaluatorItf
+type EvaluatorGroup []evaluators.EvaluatorsItf
 
 func (eg *EvaluatorGroup) UnmarshalJSON(data []byte) (err error) {
 	var m []json.RawMessage
@@ -21,7 +21,7 @@ func (eg *EvaluatorGroup) UnmarshalJSON(data []byte) (err error) {
 			return err
 		}
 
-		evals := evaluators.GetEvaluators(typeCheker.Type)
+		evals := evaluators.Get(typeCheker.Type)
 		newInstance := evals.New()
 		err = json.Unmarshal(raw, newInstance)
 		if err != nil {

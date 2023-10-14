@@ -5,12 +5,12 @@ import (
 	"fmt"
 
 	"github.com/ananrafs/descartes/common"
-	"github.com/ananrafs/descartes/evaluators"
+	"github.com/ananrafs/descartes/engine/evaluators"
 )
 
 type Law struct {
-	Slug      string                  `json:"slug"`
-	Evaluator evaluators.EvaluatorItf `json:"evaluator"`
+	Slug      string                   `json:"slug"`
+	Evaluator evaluators.EvaluatorsItf `json:"evaluator"`
 }
 
 func (l *Law) Judge(param map[string]interface{}) (interface{}, error) {
@@ -40,7 +40,7 @@ func (l *Law) UnmarshalJSON(data []byte) (err error) {
 				return
 			}
 
-			eval := evaluators.GetEvaluators(typeChecker.Type)
+			eval := evaluators.Get(typeChecker.Type)
 			if err = json.Unmarshal(val, eval); err != nil {
 				return
 			}

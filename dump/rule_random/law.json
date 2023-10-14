@@ -64,7 +64,8 @@
                     ]
                 },
                 "action": {
-                    "return": "dapat sepeda"
+                    "petunjuk": "dapat sepeda",
+                    "name": "{{ nama }}"
                 }
             }
         ]

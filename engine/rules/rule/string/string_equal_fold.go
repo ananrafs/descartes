@@ -3,7 +3,8 @@ package rule_string
 import (
 	"strings"
 
-	"github.com/ananrafs/descartes/rules"
+	"github.com/ananrafs/descartes/common"
+	"github.com/ananrafs/descartes/engine/rules"
 )
 
 type RuleStringEqualFold struct {
@@ -12,7 +13,7 @@ type RuleStringEqualFold struct {
 	Value    string `json:"value"`
 }
 
-func (c *RuleStringEqualFold) GetRules() string {
+func (c *RuleStringEqualFold) GetType() string {
 	return "rules.string.equal_fold"
 }
 
@@ -20,16 +21,16 @@ func (c *RuleStringEqualFold) New() rules.RulesItf {
 	return new(RuleStringEqualFold)
 }
 
-func (c *RuleStringEqualFold) IsMatch(param map[string]interface{}) (isMatch bool) {
+func (c *RuleStringEqualFold) IsMatch(param map[string]interface{}) (isMatch bool, err error) {
 	v, ok := param[c.Field]
 	if !ok {
-		return false
+		return false, common.ErrorNotFoundOnMap(c.Field)
 	}
 
 	val, ok := v.(string)
 	if !ok {
-		return false
+		return false, common.ErrorCasting(v)
 	}
 
-	return strings.EqualFold(val, c.Value)
+	return strings.EqualFold(val, c.Value), nil
 }

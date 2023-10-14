@@ -1,7 +1,7 @@
 package group
 
 import (
-	"github.com/ananrafs/descartes/rules"
+	"github.com/ananrafs/descartes/engine/rules"
 )
 
 type ConditionalAnd struct {
@@ -9,7 +9,7 @@ type ConditionalAnd struct {
 	Rules           RuleGroup `json:"rules"`
 }
 
-func (c *ConditionalAnd) GetRules() string {
+func (c *ConditionalAnd) GetType() string {
 	return "rules.conditional.and"
 }
 
@@ -17,12 +17,12 @@ func (c *ConditionalAnd) New() rules.RulesItf {
 	return new(ConditionalAnd)
 }
 
-func (c *ConditionalAnd) IsMatch(param map[string]interface{}) (isMatch bool) {
+func (c *ConditionalAnd) IsMatch(param map[string]interface{}) (isMatch bool, err error) {
 	isMatch = true
 	for _, rule := range c.Rules {
-		isMatch = rule.IsMatch(param)
+		isMatch, err = rule.IsMatch(param)
 		if !isMatch {
-			return
+			return false, nil
 		}
 	}
 	return

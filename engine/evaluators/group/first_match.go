@@ -1,7 +1,7 @@
 package group
 
 import (
-	"github.com/ananrafs/descartes/evaluators"
+	"github.com/ananrafs/descartes/engine/evaluators"
 )
 
 type FirstMatch struct {
@@ -13,7 +13,7 @@ func (fm *FirstMatch) GetType() string {
 	return "evaluator.group.first_match"
 }
 
-func (fm *FirstMatch) New() evaluators.EvaluatorItf {
+func (fm *FirstMatch) New() evaluators.EvaluatorsItf {
 	return new(FirstMatch)
 }
 

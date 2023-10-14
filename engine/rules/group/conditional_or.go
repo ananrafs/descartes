@@ -1,13 +1,13 @@
 package group
 
-import "github.com/ananrafs/descartes/rules"
+import "github.com/ananrafs/descartes/engine/rules"
 
 type ConditionalOr struct {
 	ConditionalType string    `json:"type"`
 	Rules           RuleGroup `json:"rules"`
 }
 
-func (c *ConditionalOr) GetRules() string {
+func (c *ConditionalOr) GetType() string {
 	return "rules.conditional.or"
 }
 
@@ -15,9 +15,12 @@ func (c *ConditionalOr) New() rules.RulesItf {
 	return new(ConditionalOr)
 }
 
-func (c *ConditionalOr) IsMatch(param map[string]interface{}) (isMatch bool) {
+func (c *ConditionalOr) IsMatch(param map[string]interface{}) (isMatch bool, err error) {
 	for _, rule := range c.Rules {
-		isMatch = rule.IsMatch(param)
+		isMatch, err = rule.IsMatch(param)
+		// if err != nil {
+		// 	return false, err
+		// }
 		if isMatch {
 			return
 		}
