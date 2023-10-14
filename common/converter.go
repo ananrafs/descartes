@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	handlebars = regexp.MustCompile(`\{\{([^{}]+)\}\}`)
+	templateRegex = regexp.MustCompile(`\{\{([^{}]+)\}\}`)
 )
 
 func ConvertToInt(source interface{}, dest *int) error {
@@ -19,13 +19,23 @@ func ConvertToInt(source interface{}, dest *int) error {
 	return nil
 }
 
-func ParseFromHandlebars(source interface{}, dest *string) (isMatch bool) {
+func ConvertToBool(source interface{}, dest *bool) error {
+	intf, ok := source.(bool)
+	if !ok {
+		return ErrorCasting(source)
+	}
+
+	*dest = intf
+	return nil
+}
+
+func ParseFromMustacheTemplate(source interface{}, dest *string) (isMatch bool) {
 	strSource, ok := source.(string)
 	if !ok {
 		return false
 	}
 
-	target := handlebars.FindStringSubmatch(strSource)
+	target := templateRegex.FindStringSubmatch(strSource)
 	if len(target) < 1 {
 		return false
 	}

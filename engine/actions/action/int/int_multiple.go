@@ -27,12 +27,14 @@ func (c *ActionIntMultiple) Do(param map[string]interface{}) (res interface{}, e
 		if err = common.ConvertToInt(params, val); err == nil {
 			if i == 0 {
 				total = *val
+			} else {
+				total *= *val
 			}
 			continue
 		}
 
-		// check if its using handlebars
-		if match := common.ParseFromHandlebars(params, numField); !match {
+		// check if its using template
+		if match := common.ParseFromMustacheTemplate(params, numField); !match {
 			return nil, common.ErrorCasting(params)
 		}
 
@@ -45,9 +47,13 @@ func (c *ActionIntMultiple) Do(param map[string]interface{}) (res interface{}, e
 			return nil, err
 		}
 
-		total *= *val
-	}
+		if i == 0 {
+			total = *val
+		} else {
+			total *= *val
+		}
 
+	}
 	param[c.Field] = total
 
 	return

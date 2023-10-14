@@ -1,0 +1,109 @@
+{
+    "slug": "presiden_pilihan_rakyat",
+    "evaluator": {
+        "type": "evaluator.group.first_match",
+        "evaluators": [
+            {
+                "type": "evaluator",
+                "rule": {
+                    "type": "rules.conditional.and",
+                    "rules": [
+                        {
+                            "type": "rules.int.between",
+                            "field": "pengalaman_kerja",
+                            "start": 4,
+                            "end": 10
+                        },
+                        {
+                            "type": "rules.int.greater",
+                            "field": "usia",
+                            "value": 35
+                        },
+                        {
+                            "type": "rules.int.greater",
+                            "field": "suara_parlemen",
+                            "value": 25
+                        }
+                    ]
+                },
+                "action": {
+                    "valid": true,
+                    "nomor_urut": "{{ nomor_urut }}",
+                    "nama": "{{ nama }}",
+                    "reason": "pilihan parlemen"
+                }
+            },
+            {
+                "type": "evaluator",
+                "rule": {
+                    "type": "rules.conditional.and",
+                    "rules": [
+                        {
+                            "type": "rules.int.between",
+                            "field": "pengalaman_kerja",
+                            "start": 1,
+                            "end": 25
+                        },
+                        {
+                            "type": "rules.int.greater",
+                            "field": "usia",
+                            "value": 35
+                        },
+                        {
+                            "type": "rules.int.greater",
+                            "field": "dukungan_rakyat",
+                            "value": 25000000
+                        }
+                    ]
+                },
+                "action": {
+                    "valid": true,
+                    "nomor_urut": "{{ nomor_urut }}",
+                    "nama": "{{ nama }}",
+                    "reason": "pilihan rakyat"
+                }
+            },
+            {
+                "type": "evaluator",
+                "rule": {
+                    "type": "rules.conditional.and",
+                    "rules": [
+                        {
+                            "type": "rules.int.between",
+                            "field": "pengalaman_kerja",
+                            "start": 0,
+                            "end": 1
+                        },
+                        {
+                            "type": "rules.int.greater",
+                            "field": "usia",
+                            "value": 18
+                        },
+                        {
+                            "type": "rules.bool",
+                            "field": "anak_presiden",
+                            "value": true
+                        }
+                    ]
+                },
+                "action": {
+                    "valid": true,
+                    "nomor_urut": "{{ nomor_urut }}",
+                    "nama": "{{ nama }}",
+                    "reason": "pilihan bapak"
+                }
+            },
+            {
+                "type": "evaluator",
+                "rule": {
+                    "type": "rules.default"
+                },
+                "action": {
+                    "valid": false,
+                    "nomor_urut": "{{ nomor_urut }}",
+                    "nama": "{{ nama }}"
+                }
+            }
+        ]
+    }
+}

@@ -20,7 +20,7 @@ func (fm *FirstMatch) New() evaluators.EvaluatorsItf {
 func (fm *FirstMatch) Eval(param map[string]interface{}) (res evaluators.EvalResult) {
 	for _, eval := range fm.Evaluators {
 		res = eval.Eval(param)
-		if res.IsMatch || res.Error != nil {
+		if res.IsMatch {
 			return res
 		}
 	}

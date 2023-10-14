@@ -18,9 +18,6 @@ func (c *ConditionalOr) New() rules.RulesItf {
 func (c *ConditionalOr) IsMatch(param map[string]interface{}) (isMatch bool, err error) {
 	for _, rule := range c.Rules {
 		isMatch, err = rule.IsMatch(param)
-		// if err != nil {
-		// 	return false, err
-		// }
 		if isMatch {
 			return
 		}

@@ -1,0 +1,45 @@
+[
+    {
+        "slug": "presiden_pilihan_rakyat",
+        "param": {
+            "nama": "joshua",
+            "usia": 40,
+            "pengalaman_kerja": 12,
+            "anak_presiden": false,
+            "suara_parlemen": 0,
+            "dukungan_rakyat": 30000000,
+            "nomor_urut": 151
+        }
+    },
+    {
+        "slug": "presiden_pilihan_rakyat",
+        "param": {
+            "nama": "abdur",
+            "usia": 20,
+            "pengalaman_kerja": 1,
+            "anak_presiden": true,
+            "dukungan_rakyat": 100000,
+            "nomor_urut": 152
+        }
+    },
+    {
+        "slug": "presiden_pilihan_rakyat",
+        "param": {
+            "nama": "tantowi",
+            "usia": 65,
+            "pengalaman_kerja": 47,
+            "dukungan_rakyat": 50000000,
+            "nomor_urut": 153
+        }
+    },
+    {
+        "slug": "presiden_pilihan_rakyat",
+        "param": {
+            "nama": "melinda",
+            "usia": 10,
+            "anak_presiden": true,
+            "suara_parlemen": 50,
+            "nomor_urut": 154
+        }
+    }
+]

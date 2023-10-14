@@ -15,12 +15,12 @@ func (eg *EvaluatorGroup) UnmarshalJSON(data []byte) (err error) {
 		return
 	}
 	*eg = make(EvaluatorGroup, 0, len(m))
-	var typeCheker common.TypeChecker
+
 	for _, raw := range m {
+		var typeCheker common.TypeChecker
 		if err := json.Unmarshal(raw, &typeCheker); err != nil {
 			return err
 		}
-
 		evals := evaluators.Get(typeCheker.Type)
 		newInstance := evals.New()
 		err = json.Unmarshal(raw, newInstance)

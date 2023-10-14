@@ -1,0 +1,104 @@
+{
+    "slug": "geometry",
+    "evaluator": {
+        "type": "evaluator.group.first_match",
+        "evaluators": [
+            {
+                "type": "evaluator",
+                "rule": {
+                    "type": "rules.int.greater",
+                    "field": "radius",
+                    "value": 0
+                },
+                "action": {
+                    "type": "actions.group",
+                    "actions": [
+                        {
+                            "type": "actions.int.multiple",
+                            "field": "area",
+                            "factors": [
+                                2,
+                                3,
+                                "{{ radius }}"
+                            ]
+                        },
+                        {
+                            "area": "{{ area }}",
+                            "object": "{{ name }}"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "evaluator",
+                "rule": {
+                    "type": "rules.conditional.and",
+                    "rules": [
+                        {
+                            "type": "rules.int.greater",
+                            "field": "length",
+                            "value": 0
+                        },
+                        {
+                            "type": "rules.int.greater",
+                            "field": "width",
+                            "value": 0
+                        }
+                    ]
+                },
+                "action": {
+                    "type": "actions.group",
+                    "actions": [
+                        {
+                            "type": "actions.int.multiple",
+                            "field": "area",
+                            "factors": [
+                                "{{ length }}",
+                                "{{ width }}"
+                            ]
+                        },
+                        {
+                            "area": "{{ area }}",
+                            "object": "{{ name }}"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "evaluator",
+                "rule": {
+                    "type": "rules.int.greater",
+                    "field": "side",
+                    "value": 0
+                },
+                "action": {
+                    "type": "actions.group",
+                    "actions": [
+                        {
+                            "type": "actions.int.multiple",
+                            "field": "area",
+                            "factors": [
+                                "{{ side }}",
+                                "{{ side }}"
+                            ]
+                        },
+                        {
+                            "area": "{{ area }}",
+                            "object": "{{ name }}"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "evaluator",
+                "rule": {
+                    "type": "rules.default"
+                },
+                "action": {
+                    "object": "{{ name }}",
+                    "area": "cant calculate"
+                }
+            }
+        ]
+    }
+}

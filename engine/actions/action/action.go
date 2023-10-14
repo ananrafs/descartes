@@ -17,12 +17,12 @@ func (c *Action) New() actions.ActionsItf {
 
 func (c *Action) Do(param map[string]interface{}) (res interface{}, err error) {
 	for i, params := range *c {
-		paramsWithHandlebars := new(string)
-		// check if its using handlebars
-		if match := common.ParseFromHandlebars(params, paramsWithHandlebars); match {
-			v, ok := param[*paramsWithHandlebars]
+		paramsWithTemplate := new(string)
+		// check if its using template
+		if match := common.ParseFromMustacheTemplate(params, paramsWithTemplate); match {
+			v, ok := param[*paramsWithTemplate]
 			if !ok {
-				return nil, common.ErrorNotFoundOnMap(*paramsWithHandlebars)
+				return nil, common.ErrorNotFoundOnMap(*paramsWithTemplate)
 			}
 
 			(*c)[i] = v

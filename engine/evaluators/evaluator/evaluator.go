@@ -25,11 +25,8 @@ func (fm *Evaluator) New() evaluators.EvaluatorsItf {
 
 func (e *Evaluator) Eval(param map[string]interface{}) (res evaluators.EvalResult) {
 	isMatch, err := e.Rules.IsMatch(param)
-	if err != nil {
-		res.Error = err
-		return
-	}
 	if !isMatch {
+		res.Error = err
 		return
 	}
 	res.IsMatch = isMatch
@@ -50,13 +47,14 @@ func (r *Evaluator) UnmarshalJSON(data []byte) (err error) {
 	}
 
 	for k, val := range m {
+		var typeChecker common.TypeChecker
+
 		switch k {
 		case "type":
 			if err := json.Unmarshal(val, &r.EvaluatorType); err != nil {
 				return err
 			}
 		case "action":
-			var typeChecker common.TypeChecker
 			var instance actions.ActionsItf
 
 			if err := json.Unmarshal(val, &typeChecker); err != nil {
@@ -70,13 +68,11 @@ func (r *Evaluator) UnmarshalJSON(data []byte) (err error) {
 			}
 			r.Action = instance
 		case "rule":
-			var typeChecker common.TypeChecker
 			var instance rules.RulesItf
 
 			if err := json.Unmarshal(val, &typeChecker); err != nil {
 				return err
 			}
-
 			rule := rules.Get(typeChecker.Type)
 			instance = rule.New()
 			if err := json.Unmarshal(val, instance); err != nil {

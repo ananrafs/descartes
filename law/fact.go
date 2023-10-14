@@ -17,3 +17,12 @@ func CreateFact(jsonStr string) (f Fact, err error) {
 
 	return f, nil
 }
+
+func CreateMultipleFact(jsonStr string) (fs []Fact, err error) {
+	err = json.Unmarshal([]byte(jsonStr), &fs)
+	if err != nil {
+		return
+	}
+
+	return fs, nil
+}

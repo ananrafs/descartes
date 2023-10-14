@@ -6,11 +6,14 @@ import (
 	"github.com/ananrafs/descartes/engine/actions"
 	"github.com/ananrafs/descartes/engine/actions/action"
 	action_int "github.com/ananrafs/descartes/engine/actions/action/int"
+	actionsgroup "github.com/ananrafs/descartes/engine/actions/group"
 	"github.com/ananrafs/descartes/engine/evaluators"
 	"github.com/ananrafs/descartes/engine/evaluators/evaluator"
 	"github.com/ananrafs/descartes/engine/evaluators/group"
 	"github.com/ananrafs/descartes/engine/rules"
 	rulesgroup "github.com/ananrafs/descartes/engine/rules/group"
+	"github.com/ananrafs/descartes/engine/rules/rule"
+	rule_bool "github.com/ananrafs/descartes/engine/rules/rule/bool"
 	rule_int "github.com/ananrafs/descartes/engine/rules/rule/int"
 	rule_string "github.com/ananrafs/descartes/engine/rules/rule/string"
 	"github.com/ananrafs/descartes/law"
@@ -64,6 +67,8 @@ func WithDefaultRules() []rules.RulesItf {
 		&rule_int.RuleIntLesser{},
 		&rule_string.RuleStringEqual{},
 		&rule_string.RuleStringEqualFold{},
+		&rule_bool.RuleBool{},
+		&rule.RuleDefault{},
 	}
 }
 
@@ -77,6 +82,7 @@ func WithDefaultEvaluators() []evaluators.EvaluatorsItf {
 func WithDefaultActions() []actions.ActionsItf {
 	return []actions.ActionsItf{
 		&action.Action{},
+		&actionsgroup.ActionGroup{},
 		&action_int.ActionIntDivide{},
 		&action_int.ActionIntMod{},
 		&action_int.ActionIntMultiple{},

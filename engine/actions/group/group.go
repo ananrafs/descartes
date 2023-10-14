@@ -4,32 +4,31 @@ import (
 	"encoding/json"
 
 	"github.com/ananrafs/descartes/common"
-	"github.com/ananrafs/descartes/engine/rules"
+	"github.com/ananrafs/descartes/engine/actions"
 )
 
-type RuleGroup []rules.RulesItf
+type ActionsGroup []actions.ActionsItf
 
-func (r *RuleGroup) UnmarshalJSON(data []byte) (err error) {
+func (ag *ActionsGroup) UnmarshalJSON(data []byte) (err error) {
 	var m []json.RawMessage
 	if err = json.Unmarshal(data, &m); err != nil {
 		return
 	}
-	*r = make(RuleGroup, 0, len(m))
+	*ag = make(ActionsGroup, 0, len(m))
+
 	for _, raw := range m {
 		var typeChecker common.TypeChecker
-
 		if err := json.Unmarshal(raw, &typeChecker); err != nil {
 			return err
 		}
 
-		rule := rules.Get(typeChecker.Type)
-		newInstance := rule.New()
+		action := actions.Get(typeChecker.Type)
+		newInstance := action.New()
 		err = json.Unmarshal(raw, newInstance)
 		if err != nil {
 			return err
 		}
-
-		*r = append(*r, newInstance)
+		*ag = append(*ag, newInstance)
 	}
 	return
 }

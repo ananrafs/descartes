@@ -36,8 +36,8 @@ func (c *ActionIntMod) Do(param map[string]interface{}) (res interface{}, err er
 			continue
 		}
 
-		// check if its using handlebars
-		if match := common.ParseFromHandlebars(params, numField); !match {
+		// check if its using template
+		if match := common.ParseFromMustacheTemplate(params, numField); !match {
 			return nil, common.ErrorCasting(params)
 		}
 
