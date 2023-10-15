@@ -1,0 +1,49 @@
+[
+    {
+        "slug": "geometry_dynamic_with3d",
+        "param": {
+            "name": "square",
+            "side": 11
+        }
+    },
+    {
+        "slug": "geometry_dynamic_with3d",
+        "param": {
+            "name": "rectangle",
+            "length": 11,
+            "width": 5
+        }
+    },
+    {
+        "slug": "geometry_dynamic_with3d",
+        "param": {
+            "name": "rectangular cuboid",
+            "length": 11,
+            "width": 5,
+            "height": 10,
+            "3d": true
+        }
+    },
+    {
+        "slug": "geometry_dynamic_with3d",
+        "param": {
+            "name": "circle",
+            "radius": 12
+        }
+    },
+    {
+        "slug": "geometry_dynamic_with3d",
+        "param": {
+            "name": "cube",
+            "side": 10,
+            "3d": true
+        }
+    },
+    {
+        "slug": "geometry_dynamic_with3d",
+        "param": {
+            "name": "gundam",
+            "grade": "master grade"
+        }
+    }
+]

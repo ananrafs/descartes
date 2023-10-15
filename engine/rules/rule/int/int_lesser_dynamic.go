@@ -2,6 +2,7 @@ package rule_int
 
 import (
 	"github.com/ananrafs/descartes/common"
+	"github.com/ananrafs/descartes/engine/facts"
 	"github.com/ananrafs/descartes/engine/rules"
 )
 
@@ -9,6 +10,7 @@ type RuleIntLesserDynamic struct {
 	RuleType string      `json:"type"`
 	Left     interface{} `json:"left"`
 	Right    interface{} `json:"right"`
+	hash     *string
 }
 
 func (c *RuleIntLesserDynamic) GetType() string {
@@ -19,7 +21,23 @@ func (c *RuleIntLesserDynamic) New() rules.RulesItf {
 	return new(RuleIntLesserDynamic)
 }
 
-func (c *RuleIntLesserDynamic) IsMatch(param map[string]interface{}) (isMatch bool, err error) {
+func (c *RuleIntLesserDynamic) GetHash() string {
+	for c.hash == nil {
+		hash := common.CreateHash(c.RuleType, c.Left, c.Right)
+		c.hash = &hash
+	}
+	return *c.hash
+}
+
+func (c *RuleIntLesserDynamic) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
+	if ok := facts.GetCacheInstance().TryGet(c.GetHash(), &isMatch); ok {
+		return isMatch, nil
+	}
+	defer func() {
+		facts.GetCacheInstance().SetCache(c.GetHash(), isMatch)
+	}()
+	param := facts.GetMap()
+
 	// collecting values
 	_params := [2]interface{}{c.Left, c.Right}
 	_values := [2]int{0, 0}

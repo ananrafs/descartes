@@ -3,6 +3,7 @@ package action
 import (
 	"github.com/ananrafs/descartes/common"
 	"github.com/ananrafs/descartes/engine/actions"
+	"github.com/ananrafs/descartes/engine/facts"
 )
 
 type Action map[string]interface{}
@@ -15,7 +16,8 @@ func (c *Action) New() actions.ActionsItf {
 	return new(Action)
 }
 
-func (c *Action) Do(param map[string]interface{}) (res interface{}, err error) {
+func (c *Action) Do(facts facts.FactsItf) (res interface{}, err error) {
+	param := facts.GetMap()
 	for i, params := range *c {
 		paramsWithTemplate := new(string)
 		// check if its using template

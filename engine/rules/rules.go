@@ -1,6 +1,9 @@
 package rules
 
-import "github.com/ananrafs/descartes/common"
+import (
+	"github.com/ananrafs/descartes/common"
+	"github.com/ananrafs/descartes/engine/facts"
+)
 
 var (
 	ruleMap map[string]RulesItf = make(map[string]RulesItf)
@@ -8,8 +11,10 @@ var (
 
 type RulesItf interface {
 	New() RulesItf
+	GetHash() string
 	common.TypeCheckerItf
-	IsMatch(map[string]interface{}) (bool, error)
+
+	IsMatch(facts.FactsItf) (bool, error)
 }
 
 func Init(rules ...RulesItf) {

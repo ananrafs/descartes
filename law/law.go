@@ -4,20 +4,24 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/ananrafs/descartes/cache"
 	"github.com/ananrafs/descartes/common"
 	"github.com/ananrafs/descartes/engine/evaluators"
+	"github.com/ananrafs/descartes/engine/facts"
 )
 
 type Law struct {
 	Slug      string                   `json:"slug"`
 	Evaluator evaluators.EvaluatorsItf `json:"evaluator"`
+	Cache     string                   `json:"cache"`
 }
 
-func (l *Law) Judge(param map[string]interface{}) (interface{}, error) {
-	evalRes := l.Evaluator.Eval(param)
+func (l *Law) Judge(facts facts.FactsItf) (interface{}, error) {
+	facts.SetCacheInstance(cache.Get(l.Cache))
+	evalRes := l.Evaluator.Eval(facts)
 
 	if !evalRes.IsMatch {
-		return nil, fmt.Errorf("%v not match on %s law", param, l.Slug)
+		return nil, fmt.Errorf("not match on %s law", l.Slug)
 	}
 	return evalRes.Result, evalRes.Error
 }
@@ -44,9 +48,15 @@ func (l *Law) UnmarshalJSON(data []byte) (err error) {
 			if err = json.Unmarshal(val, eval); err != nil {
 				return
 			}
+
 			l.Evaluator = eval
+		case "cache":
+			if err = json.Unmarshal(val, &l.Cache); err != nil {
+				return
+			}
 		}
 	}
+
 	return
 }
 

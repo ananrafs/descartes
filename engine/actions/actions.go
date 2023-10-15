@@ -2,6 +2,7 @@ package actions
 
 import (
 	"github.com/ananrafs/descartes/common"
+	"github.com/ananrafs/descartes/engine/facts"
 )
 
 var (
@@ -11,7 +12,7 @@ var (
 type ActionsItf interface {
 	common.TypeCheckerItf
 	New() ActionsItf
-	Do(map[string]interface{}) (interface{}, error)
+	Do(facts.FactsItf) (interface{}, error)
 }
 
 func Init(acts ...ActionsItf) {

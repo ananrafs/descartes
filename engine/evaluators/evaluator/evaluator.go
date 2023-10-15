@@ -6,6 +6,7 @@ import (
 	"github.com/ananrafs/descartes/common"
 	"github.com/ananrafs/descartes/engine/actions"
 	"github.com/ananrafs/descartes/engine/evaluators"
+	"github.com/ananrafs/descartes/engine/facts"
 	"github.com/ananrafs/descartes/engine/rules"
 )
 
@@ -19,18 +20,18 @@ func (e *Evaluator) GetType() string {
 	return "evaluator"
 }
 
-func (fm *Evaluator) New() evaluators.EvaluatorsItf {
+func (e *Evaluator) New() evaluators.EvaluatorsItf {
 	return new(Evaluator)
 }
 
-func (e *Evaluator) Eval(param map[string]interface{}) (res evaluators.EvalResult) {
-	isMatch, err := e.Rules.IsMatch(param)
+func (e *Evaluator) Eval(fact facts.FactsItf) (res evaluators.EvalResult) {
+	isMatch, err := e.Rules.IsMatch(fact)
 	if !isMatch {
 		res.Error = err
 		return
 	}
 	res.IsMatch = isMatch
-	actionRes, err := e.Action.Do(param)
+	actionRes, err := e.Action.Do(fact)
 	if err != nil {
 		res.Error = err
 		return
@@ -40,7 +41,7 @@ func (e *Evaluator) Eval(param map[string]interface{}) (res evaluators.EvalResul
 	return
 }
 
-func (r *Evaluator) UnmarshalJSON(data []byte) (err error) {
+func (e *Evaluator) UnmarshalJSON(data []byte) (err error) {
 	var m map[string]json.RawMessage
 	if err = json.Unmarshal(data, &m); err != nil {
 		return
@@ -51,7 +52,7 @@ func (r *Evaluator) UnmarshalJSON(data []byte) (err error) {
 
 		switch k {
 		case "type":
-			if err := json.Unmarshal(val, &r.EvaluatorType); err != nil {
+			if err := json.Unmarshal(val, &e.EvaluatorType); err != nil {
 				return err
 			}
 		case "action":
@@ -66,7 +67,7 @@ func (r *Evaluator) UnmarshalJSON(data []byte) (err error) {
 			if err := json.Unmarshal(val, instance); err != nil {
 				return err
 			}
-			r.Action = instance
+			e.Action = instance
 		case "rule":
 			var instance rules.RulesItf
 
@@ -78,7 +79,8 @@ func (r *Evaluator) UnmarshalJSON(data []byte) (err error) {
 			if err := json.Unmarshal(val, instance); err != nil {
 				return err
 			}
-			r.Rules = instance
+
+			e.Rules = instance
 		}
 	}
 

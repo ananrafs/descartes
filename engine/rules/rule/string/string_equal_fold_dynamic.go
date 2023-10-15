@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"github.com/ananrafs/descartes/common"
+	"github.com/ananrafs/descartes/engine/facts"
 	"github.com/ananrafs/descartes/engine/rules"
 )
 
@@ -11,6 +12,7 @@ type RuleStringEqualFoldDynamic struct {
 	RuleType string `json:"type"`
 	Left     string `json:"left"`
 	Right    string `json:"right"`
+	hash     *string
 }
 
 func (c *RuleStringEqualFoldDynamic) GetType() string {
@@ -18,10 +20,26 @@ func (c *RuleStringEqualFoldDynamic) GetType() string {
 }
 
 func (c *RuleStringEqualFoldDynamic) New() rules.RulesItf {
-	return new(RuleStringEqualFold)
+	return new(RuleStringEqualFoldDynamic)
 }
 
-func (c *RuleStringEqualFoldDynamic) IsMatch(param map[string]interface{}) (isMatch bool, err error) {
+func (c *RuleStringEqualFoldDynamic) GetHash() string {
+	for c.hash == nil {
+		hash := common.CreateHash(c.RuleType, c.Left, c.Right)
+		c.hash = &hash
+	}
+	return *c.hash
+}
+
+func (c *RuleStringEqualFoldDynamic) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
+	if ok := facts.GetCacheInstance().TryGet(c.GetHash(), &isMatch); ok {
+		return isMatch, nil
+	}
+	defer func() {
+		facts.GetCacheInstance().SetCache(c.GetHash(), isMatch)
+	}()
+	param := facts.GetMap()
+
 	// collecting values
 	_params := [2]interface{}{c.Left, c.Right}
 	_values := [2]string{"", ""}

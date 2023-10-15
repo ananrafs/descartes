@@ -16,6 +16,6 @@ func Eval(fact law.Fact) (interface{}, error) {
 		return nil, fmt.Errorf("law %s not found", fact.Slug)
 	}
 
-	return lawSelected.Judge(fact.Param)
+	return lawSelected.Judge(fact.Facts)
 
 }

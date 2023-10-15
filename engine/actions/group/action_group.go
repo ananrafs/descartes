@@ -2,6 +2,7 @@ package group
 
 import (
 	"github.com/ananrafs/descartes/engine/actions"
+	"github.com/ananrafs/descartes/engine/facts"
 )
 
 type ActionGroup struct {
@@ -17,9 +18,9 @@ func (c *ActionGroup) New() actions.ActionsItf {
 	return new(ActionGroup)
 }
 
-func (c *ActionGroup) Do(param map[string]interface{}) (res interface{}, err error) {
+func (c *ActionGroup) Do(facts facts.FactsItf) (res interface{}, err error) {
 	for _, action := range c.Actions {
-		res, err = action.Do(param)
+		res, err = action.Do(facts)
 		if err != nil {
 			return nil, err
 		}

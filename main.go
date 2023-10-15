@@ -17,12 +17,11 @@ func main() {
 	lawFile := flag.String("law", "law", "law file name")
 	outFile := flag.String("out", "output", "output file name")
 
+	fmt.Println(folderLocation, factFile, lawFile, outFile)
 	// Parse the command-line arguments
 	flag.Parse()
 
-	core.InitRule(core.WithDefaultRules)
-	core.InitEvaluator(core.WithDefaultEvaluators)
-	core.InitActions(core.WithDefaultActions)
+	core.InitFactory(core.WithDefaults())
 
 	l, err := law.CreateLaw(getStringFromFile(fmt.Sprintf("%s/%s.json", *folderLocation, *lawFile)))
 	if err != nil {
@@ -37,6 +36,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
 	var responses []interface{}
 	for _, fact := range f {
 		res, err := core.Eval(fact)
@@ -74,7 +74,7 @@ func getStringFromFile(fileLocation string) string {
 
 func writeToFile(fileLocation string, obj interface{}) {
 	// Marshal the interface{} to JSON.
-	jsonData, err := json.MarshalIndent(obj, "", " ")
+	jsonData, err := json.MarshalIndent(obj, "", "	")
 	if err != nil {
 		fmt.Println("Error marshaling data to JSON:", err)
 		return

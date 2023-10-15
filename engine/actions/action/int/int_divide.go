@@ -3,6 +3,7 @@ package action_int
 import (
 	"github.com/ananrafs/descartes/common"
 	"github.com/ananrafs/descartes/engine/actions"
+	"github.com/ananrafs/descartes/engine/facts"
 )
 
 type ActionIntDivide struct {
@@ -20,10 +21,11 @@ func (c *ActionIntDivide) New() actions.ActionsItf {
 	return new(ActionIntDivide)
 }
 
-func (c *ActionIntDivide) Do(param map[string]interface{}) (res interface{}, err error) {
+func (c *ActionIntDivide) Do(facts facts.FactsItf) (res interface{}, err error) {
 	// collecting values
 	_params := [2]interface{}{c.Numerator, c.Denominator}
 	_values := [2]int{0, 0}
+	param := facts.GetMap()
 
 	for i, _param := range _params {
 		if err = common.ConvertInt().WithFromMap(param)(_param, &_values[i]); err != nil {

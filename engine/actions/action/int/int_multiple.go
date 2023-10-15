@@ -3,6 +3,7 @@ package action_int
 import (
 	"github.com/ananrafs/descartes/common"
 	"github.com/ananrafs/descartes/engine/actions"
+	"github.com/ananrafs/descartes/engine/facts"
 )
 
 type ActionIntMultiple struct {
@@ -19,7 +20,8 @@ func (c *ActionIntMultiple) New() actions.ActionsItf {
 	return new(ActionIntMultiple)
 }
 
-func (c *ActionIntMultiple) Do(param map[string]interface{}) (res interface{}, err error) {
+func (c *ActionIntMultiple) Do(facts facts.FactsItf) (res interface{}, err error) {
+	param := facts.GetMap()
 	total := 0
 	for i, _param := range c.Factors {
 		val := new(int)

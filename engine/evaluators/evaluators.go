@@ -1,6 +1,9 @@
 package evaluators
 
-import "github.com/ananrafs/descartes/common"
+import (
+	"github.com/ananrafs/descartes/common"
+	"github.com/ananrafs/descartes/engine/facts"
+)
 
 var (
 	evaluatorMap map[string]EvaluatorsItf = make(map[string]EvaluatorsItf)
@@ -9,7 +12,8 @@ var (
 type EvaluatorsItf interface {
 	common.TypeCheckerItf
 	New() EvaluatorsItf
-	Eval(param map[string]interface{}) EvalResult
+
+	Eval(facts.FactsItf) EvalResult
 }
 
 type EvalResult struct {
