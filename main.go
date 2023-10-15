@@ -17,7 +17,6 @@ func main() {
 	lawFile := flag.String("law", "law", "law file name")
 	outFile := flag.String("out", "output", "output file name")
 
-	fmt.Println(folderLocation, factFile, lawFile, outFile)
 	// Parse the command-line arguments
 	flag.Parse()
 
