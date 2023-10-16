@@ -17,6 +17,8 @@ import (
 	rule_bool "github.com/ananrafs/descartes/engine/rules/rule/bool"
 	rule_int "github.com/ananrafs/descartes/engine/rules/rule/int"
 	rule_string "github.com/ananrafs/descartes/engine/rules/rule/string"
+	rule_time "github.com/ananrafs/descartes/engine/rules/rule/time"
+	rule_time_type "github.com/ananrafs/descartes/engine/rules/rule/time/time_type"
 	"github.com/ananrafs/descartes/law"
 )
 
@@ -25,12 +27,14 @@ type Factory struct {
 	EvalCreateFunction
 	ActionCreateFunction
 	CacheCreateFunction
+	TimeTypeCreateFunction
 }
 
 type RuleCreateFunction func() []rules.RulesItf
 type EvalCreateFunction func() []evaluators.EvaluatorsItf
 type ActionCreateFunction func() []actions.ActionsItf
 type CacheCreateFunction func() []cache.CacheItf
+type TimeTypeCreateFunction func() []rule_time.TimeConstItf
 
 func InitFactory(factories ...Factory) {
 	for _, factory := range factories {
@@ -45,6 +49,9 @@ func InitFactory(factories ...Factory) {
 		}
 		if factory.CacheCreateFunction != nil {
 			cache.Init(factory.CacheCreateFunction()...)
+		}
+		if factory.TimeTypeCreateFunction != nil {
+			rule_time.Init(factory.TimeTypeCreateFunction()...)
 		}
 	}
 }
@@ -91,12 +98,21 @@ func InitCaches(funcs ...CacheCreateFunction) {
 	cache.Init(caches...)
 }
 
+func InitTimeType(funcs ...TimeTypeCreateFunction) {
+	timeTypes := make([]rule_time.TimeConstItf, 0)
+	for _, createFunc := range funcs {
+		timeTypes = append(timeTypes, createFunc()...)
+	}
+	rule_time.Init(timeTypes...)
+}
+
 func WithDefaults() Factory {
 	return Factory{
-		RuleCreateFunction:   WithDefaultRules,
-		EvalCreateFunction:   WithDefaultEvaluators,
-		CacheCreateFunction:  WithDefaultCaches,
-		ActionCreateFunction: WithDefaultActions,
+		RuleCreateFunction:     WithDefaultRules,
+		EvalCreateFunction:     WithDefaultEvaluators,
+		CacheCreateFunction:    WithDefaultCaches,
+		ActionCreateFunction:   WithDefaultActions,
+		TimeTypeCreateFunction: WithDefaultTimeType,
 	}
 }
 
@@ -143,5 +159,14 @@ func WithDefaultCaches() []cache.CacheItf {
 	return []cache.CacheItf{
 		&cache.Cache{},
 		&cache.NopCache{},
+	}
+}
+
+func WithDefaultTimeType() []rule_time.TimeConstItf {
+	return []rule_time.TimeConstItf{
+		&rule_time_type.TimeTypeAddDay{},
+		&rule_time_type.TimeTypeAddMonth{},
+		&rule_time_type.TimeTypeAddYear{},
+		&rule_time_type.TimeTypeDynamic{},
 	}
 }
