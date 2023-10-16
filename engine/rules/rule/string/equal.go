@@ -6,22 +6,22 @@ import (
 	"github.com/ananrafs/descartes/engine/rules"
 )
 
-type RuleStringEqual struct {
+type Equal struct {
 	RuleType string `json:"type"`
 	Field    string `json:"field"`
 	Value    string `json:"value"`
 	hash     *string
 }
 
-func (c *RuleStringEqual) GetType() string {
+func (c *Equal) GetType() string {
 	return "rules.string.equal"
 }
 
-func (c *RuleStringEqual) New() rules.RulesItf {
-	return new(RuleStringEqual)
+func (c *Equal) New() rules.RulesItf {
+	return new(Equal)
 }
 
-func (c *RuleStringEqual) GetHash() string {
+func (c *Equal) GetHash() string {
 	for c.hash == nil {
 		hash := common.CreateHash(c.RuleType, c.Field, c.Value)
 		c.hash = &hash
@@ -29,7 +29,7 @@ func (c *RuleStringEqual) GetHash() string {
 	return *c.hash
 }
 
-func (c *RuleStringEqual) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
+func (c *Equal) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
 	if ok := facts.GetCacheInstance().TryGet(c.GetHash(), &isMatch); ok {
 		return isMatch, nil
 	}

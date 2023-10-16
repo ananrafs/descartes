@@ -6,21 +6,21 @@ import (
 	"github.com/ananrafs/descartes/engine/facts"
 )
 
-type ActionIntMultiple struct {
+type Substract struct {
 	Type    string        `json:"type"`
 	Field   string        `json:"field"`
 	Factors []interface{} `json:"factors"`
 }
 
-func (c *ActionIntMultiple) GetType() string {
-	return "actions.int.multiple"
+func (c *Substract) GetType() string {
+	return "actions.int.substract"
 }
 
-func (c *ActionIntMultiple) New() actions.ActionsItf {
-	return new(ActionIntMultiple)
+func (c *Substract) New() actions.ActionsItf {
+	return new(Substract)
 }
 
-func (c *ActionIntMultiple) Do(facts facts.FactsItf) (res interface{}, err error) {
+func (c *Substract) Do(facts facts.FactsItf) (res interface{}, err error) {
 	param := facts.GetMap()
 	total := 0
 	for i, _param := range c.Factors {
@@ -28,12 +28,14 @@ func (c *ActionIntMultiple) Do(facts facts.FactsItf) (res interface{}, err error
 		if err = common.ConvertInt().WithFromMap(param)(_param, val); err != nil {
 			return false, err
 		}
+
 		if i == 0 {
 			total = *val
 		} else {
-			total *= *val
+			total -= *val
 		}
 	}
+
 	param[c.Field] = total
 
 	return

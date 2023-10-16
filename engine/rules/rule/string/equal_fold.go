@@ -1,27 +1,29 @@
-package rule_int
+package rule_string
 
 import (
+	"strings"
+
 	"github.com/ananrafs/descartes/common"
 	"github.com/ananrafs/descartes/engine/facts"
 	"github.com/ananrafs/descartes/engine/rules"
 )
 
-type RuleIntLesser struct {
+type EqualFold struct {
 	RuleType string `json:"type"`
 	Field    string `json:"field"`
-	Value    int    `json:"value"`
+	Value    string `json:"value"`
 	hash     *string
 }
 
-func (c *RuleIntLesser) GetType() string {
-	return "rules.int.lesser"
+func (c *EqualFold) GetType() string {
+	return "rules.string.equal_fold"
 }
 
-func (c *RuleIntLesser) New() rules.RulesItf {
-	return new(RuleIntLesser)
+func (c *EqualFold) New() rules.RulesItf {
+	return new(EqualFold)
 }
 
-func (c *RuleIntLesser) GetHash() string {
+func (c *EqualFold) GetHash() string {
 	for c.hash == nil {
 		hash := common.CreateHash(c.RuleType, c.Field, c.Value)
 		c.hash = &hash
@@ -29,7 +31,7 @@ func (c *RuleIntLesser) GetHash() string {
 	return *c.hash
 }
 
-func (c *RuleIntLesser) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
+func (c *EqualFold) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
 	if ok := facts.GetCacheInstance().TryGet(c.GetHash(), &isMatch); ok {
 		return isMatch, nil
 	}
@@ -43,10 +45,10 @@ func (c *RuleIntLesser) IsMatch(facts facts.FactsItf) (isMatch bool, err error) 
 		return false, common.ErrorNotFoundOnMap(c.Field)
 	}
 
-	intv := new(int)
-	if err = common.ConvertToInt(v, intv); err != nil {
-		return false, err
+	val, ok := v.(string)
+	if !ok {
+		return false, common.ErrorCasting(v)
 	}
 
-	return *intv < c.Value, nil
+	return strings.EqualFold(val, c.Value), nil
 }

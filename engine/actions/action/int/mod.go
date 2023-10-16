@@ -9,22 +9,22 @@ import (
 // 4 % 5.
 // 4 is Dividend.
 // 5 is Divisor
-type ActionIntMod struct {
+type Mod struct {
 	Type     string      `json:"type"`
 	Field    string      `json:"field"`
 	Dividend interface{} `json:"dividend"`
 	Divisor  interface{} `json:"divisor"`
 }
 
-func (c *ActionIntMod) GetType() string {
+func (c *Mod) GetType() string {
 	return "actions.int.mod"
 }
 
-func (c *ActionIntMod) New() actions.ActionsItf {
-	return new(ActionIntMod)
+func (c *Mod) New() actions.ActionsItf {
+	return new(Mod)
 }
 
-func (c *ActionIntMod) Do(facts facts.FactsItf) (res interface{}, err error) {
+func (c *Mod) Do(facts facts.FactsItf) (res interface{}, err error) {
 	// collecting values
 	_params := [2]interface{}{c.Dividend, c.Divisor}
 	_values := [2]int{0, 0}

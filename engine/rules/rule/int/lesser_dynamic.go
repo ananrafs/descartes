@@ -6,22 +6,22 @@ import (
 	"github.com/ananrafs/descartes/engine/rules"
 )
 
-type RuleIntLesserDynamic struct {
+type LesserDynamic struct {
 	RuleType string      `json:"type"`
 	Left     interface{} `json:"left"`
 	Right    interface{} `json:"right"`
 	hash     *string
 }
 
-func (c *RuleIntLesserDynamic) GetType() string {
+func (c *LesserDynamic) GetType() string {
 	return "rules.int.lesser.dynamic"
 }
 
-func (c *RuleIntLesserDynamic) New() rules.RulesItf {
-	return new(RuleIntLesserDynamic)
+func (c *LesserDynamic) New() rules.RulesItf {
+	return new(LesserDynamic)
 }
 
-func (c *RuleIntLesserDynamic) GetHash() string {
+func (c *LesserDynamic) GetHash() string {
 	for c.hash == nil {
 		hash := common.CreateHash(c.RuleType, c.Left, c.Right)
 		c.hash = &hash
@@ -29,7 +29,7 @@ func (c *RuleIntLesserDynamic) GetHash() string {
 	return *c.hash
 }
 
-func (c *RuleIntLesserDynamic) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
+func (c *LesserDynamic) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
 	if ok := facts.GetCacheInstance().TryGet(c.GetHash(), &isMatch); ok {
 		return isMatch, nil
 	}

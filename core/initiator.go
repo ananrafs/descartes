@@ -6,6 +6,7 @@ import (
 	"github.com/ananrafs/descartes/cache"
 	"github.com/ananrafs/descartes/engine/actions"
 	"github.com/ananrafs/descartes/engine/actions/action"
+	action_float "github.com/ananrafs/descartes/engine/actions/action/float"
 	action_int "github.com/ananrafs/descartes/engine/actions/action/int"
 	actionsgroup "github.com/ananrafs/descartes/engine/actions/group"
 	"github.com/ananrafs/descartes/engine/evaluators"
@@ -121,17 +122,17 @@ func WithDefaultRules() []rules.RulesItf {
 		&rulesgroup.ConditionalAnd{},
 		&rulesgroup.ConditionalOr{},
 		&rulesgroup.ConditionalNot{},
-		&rule_int.RuleIntBetween{},
-		&rule_int.RuleIntEqual{},
-		&rule_int.RuleIntGreater{},
-		&rule_int.RuleIntLesser{},
-		&rule_int.RuleIntBetweenDynamic{},
-		&rule_int.RuleIntEqualDynamic{},
-		&rule_int.RuleIntGreaterDynamic{},
-		&rule_int.RuleIntLesserDynamic{},
-		&rule_string.RuleStringEqual{},
-		&rule_string.RuleStringEqualFold{},
-		&rule_bool.RuleBool{},
+		&rule_int.Between{},
+		&rule_int.Equal{},
+		&rule_int.Greater{},
+		&rule_int.Lesser{},
+		&rule_int.BetweenDynamic{},
+		&rule_int.EqualDynamic{},
+		&rule_int.GreaterDynamic{},
+		&rule_int.LesserDynamic{},
+		&rule_string.Equal{},
+		&rule_string.EqualFold{},
+		&rule_bool.Bool{},
 		&rule.RuleDefault{},
 	}
 }
@@ -147,11 +148,17 @@ func WithDefaultActions() []actions.ActionsItf {
 	return []actions.ActionsItf{
 		&action.Action{},
 		&actionsgroup.ActionGroup{},
-		&action_int.ActionIntDivide{},
-		&action_int.ActionIntMod{},
-		&action_int.ActionIntMultiple{},
-		&action_int.ActionIntSubstract{},
-		&action_int.ActionIntSum{},
+
+		&action_int.Divide{},
+		&action_int.Mod{},
+		&action_int.Multiple{},
+		&action_int.Substract{},
+		&action_int.Sum{},
+
+		&action_float.Divide{},
+		&action_float.Multiple{},
+		&action_float.Substract{},
+		&action_float.Sum{},
 	}
 }
 

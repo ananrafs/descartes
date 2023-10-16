@@ -1,4 +1,4 @@
-package action_int
+package action_float
 
 import (
 	"github.com/ananrafs/descartes/common"
@@ -6,36 +6,34 @@ import (
 	"github.com/ananrafs/descartes/engine/facts"
 )
 
-type ActionIntSubstract struct {
+type Multiple struct {
 	Type    string        `json:"type"`
 	Field   string        `json:"field"`
 	Factors []interface{} `json:"factors"`
 }
 
-func (c *ActionIntSubstract) GetType() string {
-	return "actions.int.substract"
+func (c *Multiple) GetType() string {
+	return "actions.float.multiple"
 }
 
-func (c *ActionIntSubstract) New() actions.ActionsItf {
-	return new(ActionIntSubstract)
+func (c *Multiple) New() actions.ActionsItf {
+	return new(Multiple)
 }
 
-func (c *ActionIntSubstract) Do(facts facts.FactsItf) (res interface{}, err error) {
+func (c *Multiple) Do(facts facts.FactsItf) (res interface{}, err error) {
 	param := facts.GetMap()
-	total := 0
+	total := float64(0)
 	for i, _param := range c.Factors {
-		val := new(int)
-		if err = common.ConvertInt().WithFromMap(param)(_param, val); err != nil {
+		val := new(float64)
+		if err = common.ConvertFloat().WithFromMap(param)(_param, val); err != nil {
 			return false, err
 		}
-
 		if i == 0 {
 			total = *val
 		} else {
-			total -= *val
+			total *= *val
 		}
 	}
-
 	param[c.Field] = total
 
 	return

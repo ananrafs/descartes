@@ -1,27 +1,29 @@
 package rule_string
 
 import (
+	"strings"
+
 	"github.com/ananrafs/descartes/common"
 	"github.com/ananrafs/descartes/engine/facts"
 	"github.com/ananrafs/descartes/engine/rules"
 )
 
-type RuleStringEqualDynamic struct {
+type EqualFoldDynamic struct {
 	RuleType string `json:"type"`
 	Left     string `json:"left"`
 	Right    string `json:"right"`
 	hash     *string
 }
 
-func (c *RuleStringEqualDynamic) GetType() string {
-	return "rules.string.equal.dynamic"
+func (c *EqualFoldDynamic) GetType() string {
+	return "rules.string.equal_fold.dynamic"
 }
 
-func (c *RuleStringEqualDynamic) New() rules.RulesItf {
-	return new(RuleStringEqualDynamic)
+func (c *EqualFoldDynamic) New() rules.RulesItf {
+	return new(EqualFoldDynamic)
 }
 
-func (c *RuleStringEqualDynamic) GetHash() string {
+func (c *EqualFoldDynamic) GetHash() string {
 	for c.hash == nil {
 		hash := common.CreateHash(c.RuleType, c.Left, c.Right)
 		c.hash = &hash
@@ -29,7 +31,7 @@ func (c *RuleStringEqualDynamic) GetHash() string {
 	return *c.hash
 }
 
-func (c *RuleStringEqualDynamic) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
+func (c *EqualFoldDynamic) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
 	if ok := facts.GetCacheInstance().TryGet(c.GetHash(), &isMatch); ok {
 		return isMatch, nil
 	}
@@ -59,5 +61,5 @@ func (c *RuleStringEqualDynamic) IsMatch(facts facts.FactsItf) (isMatch bool, er
 		_values[i] = val
 	}
 
-	return _values[0] == _values[1], nil
+	return strings.EqualFold(_values[0], _values[1]), nil
 }

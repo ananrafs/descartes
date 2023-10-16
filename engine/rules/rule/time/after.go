@@ -8,22 +8,22 @@ import (
 	"github.com/ananrafs/descartes/engine/rules"
 )
 
-type RuleTimeBefore struct {
+type After struct {
 	Type  string       `json:"type"`
 	Left  TimeConstItf `json:"left"`
 	Right TimeConstItf `json:"right"`
 	hash  *string
 }
 
-func (r *RuleTimeBefore) GetType() string {
-	return "rules.time.before"
+func (r *After) GetType() string {
+	return "rules.time.after"
 }
 
-func (r *RuleTimeBefore) New() rules.RulesItf {
-	return new(RuleTimeBefore)
+func (r *After) New() rules.RulesItf {
+	return new(After)
 }
 
-func (r *RuleTimeBefore) GetHash() string {
+func (r *After) GetHash() string {
 	for r.hash == nil {
 		hash := common.CreateHash(r.Type, r.Left.GetHash(), r.Right.GetHash())
 		r.hash = &hash
@@ -31,7 +31,7 @@ func (r *RuleTimeBefore) GetHash() string {
 	return *r.hash
 }
 
-func (r *RuleTimeBefore) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
+func (r *After) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
 	if ok := facts.GetCacheInstance().TryGet(r.GetHash(), &isMatch); ok {
 		return isMatch, nil
 	}
@@ -48,10 +48,10 @@ func (r *RuleTimeBefore) IsMatch(facts facts.FactsItf) (isMatch bool, err error)
 		return false, nil
 	}
 
-	return _timeLeft.Before(_timeRight), nil
+	return _timeLeft.After(_timeRight), nil
 }
 
-func (r *RuleTimeBefore) UnmarshalJSON(data []byte) (err error) {
+func (r *After) UnmarshalJSON(data []byte) (err error) {
 	var m map[string]json.RawMessage
 	if err = json.Unmarshal(data, &m); err != nil {
 		return

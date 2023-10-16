@@ -6,7 +6,7 @@ import (
 	"github.com/ananrafs/descartes/engine/rules"
 )
 
-type RuleIntBetweenDynamic struct {
+type BetweenDynamic struct {
 	RuleType string      `json:"type"`
 	Mid      interface{} `json:"mid"`
 	Start    interface{} `json:"start"`
@@ -14,15 +14,15 @@ type RuleIntBetweenDynamic struct {
 	hash     *string
 }
 
-func (c *RuleIntBetweenDynamic) GetType() string {
+func (c *BetweenDynamic) GetType() string {
 	return "rules.int.between.dynamic"
 }
 
-func (c *RuleIntBetweenDynamic) New() rules.RulesItf {
-	return new(RuleIntBetweenDynamic)
+func (c *BetweenDynamic) New() rules.RulesItf {
+	return new(BetweenDynamic)
 }
 
-func (c *RuleIntBetweenDynamic) GetHash() string {
+func (c *BetweenDynamic) GetHash() string {
 	for c.hash == nil {
 		hash := common.CreateHash(c.RuleType, c.Start, c.Mid, c.End)
 		c.hash = &hash
@@ -30,7 +30,7 @@ func (c *RuleIntBetweenDynamic) GetHash() string {
 	return *c.hash
 }
 
-func (c *RuleIntBetweenDynamic) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
+func (c *BetweenDynamic) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
 	if ok := facts.GetCacheInstance().TryGet(c.GetHash(), &isMatch); ok {
 		return isMatch, nil
 	}

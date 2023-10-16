@@ -6,31 +6,30 @@ import (
 	"github.com/ananrafs/descartes/engine/rules"
 )
 
-type RuleIntBetween struct {
+type Greater struct {
 	RuleType string `json:"type"`
 	Field    string `json:"field"`
-	Start    int    `json:"start"`
-	End      int    `json:"end"`
+	Value    int    `json:"value"`
 	hash     *string
 }
 
-func (c *RuleIntBetween) GetType() string {
-	return "rules.int.between"
+func (c *Greater) GetType() string {
+	return "rules.int.greater"
 }
 
-func (c *RuleIntBetween) New() rules.RulesItf {
-	return new(RuleIntBetween)
+func (c *Greater) New() rules.RulesItf {
+	return new(Greater)
 }
 
-func (c *RuleIntBetween) GetHash() string {
+func (c *Greater) GetHash() string {
 	for c.hash == nil {
-		hash := common.CreateHash(c.RuleType, c.Field, c.Start, c.End)
+		hash := common.CreateHash(c.RuleType, c.Field, c.Value)
 		c.hash = &hash
 	}
 	return *c.hash
 }
 
-func (c *RuleIntBetween) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
+func (c *Greater) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
 	if ok := facts.GetCacheInstance().TryGet(c.GetHash(), &isMatch); ok {
 		return isMatch, nil
 	}
@@ -49,5 +48,5 @@ func (c *RuleIntBetween) IsMatch(facts facts.FactsItf) (isMatch bool, err error)
 		return false, err
 	}
 
-	return c.Start <= *intv && *intv <= c.End, nil
+	return *intv > c.Value, nil
 }

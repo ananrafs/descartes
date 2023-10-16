@@ -6,22 +6,22 @@ import (
 	"github.com/ananrafs/descartes/engine/rules"
 )
 
-type RuleIntGreater struct {
+type Lesser struct {
 	RuleType string `json:"type"`
 	Field    string `json:"field"`
 	Value    int    `json:"value"`
 	hash     *string
 }
 
-func (c *RuleIntGreater) GetType() string {
-	return "rules.int.greater"
+func (c *Lesser) GetType() string {
+	return "rules.int.lesser"
 }
 
-func (c *RuleIntGreater) New() rules.RulesItf {
-	return new(RuleIntGreater)
+func (c *Lesser) New() rules.RulesItf {
+	return new(Lesser)
 }
 
-func (c *RuleIntGreater) GetHash() string {
+func (c *Lesser) GetHash() string {
 	for c.hash == nil {
 		hash := common.CreateHash(c.RuleType, c.Field, c.Value)
 		c.hash = &hash
@@ -29,7 +29,7 @@ func (c *RuleIntGreater) GetHash() string {
 	return *c.hash
 }
 
-func (c *RuleIntGreater) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
+func (c *Lesser) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
 	if ok := facts.GetCacheInstance().TryGet(c.GetHash(), &isMatch); ok {
 		return isMatch, nil
 	}
@@ -48,5 +48,5 @@ func (c *RuleIntGreater) IsMatch(facts facts.FactsItf) (isMatch bool, err error)
 		return false, err
 	}
 
-	return *intv > c.Value, nil
+	return *intv < c.Value, nil
 }

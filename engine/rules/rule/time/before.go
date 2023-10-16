@@ -8,23 +8,22 @@ import (
 	"github.com/ananrafs/descartes/engine/rules"
 )
 
-type RuleTimeBetween struct {
+type Before struct {
 	Type  string       `json:"type"`
 	Left  TimeConstItf `json:"left"`
-	Mid   TimeConstItf `json:"mid"`
 	Right TimeConstItf `json:"right"`
 	hash  *string
 }
 
-func (r *RuleTimeBetween) GetType() string {
+func (r *Before) GetType() string {
 	return "rules.time.before"
 }
 
-func (r *RuleTimeBetween) New() rules.RulesItf {
-	return new(RuleTimeBetween)
+func (r *Before) New() rules.RulesItf {
+	return new(Before)
 }
 
-func (r *RuleTimeBetween) GetHash() string {
+func (r *Before) GetHash() string {
 	for r.hash == nil {
 		hash := common.CreateHash(r.Type, r.Left.GetHash(), r.Right.GetHash())
 		r.hash = &hash
@@ -32,7 +31,7 @@ func (r *RuleTimeBetween) GetHash() string {
 	return *r.hash
 }
 
-func (r *RuleTimeBetween) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
+func (r *Before) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
 	if ok := facts.GetCacheInstance().TryGet(r.GetHash(), &isMatch); ok {
 		return isMatch, nil
 	}
@@ -48,15 +47,11 @@ func (r *RuleTimeBetween) IsMatch(facts facts.FactsItf) (isMatch bool, err error
 	if err != nil {
 		return false, nil
 	}
-	_timeMid, err := r.Right.GetTime(facts)
-	if err != nil {
-		return false, nil
-	}
 
-	return _timeMid.After(_timeLeft) && _timeMid.Before(_timeRight), nil
+	return _timeLeft.Before(_timeRight), nil
 }
 
-func (r *RuleTimeBetween) UnmarshalJSON(data []byte) (err error) {
+func (r *Before) UnmarshalJSON(data []byte) (err error) {
 	var m map[string]json.RawMessage
 	if err = json.Unmarshal(data, &m); err != nil {
 		return
@@ -94,18 +89,6 @@ func (r *RuleTimeBetween) UnmarshalJSON(data []byte) (err error) {
 				return err
 			}
 			r.Right = instance
-		case "mid":
-			var instance TimeConstItf
-
-			if err := json.Unmarshal(val, &typeChecker); err != nil {
-				return err
-			}
-			timeType := Get(typeChecker.Type)
-			instance = timeType.New()
-			if err := json.Unmarshal(val, instance); err != nil {
-				return err
-			}
-			r.Mid = instance
 		}
 	}
 

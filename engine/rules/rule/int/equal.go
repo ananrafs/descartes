@@ -1,29 +1,27 @@
-package rule_string
+package rule_int
 
 import (
-	"strings"
-
 	"github.com/ananrafs/descartes/common"
 	"github.com/ananrafs/descartes/engine/facts"
 	"github.com/ananrafs/descartes/engine/rules"
 )
 
-type RuleStringEqualFold struct {
+type Equal struct {
 	RuleType string `json:"type"`
 	Field    string `json:"field"`
-	Value    string `json:"value"`
+	Value    int    `json:"value"`
 	hash     *string
 }
 
-func (c *RuleStringEqualFold) GetType() string {
-	return "rules.string.equal_fold"
+func (c *Equal) GetType() string {
+	return "rules.int.equal"
 }
 
-func (c *RuleStringEqualFold) New() rules.RulesItf {
-	return new(RuleStringEqualFold)
+func (c *Equal) New() rules.RulesItf {
+	return new(Equal)
 }
 
-func (c *RuleStringEqualFold) GetHash() string {
+func (c *Equal) GetHash() string {
 	for c.hash == nil {
 		hash := common.CreateHash(c.RuleType, c.Field, c.Value)
 		c.hash = &hash
@@ -31,7 +29,7 @@ func (c *RuleStringEqualFold) GetHash() string {
 	return *c.hash
 }
 
-func (c *RuleStringEqualFold) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
+func (c *Equal) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
 	if ok := facts.GetCacheInstance().TryGet(c.GetHash(), &isMatch); ok {
 		return isMatch, nil
 	}
@@ -45,10 +43,10 @@ func (c *RuleStringEqualFold) IsMatch(facts facts.FactsItf) (isMatch bool, err e
 		return false, common.ErrorNotFoundOnMap(c.Field)
 	}
 
-	val, ok := v.(string)
-	if !ok {
-		return false, common.ErrorCasting(v)
+	intv := new(int)
+	if err = common.ConvertToInt(v, intv); err != nil {
+		return false, err
 	}
 
-	return strings.EqualFold(val, c.Value), nil
+	return *intv == c.Value, nil
 }

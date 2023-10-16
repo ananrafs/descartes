@@ -10,8 +10,6 @@ var (
 	templateRegex = regexp.MustCompile(`\{\{([^{}]+)\}\}`)
 )
 
-type IntConverter func(interface{}, *int) error
-
 func ConvertToInt(source interface{}, dest *int) error {
 	_valueRef := reflect.ValueOf(source)
 	switch _valueRef.Kind() {
@@ -27,6 +25,8 @@ func ConvertToInt(source interface{}, dest *int) error {
 
 	return nil
 }
+
+type IntConverter func(interface{}, *int) error
 
 func ConvertInt() IntConverter {
 	return ConvertToInt
@@ -48,7 +48,45 @@ func (ic IntConverter) WithFromMap(mp map[string]interface{}) IntConverter {
 	}
 }
 
-func ConvertToIntFromMap(source interface{}, dest *int) error {
+type FloatConverter func(interface{}, *float64) error
+
+func ConvertToFloat(source interface{}, dest *float64) error {
+	_valueRef := reflect.ValueOf(source)
+	switch _valueRef.Kind() {
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		*dest = float64(_valueRef.Int())
+	case reflect.Float32, reflect.Float64:
+		*dest = float64(_valueRef.Float())
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
+		*dest = float64(_valueRef.Uint())
+	default:
+		return ErrorCasting(source)
+	}
+
+	return nil
+}
+
+func ConvertFloat() FloatConverter {
+	return ConvertToFloat
+}
+
+func (ic FloatConverter) WithFromMap(mp map[string]interface{}) FloatConverter {
+	return func(source interface{}, dest *float64) error {
+		numField := new(string)
+		// check if its using template
+		if match := ParseFromMustacheTemplate(source, numField); match {
+			var ok bool
+			source, ok = mp[*numField]
+			if !ok {
+				return ic(source, dest)
+			}
+		}
+
+		return ic(source, dest)
+	}
+}
+
+func ConvertFromMap(source interface{}, dest *int) error {
 	intf, ok := source.(float64)
 	if !ok {
 		return ErrorCasting(source)

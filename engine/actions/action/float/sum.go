@@ -1,4 +1,4 @@
-package action_int
+package action_float
 
 import (
 	"github.com/ananrafs/descartes/common"
@@ -6,26 +6,26 @@ import (
 	"github.com/ananrafs/descartes/engine/facts"
 )
 
-type ActionIntSum struct {
+type Sum struct {
 	Type    string        `json:"type"`
 	Field   string        `json:"field"`
 	Factors []interface{} `json:"factors"`
 }
 
-func (c *ActionIntSum) GetType() string {
-	return "actions.int.sum"
+func (c *Sum) GetType() string {
+	return "actions.float.sum"
 }
 
-func (c *ActionIntSum) New() actions.ActionsItf {
-	return new(ActionIntSum)
+func (c *Sum) New() actions.ActionsItf {
+	return new(Sum)
 }
 
-func (c *ActionIntSum) Do(facts facts.FactsItf) (res interface{}, err error) {
+func (c *Sum) Do(facts facts.FactsItf) (res interface{}, err error) {
 	param := facts.GetMap()
-	total := 0
+	total := float64(0)
 	for _, _param := range c.Factors {
-		val := new(int)
-		if err = common.ConvertInt().WithFromMap(param)(_param, val); err != nil {
+		val := new(float64)
+		if err = common.ConvertFloat().WithFromMap(param)(_param, val); err != nil {
 			return false, err
 		}
 		total += *val
