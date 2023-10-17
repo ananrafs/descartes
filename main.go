@@ -40,6 +40,7 @@ func main() {
 	for _, fact := range f {
 		res, err := core.Eval(fact)
 		if err != nil {
+			fmt.Println(err)
 			responses = append(responses, err)
 			continue
 		}

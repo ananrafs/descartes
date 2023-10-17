@@ -45,11 +45,12 @@ func (l *Law) UnmarshalJSON(data []byte) (err error) {
 			}
 
 			eval := evaluators.Get(typeChecker.Type)
-			if err = json.Unmarshal(val, eval); err != nil {
+			instance := eval.New()
+			if err = json.Unmarshal(val, instance); err != nil {
 				return
 			}
 
-			l.Evaluator = eval
+			l.Evaluator = instance
 		case "cache":
 			if err = json.Unmarshal(val, &l.Cache); err != nil {
 				return

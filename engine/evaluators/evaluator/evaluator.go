@@ -76,6 +76,7 @@ func (e *Evaluator) UnmarshalJSON(data []byte) (err error) {
 			}
 			rule := rules.Get(typeChecker.Type)
 			instance = rule.New()
+
 			if err := json.Unmarshal(val, instance); err != nil {
 				return err
 			}

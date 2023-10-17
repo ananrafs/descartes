@@ -45,6 +45,7 @@ func (c *ConditionalAnd) IsMatch(facts facts.FactsItf) (isMatch bool, err error)
 	isMatch = true
 	for _, rule := range c.Rules {
 		isMatch, err = rule.IsMatch(facts)
+
 		if !isMatch {
 			return false, nil
 		}

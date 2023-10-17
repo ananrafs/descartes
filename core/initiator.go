@@ -141,6 +141,7 @@ func WithDefaultEvaluators() []evaluators.EvaluatorsItf {
 	return []evaluators.EvaluatorsItf{
 		&evaluator.Evaluator{},
 		&group.FirstMatch{},
+		&group.MultiMatch{},
 	}
 }
 

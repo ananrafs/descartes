@@ -21,9 +21,9 @@ func (c *ActionGroup) New() actions.ActionsItf {
 func (c *ActionGroup) Do(facts facts.FactsItf) (res interface{}, err error) {
 	for _, action := range c.Actions {
 		res, err = action.Do(facts)
-		if err != nil {
-			return nil, err
-		}
+		// if err != nil {
+		// 	return nil, err
+		// }
 	}
 
 	return

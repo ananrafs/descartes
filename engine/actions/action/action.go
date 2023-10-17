@@ -8,17 +8,19 @@ import (
 
 type Action map[string]interface{}
 
-func (c *Action) GetType() string {
+func (c Action) GetType() string {
 	return ""
 }
 
-func (c *Action) New() actions.ActionsItf {
-	return new(Action)
+func (c Action) New() actions.ActionsItf {
+	newAction := make(Action)
+	return &newAction
 }
 
-func (c *Action) Do(facts facts.FactsItf) (res interface{}, err error) {
+func (c Action) Do(facts facts.FactsItf) (res interface{}, err error) {
 	param := facts.GetMap()
-	for i, params := range *c {
+	response := common.CopyMap(c)
+	for i, params := range c {
 		paramsWithTemplate := new(string)
 		// check if its using template
 		if match := common.ParseFromMustacheTemplate(params, paramsWithTemplate); match {
@@ -27,10 +29,10 @@ func (c *Action) Do(facts facts.FactsItf) (res interface{}, err error) {
 				return nil, common.ErrorNotFoundOnMap(*paramsWithTemplate)
 			}
 
-			(*c)[i] = v
+			response[i] = v
 		}
 
 	}
 
-	return *c, nil
+	return response, nil
 }

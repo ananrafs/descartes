@@ -75,11 +75,12 @@ func (ic FloatConverter) WithFromMap(mp map[string]interface{}) FloatConverter {
 		numField := new(string)
 		// check if its using template
 		if match := ParseFromMustacheTemplate(source, numField); match {
-			var ok bool
-			source, ok = mp[*numField]
-			if !ok {
-				return ic(source, dest)
+			dotSplittedSlice := strings.Split(*numField, ".")
+			val, err := LookupMap(mp, 0, dotSplittedSlice)
+			if err == nil {
+				return ic(val, dest)
 			}
+
 		}
 
 		return ic(source, dest)
@@ -118,4 +119,24 @@ func ParseFromMustacheTemplate(source interface{}, dest *string) (isMatch bool) 
 	}
 	*dest = strings.TrimSpace(target[1])
 	return true
+}
+
+func CopyMap(src map[string]interface{}) (dest map[string]interface{}) {
+	dest = make(map[string]interface{})
+	for k, v := range src {
+		dest[k] = v
+	}
+	return
+}
+
+func LookupMap(mp map[string]interface{}, index int, source []string) (interface{}, error) {
+	if val, ok := mp[source[index]]; ok {
+		childMap, ok := val.(map[string]interface{})
+		if !ok {
+			return val, nil
+		}
+		index++
+		return LookupMap(childMap, index, source)
+	}
+	return nil, ErrorNotFoundOnMap(source[index])
 }
