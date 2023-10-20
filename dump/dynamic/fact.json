@@ -2,30 +2,94 @@
     {
         "slug": "geometry_dynamic",
         "param": {
-            "name": "square",
-            "side": 11
-        }
-    },
-    {
-        "slug": "geometry_dynamic",
-        "param": {
-            "name": "rectangle",
-            "length": 11,
-            "width": 5
-        }
-    },
-    {
-        "slug": "geometry_dynamic",
-        "param": {
-            "name": "circle",
-            "radius": 12
-        }
-    },
-    {
-        "slug": "geometry_dynamic",
-        "param": {
             "name": "gundam",
             "grade": "master grade"
+        }
+    },
+    {
+        "type": "evaluator",
+        "rule": {
+            "type": "rules.int.greater.dynamic",
+            "left": "{{ radius }}",
+            "right": 0
+        },
+        "action": {
+            "type": "actions.group",
+            "actions": [
+                {
+                    "type": "actions.int.multiple",
+                    "field": "area",
+                    "factors": [
+                        2,
+                        3,
+                        "{{ radius }}"
+                    ]
+                },
+                {
+                    "area": "{{ area }}",
+                    "object": "{{ name }}"
+                }
+            ]
+        }
+    },
+    {
+        "type": "evaluator",
+        "rule": {
+            "type": "rules.conditional.and",
+            "rules": [
+                {
+                    "type": "rules.int.greater.dynamic",
+                    "left": "{{ length }}",
+                    "right": 0
+                },
+                {
+                    "type": "rules.int.greater",
+                    "field": "width",
+                    "value": 0
+                }
+            ]
+        },
+        "action": {
+            "type": "actions.group",
+            "actions": [
+                {
+                    "type": "actions.int.multiple",
+                    "field": "area",
+                    "factors": [
+                        "{{ length }}",
+                        "{{ width }}"
+                    ]
+                },
+                {
+                    "area": "{{ area }}",
+                    "object": "{{ name }}"
+                }
+            ]
+        }
+    },
+    {
+        "type": "evaluator",
+        "rule": {
+            "type": "rules.int.greater",
+            "field": "side",
+            "value": 0
+        },
+        "action": {
+            "type": "actions.group",
+            "actions": [
+                {
+                    "type": "actions.int.multiple",
+                    "field": "area",
+                    "factors": [
+                        "{{ side }}",
+                        "{{ side }}"
+                    ]
+                },
+                {
+                    "area": "{{ area }}",
+                    "object": "{{ name }}"
+                }
+            ]
         }
     }
 ]

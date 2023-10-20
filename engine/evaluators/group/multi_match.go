@@ -16,6 +16,9 @@ type MultiMatch struct {
 	// set false, means matched rules will taked out from evaluate group
 	Reentrance bool `json:"reentrance"`
 
+	// determine if evalresult should be merged
+	Merging bool `json:"merging"`
+
 	Evaluators EvaluatorGroup `json:"evaluators"`
 }
 
@@ -27,7 +30,8 @@ func (fm *MultiMatch) New() evaluators.EvaluatorsItf {
 	return new(MultiMatch)
 }
 
-func (fm *MultiMatch) Eval(facts facts.FactsItf) (res evaluators.EvalResult) {
+func (fm MultiMatch) Eval(facts facts.FactsItf) (res evaluators.EvalResult) {
+
 	deduct := func(instance *int) (deducted bool) {
 		(*instance)--
 		return true
@@ -41,7 +45,8 @@ func (fm *MultiMatch) Eval(facts facts.FactsItf) (res evaluators.EvalResult) {
 	}
 
 	var response evaluators.EvalResult
-	for fm.MaxMatch >= 0 {
+	for fm.MaxMatch > 0 {
+
 		var deducted bool
 		for index, eval := range mapEvaluators {
 			if _, ok := evaluatedMap[index]; ok {
@@ -50,10 +55,13 @@ func (fm *MultiMatch) Eval(facts facts.FactsItf) (res evaluators.EvalResult) {
 
 			response = eval.Eval(facts)
 			if response.IsMatch {
-				res = response
 				evaluatedMap[index] = true
 				deducted = deduct(&fm.MaxMatch)
-				continue
+				if fm.Merging {
+					res.Merge(response)
+					continue
+				}
+				res = response
 			}
 		}
 

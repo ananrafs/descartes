@@ -1,5 +1,5 @@
 {
-    "slug": "geometry_dynamic",
+    "slug": "geometry_dynamic_cache",
     "evaluator": {
         "type": "evaluator.group.first_match",
         "evaluators": [
@@ -1132,5 +1132,6 @@
                 }
             }
         ]
-    }
+    },
+    "cache": "cache.map"
 }

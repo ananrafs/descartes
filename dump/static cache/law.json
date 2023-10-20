@@ -1,14 +1,14 @@
 {
-    "slug": "geometry_dynamic",
+    "slug": "geometry_static_cache",
     "evaluator": {
         "type": "evaluator.group.first_match",
         "evaluators": [
             {
                 "type": "evaluator",
                 "rule": {
-                    "type": "rules.int.greater.dynamic",
-                    "left": "{{ radius }}",
-                    "right": 0
+                    "type": "rules.int.greater",
+                    "field": "radius",
+                    "value": 0
                 },
                 "action": {
                     "type": "actions.group",
@@ -35,9 +35,9 @@
                     "type": "rules.conditional.and",
                     "rules": [
                         {
-                            "type": "rules.int.greater.dynamic",
-                            "left": "{{ length }}",
-                            "right": 0
+                            "type": "rules.int.greater",
+                            "field": "length",
+                            "value": 0
                         },
                         {
                             "type": "rules.int.greater",
@@ -92,9 +92,9 @@
             {
                 "type": "evaluator",
                 "rule": {
-                    "type": "rules.int.greater.dynamic",
-                    "left": "{{ radius }}",
-                    "right": 0
+                    "type": "rules.int.greater",
+                    "field": "radius",
+                    "value": 0
                 },
                 "action": {
                     "type": "actions.group",
@@ -121,9 +121,9 @@
                     "type": "rules.conditional.and",
                     "rules": [
                         {
-                            "type": "rules.int.greater.dynamic",
-                            "left": "{{ length }}",
-                            "right": 0
+                            "type": "rules.int.greater",
+                            "field": "length",
+                            "value": 0
                         },
                         {
                             "type": "rules.int.greater",
@@ -178,9 +178,9 @@
             {
                 "type": "evaluator",
                 "rule": {
-                    "type": "rules.int.greater.dynamic",
-                    "left": "{{ radius }}",
-                    "right": 0
+                    "type": "rules.int.greater",
+                    "field": "radius",
+                    "value": 0
                 },
                 "action": {
                     "type": "actions.group",
@@ -207,9 +207,9 @@
                     "type": "rules.conditional.and",
                     "rules": [
                         {
-                            "type": "rules.int.greater.dynamic",
-                            "left": "{{ length }}",
-                            "right": 0
+                            "type": "rules.int.greater",
+                            "field": "length",
+                            "value": 0
                         },
                         {
                             "type": "rules.int.greater",
@@ -264,9 +264,9 @@
             {
                 "type": "evaluator",
                 "rule": {
-                    "type": "rules.int.greater.dynamic",
-                    "left": "{{ radius }}",
-                    "right": 0
+                    "type": "rules.int.greater",
+                    "field": "radius",
+                    "value": 0
                 },
                 "action": {
                     "type": "actions.group",
@@ -293,9 +293,9 @@
                     "type": "rules.conditional.and",
                     "rules": [
                         {
-                            "type": "rules.int.greater.dynamic",
-                            "left": "{{ length }}",
-                            "right": 0
+                            "type": "rules.int.greater",
+                            "field": "length",
+                            "value": 0
                         },
                         {
                             "type": "rules.int.greater",
@@ -350,9 +350,9 @@
             {
                 "type": "evaluator",
                 "rule": {
-                    "type": "rules.int.greater.dynamic",
-                    "left": "{{ radius }}",
-                    "right": 0
+                    "type": "rules.int.greater",
+                    "field": "radius",
+                    "value": 0
                 },
                 "action": {
                     "type": "actions.group",
@@ -379,9 +379,9 @@
                     "type": "rules.conditional.and",
                     "rules": [
                         {
-                            "type": "rules.int.greater.dynamic",
-                            "left": "{{ length }}",
-                            "right": 0
+                            "type": "rules.int.greater",
+                            "field": "length",
+                            "value": 0
                         },
                         {
                             "type": "rules.int.greater",
@@ -436,9 +436,9 @@
             {
                 "type": "evaluator",
                 "rule": {
-                    "type": "rules.int.greater.dynamic",
-                    "left": "{{ radius }}",
-                    "right": 0
+                    "type": "rules.int.greater",
+                    "field": "radius",
+                    "value": 0
                 },
                 "action": {
                     "type": "actions.group",
@@ -465,9 +465,9 @@
                     "type": "rules.conditional.and",
                     "rules": [
                         {
-                            "type": "rules.int.greater.dynamic",
-                            "left": "{{ length }}",
-                            "right": 0
+                            "type": "rules.int.greater",
+                            "field": "length",
+                            "value": 0
                         },
                         {
                             "type": "rules.int.greater",
@@ -522,9 +522,9 @@
             {
                 "type": "evaluator",
                 "rule": {
-                    "type": "rules.int.greater.dynamic",
-                    "left": "{{ radius }}",
-                    "right": 0
+                    "type": "rules.int.greater",
+                    "field": "radius",
+                    "value": 0
                 },
                 "action": {
                     "type": "actions.group",
@@ -551,9 +551,9 @@
                     "type": "rules.conditional.and",
                     "rules": [
                         {
-                            "type": "rules.int.greater.dynamic",
-                            "left": "{{ length }}",
-                            "right": 0
+                            "type": "rules.int.greater",
+                            "field": "length",
+                            "value": 0
                         },
                         {
                             "type": "rules.int.greater",
@@ -608,9 +608,9 @@
             {
                 "type": "evaluator",
                 "rule": {
-                    "type": "rules.int.greater.dynamic",
-                    "left": "{{ radius }}",
-                    "right": 0
+                    "type": "rules.int.greater",
+                    "field": "radius",
+                    "value": 0
                 },
                 "action": {
                     "type": "actions.group",
@@ -637,9 +637,9 @@
                     "type": "rules.conditional.and",
                     "rules": [
                         {
-                            "type": "rules.int.greater.dynamic",
-                            "left": "{{ length }}",
-                            "right": 0
+                            "type": "rules.int.greater",
+                            "field": "length",
+                            "value": 0
                         },
                         {
                             "type": "rules.int.greater",
@@ -694,9 +694,9 @@
             {
                 "type": "evaluator",
                 "rule": {
-                    "type": "rules.int.greater.dynamic",
-                    "left": "{{ radius }}",
-                    "right": 0
+                    "type": "rules.int.greater",
+                    "field": "radius",
+                    "value": 0
                 },
                 "action": {
                     "type": "actions.group",
@@ -723,9 +723,9 @@
                     "type": "rules.conditional.and",
                     "rules": [
                         {
-                            "type": "rules.int.greater.dynamic",
-                            "left": "{{ length }}",
-                            "right": 0
+                            "type": "rules.int.greater",
+                            "field": "length",
+                            "value": 0
                         },
                         {
                             "type": "rules.int.greater",
@@ -780,9 +780,9 @@
             {
                 "type": "evaluator",
                 "rule": {
-                    "type": "rules.int.greater.dynamic",
-                    "left": "{{ radius }}",
-                    "right": 0
+                    "type": "rules.int.greater",
+                    "field": "radius",
+                    "value": 0
                 },
                 "action": {
                     "type": "actions.group",
@@ -809,9 +809,9 @@
                     "type": "rules.conditional.and",
                     "rules": [
                         {
-                            "type": "rules.int.greater.dynamic",
-                            "left": "{{ length }}",
-                            "right": 0
+                            "type": "rules.int.greater",
+                            "field": "length",
+                            "value": 0
                         },
                         {
                             "type": "rules.int.greater",
@@ -866,9 +866,9 @@
             {
                 "type": "evaluator",
                 "rule": {
-                    "type": "rules.int.greater.dynamic",
-                    "left": "{{ radius }}",
-                    "right": 0
+                    "type": "rules.int.greater",
+                    "field": "radius",
+                    "value": 0
                 },
                 "action": {
                     "type": "actions.group",
@@ -895,9 +895,9 @@
                     "type": "rules.conditional.and",
                     "rules": [
                         {
-                            "type": "rules.int.greater.dynamic",
-                            "left": "{{ length }}",
-                            "right": 0
+                            "type": "rules.int.greater",
+                            "field": "length",
+                            "value": 0
                         },
                         {
                             "type": "rules.int.greater",
@@ -952,9 +952,9 @@
             {
                 "type": "evaluator",
                 "rule": {
-                    "type": "rules.int.greater.dynamic",
-                    "left": "{{ radius }}",
-                    "right": 0
+                    "type": "rules.int.greater",
+                    "field": "radius",
+                    "value": 0
                 },
                 "action": {
                     "type": "actions.group",
@@ -981,9 +981,9 @@
                     "type": "rules.conditional.and",
                     "rules": [
                         {
-                            "type": "rules.int.greater.dynamic",
-                            "left": "{{ length }}",
-                            "right": 0
+                            "type": "rules.int.greater",
+                            "field": "length",
+                            "value": 0
                         },
                         {
                             "type": "rules.int.greater",
@@ -1038,9 +1038,9 @@
             {
                 "type": "evaluator",
                 "rule": {
-                    "type": "rules.int.greater.dynamic",
-                    "left": "{{ radius }}",
-                    "right": 0
+                    "type": "rules.int.greater",
+                    "field": "radius",
+                    "value": 0
                 },
                 "action": {
                     "type": "actions.group",
@@ -1067,9 +1067,9 @@
                     "type": "rules.conditional.and",
                     "rules": [
                         {
-                            "type": "rules.int.greater.dynamic",
-                            "left": "{{ length }}",
-                            "right": 0
+                            "type": "rules.int.greater",
+                            "field": "length",
+                            "value": 0
                         },
                         {
                             "type": "rules.int.greater",
@@ -1132,5 +1132,6 @@
                 }
             }
         ]
-    }
+    },
+    "cache": "cache.map"
 }

@@ -57,12 +57,14 @@ func InitFactory(factories ...Factory) {
 	}
 }
 
-func Register(law law.Law) error {
-	_, ok := lawDictionary[law.Slug]
-	if ok {
-		return fmt.Errorf("law %s already registered", law.Slug)
+func Register(laws ...law.Law) error {
+	for _, law := range laws {
+		_, ok := lawDictionary[law.Slug]
+		if ok {
+			return fmt.Errorf("law %s already registered", law.Slug)
+		}
+		lawDictionary[law.Slug] = law
 	}
-	lawDictionary[law.Slug] = law
 
 	return nil
 }

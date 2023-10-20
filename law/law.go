@@ -16,7 +16,7 @@ type Law struct {
 	Cache     string                   `json:"cache"`
 }
 
-func (l *Law) Judge(facts facts.FactsItf) (interface{}, error) {
+func (l Law) Judge(facts facts.FactsItf) (interface{}, error) {
 	facts.SetCacheInstance(cache.Get(l.Cache))
 	evalRes := l.Evaluator.Eval(facts)
 
