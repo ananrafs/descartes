@@ -9,7 +9,7 @@ import (
 type GreaterDynamic struct {
 	RuleType string `json:"type"`
 	Left     string `json:"left"`
-	Right    int    `json:"right"`
+	Right    string    `json:"right"`
 	hash     *string
 }
 

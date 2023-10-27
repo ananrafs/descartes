@@ -5,11 +5,11 @@ import (
 	"github.com/ananrafs/descartes/engine/facts"
 )
 
-type MultiMatch struct {
+type MultiMatchOrderedCycle struct {
 	EvalType string `json:"type"`
 
 	// maximum matched evaluation allowed
-	MaxMatch int `json:"max"`
+	MaxCycle int `json:"max"`
 
 	// reentrance = true,
 	// means rules matched will reevaluate.
@@ -22,21 +22,15 @@ type MultiMatch struct {
 	Evaluators EvaluatorGroup `json:"evaluators"`
 }
 
-func (fm *MultiMatch) GetType() string {
-	return "evaluator.group.multi_match"
+func (fm *MultiMatchOrderedCycle) GetType() string {
+	return "evaluator.group.multi_match_ordered_cycle"
 }
 
-func (fm *MultiMatch) New() evaluators.EvaluatorsItf {
-	return new(MultiMatch)
+func (fm *MultiMatchOrderedCycle) New() evaluators.EvaluatorsItf {
+	return new(MultiMatchOrderedCycle)
 }
 
-func (fm MultiMatch) Eval(facts facts.FactsItf) (res evaluators.EvalResult) {
-
-	deduct := func(instance *int) (deducted bool) {
-		(*instance)--
-		return true
-	}
-
+func (fm MultiMatchOrderedCycle) Eval(facts facts.FactsItf) (res evaluators.EvalResult) {
 	mapEvaluators := make(map[int]evaluators.EvaluatorsItf)
 	evaluatedMap := make(map[int]bool)
 
@@ -45,31 +39,35 @@ func (fm MultiMatch) Eval(facts facts.FactsItf) (res evaluators.EvalResult) {
 	}
 
 	var response evaluators.EvalResult
-	for fm.MaxMatch > 0 {
+	for fm.MaxCycle > 0 {
 
-		var deducted bool
-		for index, eval := range mapEvaluators {
-			if _, ok := evaluatedMap[index]; ok && !fm.Reentrance {
+		var matched bool
+		for index := 0; index < len(mapEvaluators); index++ {
+			if _, ok := evaluatedMap[index]; ok && fm.Reentrance {
 				continue
 			}
+			eval := mapEvaluators[index]
 
 			response = eval.Eval(facts)
 			if response.IsMatch {
 				if !fm.Reentrance {
 					evaluatedMap[index] = true
 				}
-				deducted = deduct(&fm.MaxMatch)
+				matched = true
 				if fm.Merging {
 					res.Merge(response)
-					continue
+					break
 				}
 				res = response
+				break
 			}
 		}
 
-		if !deducted {
-			fm.MaxMatch--
+		// break loop if there's no match evaluation in one cycle
+		if !matched {
+			break
 		}
+		fm.MaxCycle--
 	}
 
 	return

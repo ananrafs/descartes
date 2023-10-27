@@ -1,0 +1,105 @@
+{
+  "slug": "speeding_and_traffic_fine",
+  "evaluator": {
+    "type": "evaluator.group.multi_match_ordered",
+    "max": 10,
+    "reentrance": true,
+    "merging": true,
+    "evaluators": [
+      {
+        "type": "evaluator",
+        "rule": {
+          "type": "rules.conditional.and",
+          "rules": [
+            {
+              "type": "rules.int.greater.dynamic",
+              "left": "{{ speed }}",
+              "right": "{{ speed_limit }}"
+            },
+            {
+              "type": "rules.conditional.not",
+              "rule": {
+                "type": "rules.exist",
+                "field": "score"
+              }
+            }
+          ]
+        },
+        "action": {
+          "type": "actions.group",
+          "actions": [
+            {
+              "type": "actions.int.sum",
+              "field": "score",
+              "factors": [
+                2
+              ]
+            },
+            {
+              "score": "{{ score }}"
+            }
+          ]
+        }
+      },
+      {
+        "type": "evaluator",
+        "rule": {
+          "type": "rules.conditional.not",
+          "rule": {
+            "type": "rules.exist",
+            "field": "score"
+          }
+        },
+        "action": {
+          "type": "actions.group",
+          "actions": [
+            {
+              "type": "actions.int.sum",
+              "field": "score",
+              "factors": [
+                0
+              ]
+            },
+            {
+              "score": "{{ score }}"
+            }
+          ]
+        }
+      },
+      {
+        "type": "evaluator",
+        "rule": {
+          "type": "rules.conditional.and",
+          "rules": [
+            {
+              "type": "rules.int.lesser",
+              "field": "score",
+              "value": 4
+            },
+            {
+              "type": "rules.bool",
+              "field": "lights_on",
+              "value": false
+            }
+          ]
+        },
+        "action": {
+          "type": "actions.group",
+          "actions": [
+            {
+              "type": "actions.int.sum",
+              "field": "score",
+              "factors": [
+                3,
+                "{{ score }}"
+              ]
+            },
+            {
+              "score": "{{ score }}"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -20,7 +20,7 @@ func (c Action) New() actions.ActionsItf {
 func (c Action) Do(facts facts.FactsItf) (res interface{}, err error) {
 	param := facts.GetMap()
 	response := common.CopyMap(c)
-	for i, params := range c {
+	for key, params := range c {
 		paramsWithTemplate := new(string)
 		// check if its using template
 		if match := common.ParseFromMustacheTemplate(params, paramsWithTemplate); match {
@@ -29,7 +29,7 @@ func (c Action) Do(facts facts.FactsItf) (res interface{}, err error) {
 				return nil, common.ErrorNotFoundOnMap(*paramsWithTemplate)
 			}
 
-			response[i] = v
+			response[key] = v
 		}
 
 	}

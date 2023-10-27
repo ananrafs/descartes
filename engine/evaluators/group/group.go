@@ -17,11 +17,11 @@ func (eg *EvaluatorGroup) UnmarshalJSON(data []byte) (err error) {
 	*eg = make(EvaluatorGroup, 0, len(m))
 
 	for _, raw := range m {
-		var typeCheker common.TypeChecker
-		if err := json.Unmarshal(raw, &typeCheker); err != nil {
+		var typeChecker common.TypeChecker
+		if err := json.Unmarshal(raw, &typeChecker); err != nil {
 			return err
 		}
-		evals := evaluators.Get(typeCheker.Type)
+		evals := evaluators.Get(typeChecker.Type)
 		newInstance := evals.New()
 		err = json.Unmarshal(raw, newInstance)
 		if err != nil {
