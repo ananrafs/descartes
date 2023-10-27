@@ -3,6 +3,7 @@ package common
 import (
 	"reflect"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -19,6 +20,12 @@ func ConvertToInt(source interface{}, dest *int) error {
 		*dest = int(_valueRef.Float())
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
 		*dest = int(_valueRef.Uint())
+	case reflect.String:
+		temp, err := strconv.Atoi(_valueRef.String())
+		if err != nil {
+			return ErrorCasting(source)
+		}
+		*dest = int(temp)
 	default:
 		return ErrorCasting(source)
 	}
@@ -59,6 +66,12 @@ func ConvertToFloat(source interface{}, dest *float64) error {
 		*dest = float64(_valueRef.Float())
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
 		*dest = float64(_valueRef.Uint())
+	case reflect.String:
+		temp, err := strconv.ParseFloat(_valueRef.String(), 64)
+		if err != nil {
+			return ErrorCasting(source)
+		}
+		*dest = temp
 	default:
 		return ErrorCasting(source)
 	}
@@ -98,7 +111,26 @@ func ConvertFromMap(source interface{}, dest *int) error {
 }
 
 func ConvertToBool(source interface{}, dest *bool) error {
+	if reflect.ValueOf(source).Kind() == reflect.String {
+		sourceTemp := strings.ToLower(reflect.ValueOf(source).String())
+		temp := sourceTemp == "true"
+		if !temp && source != "false" {
+			return ErrorCasting(source)
+		}
+		*dest = temp
+		return nil
+	}
 	intf, ok := source.(bool)
+	if !ok {
+		return ErrorCasting(source)
+	}
+
+	*dest = intf
+	return nil
+}
+
+func ConvertToArray(source interface{}, dest *[]interface{}) error {
+	intf, ok := source.([]interface{})
 	if !ok {
 		return ErrorCasting(source)
 	}

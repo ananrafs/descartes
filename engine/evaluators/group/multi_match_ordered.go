@@ -5,7 +5,7 @@ import (
 	"github.com/ananrafs/descartes/engine/facts"
 )
 
-type MultiMatch struct {
+type MultiMatchOrdered struct {
 	EvalType string `json:"type"`
 
 	// maximum matched evaluation allowed
@@ -22,15 +22,15 @@ type MultiMatch struct {
 	Evaluators EvaluatorGroup `json:"evaluators"`
 }
 
-func (fm *MultiMatch) GetType() string {
-	return "evaluator.group.multi_match"
+func (fm *MultiMatchOrdered) GetType() string {
+	return "evaluator.group.multi_match_ordered"
 }
 
-func (fm *MultiMatch) New() evaluators.EvaluatorsItf {
-	return new(MultiMatch)
+func (fm *MultiMatchOrdered) New() evaluators.EvaluatorsItf {
+	return new(MultiMatchOrdered)
 }
 
-func (fm MultiMatch) Eval(facts facts.FactsItf) (res evaluators.EvalResult) {
+func (fm MultiMatchOrdered) Eval(facts facts.FactsItf) (res evaluators.EvalResult) {
 
 	deduct := func(instance *int) (deducted bool) {
 		(*instance)--
@@ -48,10 +48,11 @@ func (fm MultiMatch) Eval(facts facts.FactsItf) (res evaluators.EvalResult) {
 	for fm.MaxMatch > 0 {
 
 		var deducted bool
-		for index, eval := range mapEvaluators {
-			if _, ok := evaluatedMap[index]; ok && !fm.Reentrance {
+		for index := 0; index < len(mapEvaluators); index++ {
+			if _, ok := evaluatedMap[index]; ok && fm.Reentrance {
 				continue
 			}
+			eval := mapEvaluators[index]
 
 			response = eval.Eval(facts)
 			if response.IsMatch {
@@ -67,8 +68,9 @@ func (fm MultiMatch) Eval(facts facts.FactsItf) (res evaluators.EvalResult) {
 			}
 		}
 
+		// break loop if there's no match evaluation in one cycle
 		if !deducted {
-			fm.MaxMatch--
+			break
 		}
 	}
 

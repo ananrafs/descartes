@@ -1,0 +1,33 @@
+[
+  {
+    "slug": "speeding_and_traffic_fine",
+    "param": {
+      "speed_limit": 40,
+      "speed": 60
+    }
+  },
+  {
+    "slug": "speeding_and_traffic_fine",
+    "param": {
+      "speed_limit": 40,
+      "speed": 20,
+      "lights_on": false
+    }
+  },
+  {
+    "slug": "speeding_and_traffic_fine",
+    "param": {
+      "speed_limit": 40,
+      "speed": 60,
+      "lights_on": true
+    }
+  },
+  {
+    "slug": "speeding_and_traffic_fine",
+    "param": {
+      "speed_limit": 40,
+      "speed": 60,
+      "lights_on": false
+    }
+  }
+]

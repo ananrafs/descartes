@@ -1,0 +1,91 @@
+{
+    "slug": "nyari_anak_hilang",
+    "evaluator": {
+        "type": "evaluator.group.first_match",
+        "evaluators": [
+            {
+                "type": "evaluator",
+                "rule": {
+                    "type": "rules.conditional.and",
+                    "rules": [
+                        {
+                            "type": "rules.string.equal_fold",
+                            "field": "lokasi",
+                            "value": "jakarta"
+                        },
+                        {
+                            "type": "rules.string.equal",
+                            "field": "nama",
+                            "value": "anto"
+                        },
+                        {
+                            "type": "rules.bool",
+                            "field": "soleh",
+                            "value": true
+                        }
+                    ]
+                },
+                "action": {
+                    "petunjuk": "dicariin ibunya",
+                    "name": "{{ nama }}"
+                }
+            },
+            {
+                "type": "evaluator",
+                "rule": {
+                    "type": "rules.conditional.and",
+                    "rules": [
+                        {
+                            "type": "rules.int.lesser",
+                            "field": "umur",
+                            "value": 5
+                        },
+                        {
+                            "type": "rules.string.equal",
+                            "field": "nama",
+                            "value": "indah"
+                        }
+                    ]
+                },
+                "action": {
+                    "petunjuk": "dicariin bapaknya",
+                    "name": "{{ nama }}"
+                }
+            },
+            {
+                "type": "evaluator",
+                "rule": {
+                    "type": "rules.conditional.and",
+                    "rules": [
+                        {
+                            "type": "rules.int.between",
+                            "field": "umur",
+                            "start": 10,
+                            "end": 15
+                        },
+                        {
+                            "type": "rules.string.equal",
+                            "field": "nama",
+                            "value": "budi"
+                        }
+                    ]
+                },
+                "action": {
+                    "petunjuk": "dapat sepeda",
+                    "name": "{{ nama }}"
+                }
+            },
+            {
+                "name": "default",
+                "type": "evaluator",
+                "rule": {
+                    "type": "rules.default"
+                },
+                "action": {
+                    "petunjuk": "ngga kenal",
+                    "name": "{{ nama }}"
+                }
+            }
+        ]
+    }
+}

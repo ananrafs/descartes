@@ -1,0 +1,24 @@
+[
+    {
+        "slug": "nyari_anak_hilang",
+        "param": {
+            "nama": "budi",
+            "umur": "11"
+        }
+    },
+    {
+        "slug": "nyari_anak_hilang",
+        "param": {
+            "nama": "indah",
+            "umur": "3"
+        }
+    },
+    {
+        "slug": "nyari_anak_hilang",
+        "param": {
+            "nama": "anto",
+            "lokasi": "jakarta",
+            "soleh": "false"
+        }
+    }
+]

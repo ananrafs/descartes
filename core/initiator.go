@@ -15,6 +15,7 @@ import (
 	"github.com/ananrafs/descartes/engine/rules"
 	rulesgroup "github.com/ananrafs/descartes/engine/rules/group"
 	"github.com/ananrafs/descartes/engine/rules/rule"
+	rule_array "github.com/ananrafs/descartes/engine/rules/rule/array"
 	rule_bool "github.com/ananrafs/descartes/engine/rules/rule/bool"
 	rule_int "github.com/ananrafs/descartes/engine/rules/rule/int"
 	rule_string "github.com/ananrafs/descartes/engine/rules/rule/string"
@@ -135,6 +136,8 @@ func WithDefaultRules() []rules.RulesItf {
 		&rule_string.Equal{},
 		&rule_string.EqualFold{},
 		&rule_bool.Bool{},
+		&rule_array.ArrayContains{},
+		&rule.Exist{},
 		&rule.RuleDefault{},
 	}
 }
@@ -144,6 +147,8 @@ func WithDefaultEvaluators() []evaluators.EvaluatorsItf {
 		&evaluator.Evaluator{},
 		&group.FirstMatch{},
 		&group.MultiMatch{},
+		&group.MultiMatchOrdered{},
+		&group.MultiMatchOrderedCycle{},
 	}
 }
 
