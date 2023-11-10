@@ -1,0 +1,35 @@
+[
+    {
+        "slug": "nyari_anak_hilang",
+        "param": {
+            "nama": [
+                "anto",
+                "indah",
+                "budi"
+            ],
+            "umur": "11"
+        }
+    },
+    {
+        "slug": "nyari_anak_hilang",
+        "param": {
+            "nama": [
+                "dwi",
+                "andi",
+                "erik"
+            ],
+            "umur": "3"
+        }
+    },
+    {
+        "slug": "nyari_anak_hilang",
+        "param": {
+            "nama": [
+                "joni",
+                "dadang",
+                "faris"
+            ],
+            "umur": "3"
+        }
+    }
+]

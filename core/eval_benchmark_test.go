@@ -17,6 +17,8 @@ var tableTest = []struct {
 	{fileLocation: "dynamic cache"},
 	{fileLocation: "static"},
 	{fileLocation: "static cache"},
+	{fileLocation: "test_slice"},
+	{fileLocation: "test_slice_struct"},
 	// {fileLocation: "cache"},
 	// {fileLocation: "rule_random"},
 	// {fileLocation: "test_actiongroup"},

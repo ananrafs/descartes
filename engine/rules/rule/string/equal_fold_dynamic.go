@@ -1,6 +1,7 @@
 package rule_string
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/ananrafs/descartes/common"
@@ -45,12 +46,14 @@ func (c *EqualFoldDynamic) IsMatch(facts facts.FactsItf) (isMatch bool, err erro
 	_values := [2]string{"", ""}
 
 	for i, _param := range _params {
-		_field := new(string)
-		if match := common.ParseFromMustacheTemplate(_param, _field); match {
+		key := ""
+		var _field interface{}
+		if match := common.DeepTemplateEvaluateFromMap(param, _param, &_field); match {
+			key = fmt.Sprintf("%v", _field)
 			var ok bool
-			_param, ok = param[*_field]
+			_param, ok = param[key]
 			if !ok {
-				return false, common.ErrorNotFoundOnMap(*_field)
+				return false, common.ErrorNotFoundOnMap(key)
 			}
 		}
 

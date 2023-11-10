@@ -2,13 +2,8 @@ package common
 
 import (
 	"reflect"
-	"regexp"
 	"strconv"
 	"strings"
-)
-
-var (
-	templateRegex = regexp.MustCompile(`\{\{([^{}]+)\}\}`)
 )
 
 func ConvertToInt(source interface{}, dest *int) error {
@@ -145,12 +140,80 @@ func ParseFromMustacheTemplate(source interface{}, dest *string) (isMatch bool) 
 		return false
 	}
 
-	target := templateRegex.FindStringSubmatch(strSource)
-	if len(target) < 1 {
-		return false
+	return GetTemplatedString(strSource, dest)
+}
+
+func GetTemplatedString(source string, dest *string) bool {
+	open := "{{"
+	close := "}}"
+
+	if source[:2] == open && source[len(source)-2:] == close {
+		trimmed := strings.TrimSpace(source[2 : len(source)-2])
+		*dest = trimmed
+		return true
 	}
-	*dest = strings.TrimSpace(target[1])
-	return true
+	return false
+
+}
+func DeepParseFromMustacheTemplate(source interface{}, dest *string) (isMatch bool, depth int) {
+	strSource, ok := source.(string)
+	if !ok {
+		return false, 0
+	}
+
+	depth = 0
+	// Find all matches in the input string
+	for {
+		match := GetTemplatedString(strSource, dest)
+		if !match {
+			break
+		}
+
+		strSource = *dest
+		depth++
+	}
+	if depth == 0 {
+		return false, depth
+	}
+
+	*dest = strSource
+
+	return true, depth
+}
+
+func DeepTemplateEvaluateFromMap(mp map[string]interface{}, src interface{}, dest *interface{}) bool {
+	keyMapField := ""
+
+	// check if its using template
+	if match, deep := DeepParseFromMustacheTemplate(src, &keyMapField); match {
+		var (
+			valueField interface{}
+			lookUpMap  map[string]interface{} = mp
+			ok         bool
+		)
+
+		for i := 0; i < deep; i++ {
+			if valueField != nil {
+				keyMapField, ok = valueField.(string)
+				if !ok {
+					break
+				}
+			}
+
+			valueField, _ = LookUpRecursiveMap(lookUpMap, keyMapField)
+			if valueField == nil {
+
+				return false
+			}
+
+		}
+
+		*dest = valueField
+
+		return true
+	}
+
+	return false
 }
 
 func CopyMap(src map[string]interface{}) (dest map[string]interface{}) {
@@ -161,14 +224,52 @@ func CopyMap(src map[string]interface{}) (dest map[string]interface{}) {
 	return
 }
 
-func LookupMap(mp map[string]interface{}, index int, source []string) (interface{}, error) {
+func LookUpRecursiveMap(mp map[string]interface{}, src string) (interface{}, error) {
+	return LookupMap(mp, 0, strings.Split(src, "."))
+}
+
+func LookupMap(mp map[string]interface{}, index int, source []string) (res interface{}, err error) {
+	if index >= len(source) {
+		return nil, nil
+	}
 	if val, ok := mp[source[index]]; ok {
 		childMap, ok := val.(map[string]interface{})
 		if !ok {
 			return val, nil
 		}
 		index++
-		return LookupMap(childMap, index, source)
+		lookup, _ := LookupMap(childMap, index, source)
+		if lookup != nil {
+			val = lookup
+		}
+		return val, nil
 	}
 	return nil, ErrorNotFoundOnMap(source[index])
+}
+
+// RecurringMap is method to evaluate interface{}.
+// if source is map, then it will lookup to key-pairs and perform recursive.
+// modifiers is used to alter or modify value of map
+func RecurringMap(source interface{}, dest *map[string]interface{}, modifiers ...func(*string, *interface{})) bool {
+	sMap, ok := source.(map[string]interface{})
+	if !ok {
+		return false
+	}
+
+	copiedMap := CopyMap(sMap)
+	for key, val := range copiedMap {
+		var _dest map[string]interface{}
+		isObj := RecurringMap(val, &_dest, modifiers...)
+		if isObj {
+			copiedMap[key] = _dest
+			continue
+		}
+		for _, mod := range modifiers {
+			mod(&key, &val)
+		}
+		copiedMap[key] = val
+	}
+	*dest = copiedMap
+
+	return true
 }

@@ -1,6 +1,8 @@
 package action
 
 import (
+	"fmt"
+
 	"github.com/ananrafs/descartes/common"
 	"github.com/ananrafs/descartes/engine/actions"
 	"github.com/ananrafs/descartes/engine/facts"
@@ -19,18 +21,24 @@ func (c Action) New() actions.ActionsItf {
 
 func (c Action) Do(facts facts.FactsItf) (res interface{}, err error) {
 	param := facts.GetMap()
-	response := common.CopyMap(c)
-	for key, params := range c {
-		paramsWithTemplate := new(string)
-		// check if its using template
-		if match := common.ParseFromMustacheTemplate(params, paramsWithTemplate); match {
-			v, ok := param[*paramsWithTemplate]
-			if !ok {
-				return nil, common.ErrorNotFoundOnMap(*paramsWithTemplate)
-			}
+	response := common.CopyMap(map[string]interface{}(c))
 
-			response[key] = v
+	for key, value := range c {
+
+		var keyMapField interface{}
+		if match := common.DeepTemplateEvaluateFromMap(param, key, &keyMapField); match {
+			defer func(key string) {
+				delete(response, key)
+			}(key)
+
+			key = fmt.Sprintf("%v", keyMapField)
 		}
+
+		var valMapField interface{}
+		if match := common.DeepTemplateEvaluateFromMap(param, value, &valMapField); match {
+			value = valMapField
+		}
+		response[key] = value
 
 	}
 

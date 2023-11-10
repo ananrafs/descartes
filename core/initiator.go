@@ -8,6 +8,7 @@ import (
 	"github.com/ananrafs/descartes/engine/actions/action"
 	action_float "github.com/ananrafs/descartes/engine/actions/action/float"
 	action_int "github.com/ananrafs/descartes/engine/actions/action/int"
+	action_map "github.com/ananrafs/descartes/engine/actions/action/map"
 	actionsgroup "github.com/ananrafs/descartes/engine/actions/group"
 	"github.com/ananrafs/descartes/engine/evaluators"
 	"github.com/ananrafs/descartes/engine/evaluators/evaluator"
@@ -134,6 +135,7 @@ func WithDefaultRules() []rules.RulesItf {
 		&rule_int.GreaterDynamic{},
 		&rule_int.LesserDynamic{},
 		&rule_string.Equal{},
+		&rule_string.EqualDynamic{},
 		&rule_string.EqualFold{},
 		&rule_bool.Bool{},
 		&rule_array.ArrayContains{},
@@ -149,6 +151,7 @@ func WithDefaultEvaluators() []evaluators.EvaluatorsItf {
 		&group.MultiMatch{},
 		&group.MultiMatchOrdered{},
 		&group.MultiMatchOrderedCycle{},
+		&evaluator.IterateEvaluator{},
 	}
 }
 
@@ -167,6 +170,8 @@ func WithDefaultActions() []actions.ActionsItf {
 		&action_float.Multiple{},
 		&action_float.Substract{},
 		&action_float.Sum{},
+
+		&action_map.Append{},
 	}
 }
 

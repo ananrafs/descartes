@@ -1,0 +1,74 @@
+[
+    {
+        "slug": "nyari_anak_hilang_2",
+        "param": {
+            "bocah": [
+                {
+                    "nama": "anto",
+                    "umur": 10
+                },
+                {
+                    "nama": "indah",
+                    "umur": 11
+                },
+                {
+                    "nama": "budi",
+                    "umur": 13
+                },
+                {
+                    "nama": "tono",
+                    "umur": 21
+                }
+            ],
+            "lokasi": "jakarta"
+        }
+    },
+    {
+        "slug": "nyari_anak_hilang_2",
+        "param": {
+            "bocah": [
+                {
+                    "nama": "aldo",
+                    "umur": 2
+                },
+                {
+                    "nama": "riva",
+                    "umur": 18
+                },
+                {
+                    "nama": "kusnadi",
+                    "umur": 31
+                },
+                {
+                    "nama": "alfons",
+                    "umur": 23
+                }
+            ],
+            "lokasi": "bandung"
+        }
+    },
+    {
+        "slug": "nyari_anak_hilang_2",
+        "param": {
+            "bocah": [
+                {
+                    "nama": "andi",
+                    "umur": 21
+                },
+                {
+                    "nama": "sulastri",
+                    "umur": 39
+                },
+                {
+                    "nama": "siswanto",
+                    "umur": 28
+                },
+                {
+                    "nama": "karim",
+                    "umur": 19
+                }
+            ],
+            "lokasi": "makassar"
+        }
+    }
+]

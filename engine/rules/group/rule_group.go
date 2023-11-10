@@ -24,6 +24,7 @@ func (r *RuleGroup) UnmarshalJSON(data []byte) (err error) {
 
 		rule := rules.Get(typeChecker.Type)
 		newInstance := rule.New()
+
 		err = json.Unmarshal(raw, newInstance)
 		if err != nil {
 			return err

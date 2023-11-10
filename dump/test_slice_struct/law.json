@@ -1,0 +1,289 @@
+{
+    "slug": "nyari_anak_hilang_2",
+    "evaluator": {
+        "type": "evaluator.iterate",
+        "field": "_bocah",
+        "iterant": "bocah",
+        "evaluator": {
+            "type": "evaluator.group.multi_match_ordered",
+            "max": 2,
+            "reentrance": false,
+            "merging": true,
+            "evaluators": [
+                {
+                    "type": "evaluator",
+                    "rule": {
+                        "type": "rules.string.equal",
+                        "field": "lokasi",
+                        "value": "jakarta"
+                    },
+                    "action": {
+                        "type": "actions.group",
+                        "actions": [
+                            {
+                                "type": "actions.map.append",
+                                "field": "person",
+                                "object": {
+                                    "{{ _bocah.nama }}": {
+                                        "lokasi": "{{ lokasi }}",
+                                        "provinsi": "dki jakarta"
+                                    }
+                                }
+                            },
+                            {
+                                "bocah": "{{ person }}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "evaluator",
+                    "rule": {
+                        "type": "rules.string.equal",
+                        "field": "lokasi",
+                        "value": "bandung"
+                    },
+                    "action": {
+                        "type": "actions.group",
+                        "actions": [
+                            {
+                                "type": "actions.map.append",
+                                "field": "person",
+                                "object": {
+                                    "{{ _bocah.nama }}": {
+                                        "lokasi": "{{ lokasi }}",
+                                        "provinsi": "jawa barat"
+                                    }
+                                }
+                            },
+                            {
+                                "bocah": "{{ person }}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "evaluator",
+                    "rule": {
+                        "type": "rules.string.equal",
+                        "field": "lokasi",
+                        "value": "makassar"
+                    },
+                    "action": {
+                        "type": "actions.group",
+                        "actions": [
+                            {
+                                "type": "actions.map.append",
+                                "field": "person",
+                                "object": {
+                                    "{{ _bocah.nama }}": {
+                                        "lokasi": "{{ lokasi }}",
+                                        "provinsi": "sulawesi selatan"
+                                    }
+                                }
+                            },
+                            {
+                                "bocah": "{{ person }}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "evaluator",
+                    "rule": {
+                        "type": "rules.conditional.or",
+                        "rules": [
+                            {
+                                "type": "rules.conditional.and",
+                                "rules": [
+                                    {
+                                        "type": "rules.string.equal",
+                                        "field": "_bocah.nama",
+                                        "value": "anto"
+                                    },
+                                    {
+                                        "type": "rules.int.between",
+                                        "field": "_bocah.umur",
+                                        "start": 9,
+                                        "end": 11
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "rules.conditional.and",
+                                "rules": [
+                                    {
+                                        "type": "rules.string.equal",
+                                        "field": "_bocah.nama",
+                                        "value": "indah"
+                                    },
+                                    {
+                                        "type": "rules.int.between",
+                                        "field": "_bocah.umur",
+                                        "start": 5,
+                                        "end": 21
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "action": {
+                        "type": "actions.group",
+                        "actions": [
+                            {
+                                "type": "actions.map.append",
+                                "field": "person",
+                                "object": {
+                                    "{{ _bocah.nama }}": {
+                                        "ayah": "zul"
+                                    }
+                                }
+                            },
+                            {
+                                "bocah": "{{ person }}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "evaluator",
+                    "rule": {
+                        "type": "rules.conditional.or",
+                        "rules": [
+                            {
+                                "type": "rules.conditional.and",
+                                "rules": [
+                                    {
+                                        "type": "rules.string.equal",
+                                        "field": "_bocah.nama",
+                                        "value": "aldo"
+                                    },
+                                    {
+                                        "type": "rules.int.between",
+                                        "field": "_bocah.umur",
+                                        "start": 1,
+                                        "end": 10
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "rules.conditional.and",
+                                "rules": [
+                                    {
+                                        "type": "rules.string.equal",
+                                        "field": "_bocah.nama",
+                                        "value": "karim"
+                                    },
+                                    {
+                                        "type": "rules.int.between",
+                                        "field": "_bocah.umur",
+                                        "start": 15,
+                                        "end": 31
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "action": {
+                        "type": "actions.group",
+                        "actions": [
+                            {
+                                "type": "actions.map.append",
+                                "field": "person",
+                                "object": {
+                                    "{{ _bocah.nama }}": {
+                                        "ayah": "riki"
+                                    }
+                                }
+                            },
+                            {
+                                "bocah": "{{ person }}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "evaluator",
+                    "rule": {
+                        "type": "rules.conditional.or",
+                        "rules": [
+                            {
+                                "type": "rules.conditional.and",
+                                "rules": [
+                                    {
+                                        "type": "rules.string.equal",
+                                        "field": "_bocah.nama",
+                                        "value": "riva"
+                                    },
+                                    {
+                                        "type": "rules.int.between",
+                                        "field": "_bocah.umur",
+                                        "start": 11,
+                                        "end": 20
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "rules.conditional.and",
+                                "rules": [
+                                    {
+                                        "type": "rules.string.equal",
+                                        "field": "_bocah.nama",
+                                        "value": "alfons"
+                                    },
+                                    {
+                                        "type": "rules.int.between",
+                                        "field": "_bocah.umur",
+                                        "start": 15,
+                                        "end": 31
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "action": {
+                        "type": "actions.group",
+                        "actions": [
+                            {
+                                "type": "actions.map.append",
+                                "field": "person",
+                                "object": {
+                                    "{{ _bocah.nama }}": {
+                                        "ayah": "erik"
+                                    }
+                                }
+                            },
+                            {
+                                "bocah": "{{ person }}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "default",
+                    "type": "evaluator",
+                    "rule": {
+                        "type": "rules.default"
+                    },
+                    "action": {
+                        "type": "actions.group",
+                        "actions": [
+                            {
+                                "type": "actions.map.append",
+                                "field": "person",
+                                "object": {
+                                    "{{ _bocah.nama }}": {
+                                        "unindentified": true
+                                    }
+                                }
+                            },
+                            {
+                                "bocah": "{{ person }}"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

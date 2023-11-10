@@ -1,0 +1,120 @@
+{
+    "slug": "nyari_anak_hilang",
+    "evaluator": {
+        "type": "evaluator.iterate",
+        "field": "_nama",
+        "iterant": "nama",
+        "evaluator": {
+            "type": "evaluator.group.multi_match",
+            "max": 2,
+            "reentrance": false,
+            "merging": true,
+            "evaluators": [
+                {
+                    "type": "evaluator",
+                    "rule": {
+                        "type": "rules.conditional.and",
+                        "rules": [
+                            {
+                                "type": "rules.conditional.or",
+                                "rules": [
+                                    {
+                                        "type": "rules.string.equal",
+                                        "field": "_nama",
+                                        "value": "anto"
+                                    },
+                                    {
+                                        "type": "rules.string.equal",
+                                        "field": "_nama",
+                                        "value": "budi"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "rules.int.between",
+                                "field": "umur",
+                                "start": 10,
+                                "end": 15
+                            }
+                        ]
+                    },
+                    "action": {
+                        "type": "actions.group",
+                        "actions": [
+                            {
+                                "type": "actions.map.append",
+                                "field": "bocah",
+                                "object": {
+                                    "{{ _nama }}": {
+                                        "umur": "{{ umur }}",
+                                        "petunjuk": "dicariin bapaknya"
+                                    }
+                                }
+                            },
+                            {
+                                "bocah": "{{ bocah }}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "evaluator",
+                    "rule": {
+                        "type": "rules.conditional.and",
+                        "rules": [
+                            {
+                                "type": "rules.string.equal",
+                                "field": "_nama",
+                                "value": "dwi"
+                            },
+                            {
+                                "type": "rules.int.lesser",
+                                "field": "umur",
+                                "value": 5
+                            }
+                        ]
+                    },
+                    "action": {
+                        "type": "actions.group",
+                        "actions": [
+                            {
+                                "type": "actions.map.append",
+                                "field": "{{ _nama }}",
+                                "object": {
+                                    "name": "{{ _nama }}",
+                                    "umur": "{{ umur }}"
+                                }
+                            },
+                            {
+                                "{{ _nama }}": "{{ {{ _nama }} }}"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "default",
+                    "type": "evaluator",
+                    "rule": {
+                        "type": "rules.default"
+                    },
+                    "action": {
+                        "type": "actions.group",
+                        "actions": [
+                            {
+                                "type": "actions.map.append",
+                                "field": "{{ _nama }}",
+                                "object": {
+                                    "name": "{{ _nama }}",
+                                    "umur": "{{ umur }}"
+                                }
+                            },
+                            {
+                                "{{ _nama }}": "{{ {{ _nama }} }}"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}
