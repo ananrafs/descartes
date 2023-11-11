@@ -6,8 +6,8 @@ import (
 )
 
 type FirstMatch struct {
-	EvalType   string         `json:"type"`
-	Evaluators EvaluatorGroup `json:"evaluators"`
+	EvaluatorType string         `json:"type"`
+	Evaluators    EvaluatorGroup `json:"evaluators"`
 }
 
 func (fm *FirstMatch) GetType() string {
@@ -15,7 +15,9 @@ func (fm *FirstMatch) GetType() string {
 }
 
 func (fm *FirstMatch) New() evaluators.EvaluatorsItf {
-	return new(FirstMatch)
+	o := new(FirstMatch)
+	o.EvaluatorType = o.GetType()
+	return o
 }
 
 func (fm *FirstMatch) Eval(facts facts.FactsItf) (res evaluators.EvalResult) {

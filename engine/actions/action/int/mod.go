@@ -21,7 +21,9 @@ func (c *Mod) GetType() string {
 }
 
 func (c *Mod) New() actions.ActionsItf {
-	return new(Mod)
+	o := new(Mod)
+	o.Type = o.GetType()
+	return o
 }
 
 func (c *Mod) Do(facts facts.FactsItf) (res interface{}, err error) {

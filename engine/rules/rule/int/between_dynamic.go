@@ -19,7 +19,9 @@ func (c *BetweenDynamic) GetType() string {
 }
 
 func (c *BetweenDynamic) New() rules.RulesItf {
-	return new(BetweenDynamic)
+	o := new(BetweenDynamic)
+	o.RuleType = o.GetType()
+	return o
 }
 
 func (c *BetweenDynamic) GetHash() string {

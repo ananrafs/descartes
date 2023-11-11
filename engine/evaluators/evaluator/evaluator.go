@@ -21,7 +21,9 @@ func (e *Evaluator) GetType() string {
 }
 
 func (e *Evaluator) New() evaluators.EvaluatorsItf {
-	return new(Evaluator)
+	o := new(Evaluator)
+	o.EvaluatorType = o.GetType()
+	return o
 }
 
 func (e *Evaluator) Eval(fact facts.FactsItf) (res evaluators.EvalResult) {

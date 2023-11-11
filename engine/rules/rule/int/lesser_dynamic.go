@@ -18,7 +18,9 @@ func (c *LesserDynamic) GetType() string {
 }
 
 func (c *LesserDynamic) New() rules.RulesItf {
-	return new(LesserDynamic)
+	o := new(LesserDynamic)
+	o.RuleType = o.GetType()
+	return o
 }
 
 func (c *LesserDynamic) GetHash() string {

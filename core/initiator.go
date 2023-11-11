@@ -123,70 +123,70 @@ func WithDefaults() Factory {
 
 func WithDefaultRules() []rules.RulesItf {
 	return []rules.RulesItf{
-		&rulesgroup.ConditionalAnd{},
-		&rulesgroup.ConditionalOr{},
-		&rulesgroup.ConditionalNot{},
-		&rule_int.Between{},
-		&rule_int.Equal{},
-		&rule_int.Greater{},
-		&rule_int.Lesser{},
-		&rule_int.BetweenDynamic{},
-		&rule_int.EqualDynamic{},
-		&rule_int.GreaterDynamic{},
-		&rule_int.LesserDynamic{},
-		&rule_string.Equal{},
-		&rule_string.EqualDynamic{},
-		&rule_string.EqualFold{},
-		&rule_bool.Bool{},
-		&rule_array.ArrayContains{},
-		&rule.Exist{},
-		&rule.RuleDefault{},
+		(&rulesgroup.ConditionalAnd{}).New(),
+		(&rulesgroup.ConditionalOr{}).New(),
+		(&rulesgroup.ConditionalNot{}).New(),
+		(&rule_int.Between{}).New(),
+		(&rule_int.Equal{}).New(),
+		(&rule_int.Greater{}).New(),
+		(&rule_int.Lesser{}).New(),
+		(&rule_int.BetweenDynamic{}).New(),
+		(&rule_int.EqualDynamic{}).New(),
+		(&rule_int.GreaterDynamic{}).New(),
+		(&rule_int.LesserDynamic{}).New(),
+		(&rule_string.Equal{}).New(),
+		(&rule_string.EqualDynamic{}).New(),
+		(&rule_string.EqualFold{}).New(),
+		(&rule_bool.Bool{}).New(),
+		(&rule_array.ArrayContains{}).New(),
+		(&rule.Exist{}).New(),
+		(&rule.RuleDefault{}).New(),
 	}
 }
 
 func WithDefaultEvaluators() []evaluators.EvaluatorsItf {
 	return []evaluators.EvaluatorsItf{
-		&evaluator.Evaluator{},
-		&group.FirstMatch{},
-		&group.MultiMatch{},
-		&group.MultiMatchOrdered{},
-		&group.MultiMatchOrderedCycle{},
-		&evaluator.IterateEvaluator{},
+		(&evaluator.Evaluator{}).New(),
+		(&group.FirstMatch{}).New(),
+		(&group.MultiMatch{}).New(),
+		(&group.MultiMatchOrdered{}).New(),
+		(&group.MultiMatchOrderedCycle{}).New(),
+		(&evaluator.IterateEvaluator{}).New(),
 	}
 }
 
 func WithDefaultActions() []actions.ActionsItf {
 	return []actions.ActionsItf{
-		&action.Action{},
-		&actionsgroup.ActionGroup{},
+		(&action.Action{}).New(),
+		(&actionsgroup.ActionGroup{}).New(),
 
-		&action_int.Divide{},
-		&action_int.Mod{},
-		&action_int.Multiple{},
-		&action_int.Substract{},
-		&action_int.Sum{},
+		(&action_int.Divide{}).New(),
+		(&action_int.Mod{}).New(),
+		(&action_int.Multiple{}).New(),
+		(&action_int.Substract{}).New(),
+		(&action_int.Sum{}).New(),
 
-		&action_float.Divide{},
-		&action_float.Multiple{},
-		&action_float.Substract{},
-		&action_float.Sum{},
+		(&action_float.Divide{}).New(),
+		(&action_float.Multiple{}).New(),
+		(&action_float.Substract{}).New(),
+		(&action_float.Sum{}).New(),
 
-		&action_map.Append{},
+		(&action_map.Append{}).New(),
 	}
 }
 
 func WithDefaultCaches() []cache.CacheItf {
 	return []cache.CacheItf{
-		&cache.Cache{},
-		&cache.NopCache{},
+		(&cache.Cache{}).New(),
+		(&cache.NopCache{}).New(),
 	}
 }
 
 func WithDefaultTimeType() []rule_time.TimeConstItf {
 	return []rule_time.TimeConstItf{
-		&rule_time_type.TimeTypeAddDay{},
-		&rule_time_type.TimeTypeAddMonth{},
-		&rule_time_type.TimeTypeAddYear{},
-		&rule_time_type.TimeTypeDynamic{},
+		(&rule_time_type.TimeTypeAddDay{}).New(),
+		(&rule_time_type.TimeTypeAddMonth{}).New(),
+		(&rule_time_type.TimeTypeAddYear{}).New(),
+		(&rule_time_type.TimeTypeDynamic{}).New(),
 	}
 }

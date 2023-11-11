@@ -20,7 +20,9 @@ func (r *After) GetType() string {
 }
 
 func (r *After) New() rules.RulesItf {
-	return new(After)
+	o := new(After)
+	o.Type = o.GetType()
+	return o
 }
 
 func (r *After) GetHash() string {

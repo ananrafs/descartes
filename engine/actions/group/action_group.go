@@ -15,7 +15,9 @@ func (c *ActionGroup) GetType() string {
 }
 
 func (c *ActionGroup) New() actions.ActionsItf {
-	return new(ActionGroup)
+	o := new(ActionGroup)
+	o.Type = o.GetType()
+	return o
 }
 
 func (c *ActionGroup) Do(facts facts.FactsItf) (res interface{}, err error) {

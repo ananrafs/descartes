@@ -19,7 +19,9 @@ func (c *ConditionalNot) GetType() string {
 }
 
 func (c *ConditionalNot) New() rules.RulesItf {
-	return new(ConditionalNot)
+	o := new(ConditionalNot)
+	o.ConditionalType = o.GetType()
+	return o
 }
 
 func (c *ConditionalNot) GetHash() string {

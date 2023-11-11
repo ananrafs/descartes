@@ -17,7 +17,10 @@ func (c *Sum) GetType() string {
 }
 
 func (c *Sum) New() actions.ActionsItf {
-	return new(Sum)
+	o := new(Sum)
+	o.Type = o.GetType()
+	o.Factors = make([]interface{}, 0)
+	return o
 }
 
 func (c *Sum) Do(facts facts.FactsItf) (res interface{}, err error) {

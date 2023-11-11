@@ -17,7 +17,10 @@ func (c *Multiple) GetType() string {
 }
 
 func (c *Multiple) New() actions.ActionsItf {
-	return new(Multiple)
+	o := new(Multiple)
+	o.Type = o.GetType()
+	o.Factors = make([]interface{}, 0)
+	return o
 }
 
 func (c *Multiple) Do(facts facts.FactsItf) (res interface{}, err error) {

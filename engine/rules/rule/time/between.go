@@ -21,7 +21,9 @@ func (r *Between) GetType() string {
 }
 
 func (r *Between) New() rules.RulesItf {
-	return new(Between)
+	o := new(Between)
+	o.Type = o.GetType()
+	return o
 }
 
 func (r *Between) GetHash() string {

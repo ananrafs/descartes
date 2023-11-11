@@ -18,7 +18,9 @@ func (c *Divide) GetType() string {
 }
 
 func (c *Divide) New() actions.ActionsItf {
-	return new(Divide)
+	o := new(Divide)
+	o.Type = o.GetType()
+	return o
 }
 
 func (c *Divide) Do(facts facts.FactsItf) (res interface{}, err error) {

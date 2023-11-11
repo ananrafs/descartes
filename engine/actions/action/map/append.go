@@ -19,7 +19,10 @@ func (a *Append) GetType() string {
 }
 
 func (a *Append) New() actions.ActionsItf {
-	return new(Append)
+	o := new(Append)
+	o.Type = o.GetType()
+	o.Object = make(map[string]interface{})
+	return o
 }
 
 func (a Append) Do(facts facts.FactsItf) (res interface{}, err error) {

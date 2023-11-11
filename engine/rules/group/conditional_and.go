@@ -17,7 +17,9 @@ func (c *ConditionalAnd) GetType() string {
 }
 
 func (c *ConditionalAnd) New() rules.RulesItf {
-	return new(ConditionalAnd)
+	o := new(ConditionalAnd)
+	o.ConditionalType = o.GetType()
+	return o
 }
 
 func (c *ConditionalAnd) GetHash() string {

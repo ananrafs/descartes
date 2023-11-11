@@ -19,7 +19,9 @@ func (c *Between) GetType() string {
 }
 
 func (c *Between) New() rules.RulesItf {
-	return new(Between)
+	o := new(Between)
+	o.RuleType = o.GetType()
+	return o
 }
 
 func (c *Between) GetHash() string {

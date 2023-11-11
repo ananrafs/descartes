@@ -17,7 +17,10 @@ func (c *Substract) GetType() string {
 }
 
 func (c *Substract) New() actions.ActionsItf {
-	return new(Substract)
+	o := new(Substract)
+	o.Type = o.GetType()
+	o.Factors = make([]interface{}, 0)
+	return o
 }
 
 func (c *Substract) Do(facts facts.FactsItf) (res interface{}, err error) {

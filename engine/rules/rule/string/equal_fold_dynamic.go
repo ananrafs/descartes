@@ -21,7 +21,9 @@ func (c *EqualFoldDynamic) GetType() string {
 }
 
 func (c *EqualFoldDynamic) New() rules.RulesItf {
-	return new(EqualFoldDynamic)
+	o := new(EqualFoldDynamic)
+	o.RuleType = o.GetType()
+	return o
 }
 
 func (c *EqualFoldDynamic) GetHash() string {

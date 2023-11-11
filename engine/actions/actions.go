@@ -29,3 +29,12 @@ func Get(rulesType string) ActionsItf {
 
 	return nil
 }
+
+func GetCatalog() []ActionsItf {
+	res := make([]ActionsItf, 0, len(actionsMap))
+	for _, act := range actionsMap {
+		res = append(res, act)
+	}
+
+	return res
+}

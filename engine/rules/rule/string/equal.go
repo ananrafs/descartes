@@ -18,7 +18,9 @@ func (c *Equal) GetType() string {
 }
 
 func (c *Equal) New() rules.RulesItf {
-	return new(Equal)
+	o := new(Equal)
+	o.RuleType = o.GetType()
+	return o
 }
 
 func (c *Equal) GetHash() string {

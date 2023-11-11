@@ -31,3 +31,12 @@ func Get(rulesType string) (rule RulesItf) {
 
 	return
 }
+
+func GetCatalog() []RulesItf {
+	res := make([]RulesItf, 0, len(ruleMap))
+	for _, act := range ruleMap {
+		res = append(res, act)
+	}
+
+	return res
+}

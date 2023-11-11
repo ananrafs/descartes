@@ -20,7 +20,9 @@ func (e *IterateEvaluator) GetType() string {
 }
 
 func (e *IterateEvaluator) New() evaluators.EvaluatorsItf {
-	return new(IterateEvaluator)
+	o := new(IterateEvaluator)
+	o.EvaluatorType = o.GetType()
+	return o
 }
 
 func (e IterateEvaluator) Eval(fact facts.FactsItf) (res evaluators.EvalResult) {

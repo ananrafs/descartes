@@ -20,7 +20,9 @@ func (c *EqualFold) GetType() string {
 }
 
 func (c *EqualFold) New() rules.RulesItf {
-	return new(EqualFold)
+	o := new(EqualFold)
+	o.RuleType = o.GetType()
+	return o
 }
 
 func (c *EqualFold) GetHash() string {

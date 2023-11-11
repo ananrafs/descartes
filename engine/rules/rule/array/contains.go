@@ -18,7 +18,9 @@ func (c *ArrayContains) GetType() string {
 }
 
 func (c *ArrayContains) New() rules.RulesItf {
-	return new(ArrayContains)
+	o := new(ArrayContains)
+	o.RuleType = o.GetType()
+	return o
 }
 
 func (c *ArrayContains) GetHash() string {

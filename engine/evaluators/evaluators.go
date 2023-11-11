@@ -36,6 +36,15 @@ func Get(evaluatorType string) (evaluator EvaluatorsItf) {
 	return
 }
 
+func GetCatalog() []EvaluatorsItf {
+	res := make([]EvaluatorsItf, 0, len(evaluatorMap))
+	for _, act := range evaluatorMap {
+		res = append(res, act)
+	}
+
+	return res
+}
+
 func (e *EvalResult) Merge(with EvalResult) {
 	e.IsMatch = with.IsMatch
 
