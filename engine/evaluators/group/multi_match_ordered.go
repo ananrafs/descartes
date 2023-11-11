@@ -62,9 +62,13 @@ func (fm MultiMatchOrdered) Eval(facts facts.FactsItf) (res evaluators.EvalResul
 				deducted = deduct(&fm.MaxMatch)
 				if fm.Merging {
 					res.Merge(response)
-					continue
+				} else {
+					res = response
 				}
-				res = response
+			}
+
+			if fm.MaxMatch < 1 {
+				break
 			}
 		}
 

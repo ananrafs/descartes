@@ -1,0 +1,74 @@
+[
+	{
+		"bocah": {
+			"anto": {
+				"ayah": "zul",
+				"lokasi": "jakarta",
+				"provinsi": "dki jakarta"
+			},
+			"budi": {
+				"lokasi": "jakarta",
+				"provinsi": "dki jakarta",
+				"unindentified": true
+			},
+			"indah": {
+				"ayah": "zul",
+				"lokasi": "jakarta",
+				"provinsi": "dki jakarta"
+			},
+			"tono": {
+				"lokasi": "jakarta",
+				"provinsi": "dki jakarta",
+				"unindentified": true
+			}
+		}
+	},
+	{
+		"bocah": {
+			"aldo": {
+				"ayah": "riki",
+				"lokasi": "bandung",
+				"provinsi": "jawa barat"
+			},
+			"alfons": {
+				"ayah": "erik",
+				"lokasi": "bandung",
+				"provinsi": "jawa barat"
+			},
+			"kusnadi": {
+				"lokasi": "bandung",
+				"provinsi": "jawa barat",
+				"unindentified": true
+			},
+			"riva": {
+				"ayah": "erik",
+				"lokasi": "bandung",
+				"provinsi": "jawa barat"
+			}
+		}
+	},
+	{
+		"bocah": {
+			"andi": {
+				"lokasi": "makassar",
+				"provinsi": "sulawesi selatan",
+				"unindentified": true
+			},
+			"karim": {
+				"ayah": "riki",
+				"lokasi": "makassar",
+				"provinsi": "sulawesi selatan"
+			},
+			"siswanto": {
+				"lokasi": "makassar",
+				"provinsi": "sulawesi selatan",
+				"unindentified": true
+			},
+			"sulastri": {
+				"lokasi": "makassar",
+				"provinsi": "sulawesi selatan",
+				"unindentified": true
+			}
+		}
+	}
+]

@@ -39,8 +39,8 @@ func (c *Between) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
 	}()
 	param := facts.GetMap()
 
-	v, ok := param[c.Field]
-	if !ok {
+	v, err := common.LookUpRecursiveMap(param, c.Field)
+	if err != nil {
 		return false, common.ErrorNotFoundOnMap(c.Field)
 	}
 

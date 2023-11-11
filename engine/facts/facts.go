@@ -1,6 +1,8 @@
 package facts
 
-import "github.com/ananrafs/descartes/cache"
+import (
+	"github.com/ananrafs/descartes/cache"
+)
 
 type FactsItf interface {
 	GetMap() map[string]interface{}

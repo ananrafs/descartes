@@ -1,0 +1,30 @@
+[
+	{
+		"bocah": {
+			"anto": {
+				"petunjuk": "dicariin bapaknya",
+				"umur": "11"
+			},
+			"budi": {
+				"petunjuk": "dicariin bapaknya",
+				"umur": "11"
+			}
+		},
+		"budi": {
+			"name": "budi",
+			"umur": "11"
+		}
+	},
+	{
+		"erik": {
+			"name": "erik",
+			"umur": "3"
+		}
+	},
+	{
+		"faris": {
+			"name": "faris",
+			"umur": "3"
+		}
+	}
+]
