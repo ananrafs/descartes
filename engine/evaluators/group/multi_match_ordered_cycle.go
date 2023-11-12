@@ -6,7 +6,7 @@ import (
 )
 
 type MultiMatchOrderedCycle struct {
-	EvalType string `json:"type"`
+	EvaluatorType string `json:"type"`
 
 	// maximum matched evaluation allowed
 	MaxCycle int `json:"max"`
@@ -26,8 +26,10 @@ func (fm *MultiMatchOrderedCycle) GetType() string {
 	return "evaluator.group.multi_match_ordered_cycle"
 }
 
-func (fm *MultiMatchOrderedCycle) New() evaluators.EvaluatorsItf {
-	return new(MultiMatchOrderedCycle)
+func NewMultiMatchOrderedCycle() evaluators.EvaluatorsItf {
+	o := new(MultiMatchOrderedCycle)
+	o.EvaluatorType = o.GetType()
+	return o
 }
 
 func (fm MultiMatchOrderedCycle) Eval(facts facts.FactsItf) (res evaluators.EvalResult) {

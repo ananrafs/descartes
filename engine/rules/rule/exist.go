@@ -16,8 +16,10 @@ func (c *Exist) GetType() string {
 	return "rules.exist"
 }
 
-func (c *Exist) New() rules.RulesItf {
-	return new(Exist)
+func NewExist() rules.RulesItf {
+	o := new(Exist)
+	o.RuleType = o.GetType()
+	return o
 }
 
 func (c *Exist) GetHash() string {

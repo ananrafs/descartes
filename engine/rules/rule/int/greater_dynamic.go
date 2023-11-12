@@ -9,7 +9,7 @@ import (
 type GreaterDynamic struct {
 	RuleType string `json:"type"`
 	Left     string `json:"left"`
-	Right    string    `json:"right"`
+	Right    string `json:"right"`
 	hash     *string
 }
 
@@ -17,8 +17,10 @@ func (c *GreaterDynamic) GetType() string {
 	return "rules.int.greater.dynamic"
 }
 
-func (c *GreaterDynamic) New() rules.RulesItf {
-	return new(GreaterDynamic)
+func NewGreaterDynamic() rules.RulesItf {
+	o := new(GreaterDynamic)
+	o.RuleType = o.GetType()
+	return o
 }
 
 func (c *GreaterDynamic) GetHash() string {

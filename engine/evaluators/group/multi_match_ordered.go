@@ -6,7 +6,7 @@ import (
 )
 
 type MultiMatchOrdered struct {
-	EvalType string `json:"type"`
+	EvaluatorType string `json:"type"`
 
 	// maximum matched evaluation allowed
 	MaxMatch int `json:"max"`
@@ -26,8 +26,10 @@ func (fm *MultiMatchOrdered) GetType() string {
 	return "evaluator.group.multi_match_ordered"
 }
 
-func (fm *MultiMatchOrdered) New() evaluators.EvaluatorsItf {
-	return new(MultiMatchOrdered)
+func NewMultiMatchOrdered() evaluators.EvaluatorsItf {
+	o := new(MultiMatchOrdered)
+	o.EvaluatorType = o.GetType()
+	return o
 }
 
 func (fm MultiMatchOrdered) Eval(facts facts.FactsItf) (res evaluators.EvalResult) {

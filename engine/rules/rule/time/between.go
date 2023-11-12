@@ -20,8 +20,10 @@ func (r *Between) GetType() string {
 	return "rules.time.before"
 }
 
-func (r *Between) New() rules.RulesItf {
-	return new(Between)
+func NewBetween() rules.RulesItf {
+	o := new(Between)
+	o.Type = o.GetType()
+	return o
 }
 
 func (r *Between) GetHash() string {
@@ -71,37 +73,31 @@ func (r *Between) UnmarshalJSON(data []byte) (err error) {
 				return err
 			}
 		case "left":
-			var instance TimeConstItf
-
 			if err := json.Unmarshal(val, &typeChecker); err != nil {
 				return err
 			}
-			timeType := Get(typeChecker.Type)
-			instance = timeType.New()
+
+			instance := Get(typeChecker.Type)
 			if err := json.Unmarshal(val, instance); err != nil {
 				return err
 			}
 			r.Left = instance
 		case "right":
-			var instance TimeConstItf
-
 			if err := json.Unmarshal(val, &typeChecker); err != nil {
 				return err
 			}
-			timeType := Get(typeChecker.Type)
-			instance = timeType.New()
+
+			instance := Get(typeChecker.Type)
 			if err := json.Unmarshal(val, instance); err != nil {
 				return err
 			}
 			r.Right = instance
 		case "mid":
-			var instance TimeConstItf
-
 			if err := json.Unmarshal(val, &typeChecker); err != nil {
 				return err
 			}
-			timeType := Get(typeChecker.Type)
-			instance = timeType.New()
+
+			instance := Get(typeChecker.Type)
 			if err := json.Unmarshal(val, instance); err != nil {
 				return err
 			}

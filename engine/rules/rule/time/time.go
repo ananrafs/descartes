@@ -10,28 +10,29 @@ const (
 	SUPPORTED_TIME_FORMAT = "2006-01-02 15:04:05"
 )
 
+type Factory func() TimeConstItf
+
 type TimeConstItf interface {
 	GetType() string
-	New() TimeConstItf
 	GetHash() string
 
 	GetTime(facts.FactsItf) (time.Time, error)
 }
 
 var (
-	timeTypeMap map[string]TimeConstItf = make(map[string]TimeConstItf)
+	timeTypeMap map[string]Factory = make(map[string]Factory)
 )
 
-func Init(timeTypes ...TimeConstItf) {
+func Init(timeTypes ...Factory) {
 	for _, timeType := range timeTypes {
-		timeTypeMap[timeType.GetType()] = timeType
+		timeTypeMap[timeType().GetType()] = timeType
 	}
 }
 
 func Get(timeTypeKey string) (timeType TimeConstItf) {
-	timeType, ok := timeTypeMap[timeTypeKey]
+	factory, ok := timeTypeMap[timeTypeKey]
 	if ok {
-		return timeType
+		return factory()
 	}
 
 	return

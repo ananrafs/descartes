@@ -16,8 +16,11 @@ func (c *Sum) GetType() string {
 	return "actions.float.sum"
 }
 
-func (c *Sum) New() actions.ActionsItf {
-	return new(Sum)
+func NewSum() actions.ActionsItf {
+	o := new(Sum)
+	o.Type = o.GetType()
+	o.Factors = make([]interface{}, 0)
+	return o
 }
 
 func (c *Sum) Do(facts facts.FactsItf) (res interface{}, err error) {

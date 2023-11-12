@@ -20,8 +20,10 @@ func (r *TimeTypeAddMonth) GetType() string {
 	return "time_type.add_month"
 }
 
-func (r *TimeTypeAddMonth) New() rule_time.TimeConstItf {
-	return new(TimeTypeAddMonth)
+func NewTimeTypeAddMonth() rule_time.TimeConstItf {
+	o := new(TimeTypeAddMonth)
+	o.Type = o.GetType()
+	return o
 }
 
 func (r *TimeTypeAddMonth) GetHash() string {
@@ -59,13 +61,11 @@ func (r *TimeTypeAddMonth) UnmarshalJSON(data []byte) (err error) {
 				return err
 			}
 		case "from":
-			var instance rule_time.TimeConstItf
-
 			if err := json.Unmarshal(val, &typeChecker); err != nil {
 				return err
 			}
-			timeType := rule_time.Get(typeChecker.Type)
-			instance = timeType.New()
+
+			instance := rule_time.Get(typeChecker.Type)
 			if err := json.Unmarshal(val, instance); err != nil {
 				return err
 			}

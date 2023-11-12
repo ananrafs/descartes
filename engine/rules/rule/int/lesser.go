@@ -17,8 +17,10 @@ func (c *Lesser) GetType() string {
 	return "rules.int.lesser"
 }
 
-func (c *Lesser) New() rules.RulesItf {
-	return new(Lesser)
+func NewLesser() rules.RulesItf {
+	o := new(Lesser)
+	o.RuleType = o.GetType()
+	return o
 }
 
 func (c *Lesser) GetHash() string {

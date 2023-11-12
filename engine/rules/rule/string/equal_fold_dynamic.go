@@ -20,8 +20,10 @@ func (c *EqualFoldDynamic) GetType() string {
 	return "rules.string.equal_fold.dynamic"
 }
 
-func (c *EqualFoldDynamic) New() rules.RulesItf {
-	return new(EqualFoldDynamic)
+func NewEqualFoldDynamic() rules.RulesItf {
+	o := new(EqualFoldDynamic)
+	o.RuleType = o.GetType()
+	return o
 }
 
 func (c *EqualFoldDynamic) GetHash() string {

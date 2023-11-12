@@ -17,8 +17,10 @@ func (c *Greater) GetType() string {
 	return "rules.int.greater"
 }
 
-func (c *Greater) New() rules.RulesItf {
-	return new(Greater)
+func NewGreater() rules.RulesItf {
+	o := new(Greater)
+	o.RuleType = o.GetType()
+	return o
 }
 
 func (c *Greater) GetHash() string {

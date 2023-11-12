@@ -17,8 +17,10 @@ func (c *LesserDynamic) GetType() string {
 	return "rules.int.lesser.dynamic"
 }
 
-func (c *LesserDynamic) New() rules.RulesItf {
-	return new(LesserDynamic)
+func NewLesserDynamic() rules.RulesItf {
+	o := new(LesserDynamic)
+	o.RuleType = o.GetType()
+	return o
 }
 
 func (c *LesserDynamic) GetHash() string {

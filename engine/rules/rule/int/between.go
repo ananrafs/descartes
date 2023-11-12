@@ -18,8 +18,10 @@ func (c *Between) GetType() string {
 	return "rules.int.between"
 }
 
-func (c *Between) New() rules.RulesItf {
-	return new(Between)
+func NewBetween() rules.RulesItf {
+	o := new(Between)
+	o.RuleType = o.GetType()
+	return o
 }
 
 func (c *Between) GetHash() string {

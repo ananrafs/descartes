@@ -21,8 +21,7 @@ func (eg *EvaluatorGroup) UnmarshalJSON(data []byte) (err error) {
 		if err := json.Unmarshal(raw, &typeChecker); err != nil {
 			return err
 		}
-		evals := evaluators.Get(typeChecker.Type)
-		newInstance := evals.New()
+		newInstance := evaluators.Get(typeChecker.Type)
 		err = json.Unmarshal(raw, newInstance)
 		if err != nil {
 			return err

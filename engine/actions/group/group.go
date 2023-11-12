@@ -22,8 +22,7 @@ func (ag *ActionsGroup) UnmarshalJSON(data []byte) (err error) {
 			return err
 		}
 
-		action := actions.Get(typeChecker.Type)
-		newInstance := action.New()
+		newInstance := actions.Get(typeChecker.Type)
 		err = json.Unmarshal(raw, newInstance)
 		if err != nil {
 			return err

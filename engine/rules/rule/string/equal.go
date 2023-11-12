@@ -17,8 +17,10 @@ func (c *Equal) GetType() string {
 	return "rules.string.equal"
 }
 
-func (c *Equal) New() rules.RulesItf {
-	return new(Equal)
+func NewEqual() rules.RulesItf {
+	o := new(Equal)
+	o.RuleType = o.GetType()
+	return o
 }
 
 func (c *Equal) GetHash() string {

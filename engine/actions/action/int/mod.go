@@ -20,8 +20,10 @@ func (c *Mod) GetType() string {
 	return "actions.int.mod"
 }
 
-func (c *Mod) New() actions.ActionsItf {
-	return new(Mod)
+func NewMod() actions.ActionsItf {
+	o := new(Mod)
+	o.Type = o.GetType()
+	return o
 }
 
 func (c *Mod) Do(facts facts.FactsItf) (res interface{}, err error) {

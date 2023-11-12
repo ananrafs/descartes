@@ -1,27 +1,27 @@
 package cache
 
 var (
-	cacheInstanceMap map[string]CacheItf = make(map[string]CacheItf)
+	cacheInstanceMap map[string]Factory = make(map[string]Factory)
 )
+
+type Factory func() CacheItf
 
 type CacheItf interface {
 	SetCache(string, bool)
 	TryGet(string, *bool) bool
 	GetType() string
-	New() CacheItf
 }
 
-func Init(cacheInstances ...CacheItf) {
+func Init(cacheInstances ...Factory) {
 	for _, cache := range cacheInstances {
-		cacheInstanceMap[cache.GetType()] = cache
+		cacheInstanceMap[cache().GetType()] = cache
 	}
 }
 
 func Get(cacheInstanceType string) CacheItf {
-
 	cache, ok := cacheInstanceMap[cacheInstanceType]
 	if ok {
-		return cache.New()
+		return cache()
 	}
 
 	return nil

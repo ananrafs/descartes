@@ -19,8 +19,10 @@ func (r *Before) GetType() string {
 	return "rules.time.before"
 }
 
-func (r *Before) New() rules.RulesItf {
-	return new(Before)
+func NewBefore() rules.RulesItf {
+	o := new(Before)
+	o.Type = o.GetType()
+	return o
 }
 
 func (r *Before) GetHash() string {
@@ -66,25 +68,21 @@ func (r *Before) UnmarshalJSON(data []byte) (err error) {
 				return err
 			}
 		case "left":
-			var instance TimeConstItf
-
 			if err := json.Unmarshal(val, &typeChecker); err != nil {
 				return err
 			}
-			timeType := Get(typeChecker.Type)
-			instance = timeType.New()
+
+			instance := Get(typeChecker.Type)
 			if err := json.Unmarshal(val, instance); err != nil {
 				return err
 			}
 			r.Left = instance
 		case "right":
-			var instance TimeConstItf
-
 			if err := json.Unmarshal(val, &typeChecker); err != nil {
 				return err
 			}
-			timeType := Get(typeChecker.Type)
-			instance = timeType.New()
+
+			instance := Get(typeChecker.Type)
 			if err := json.Unmarshal(val, instance); err != nil {
 				return err
 			}

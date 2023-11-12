@@ -17,8 +17,10 @@ func (c *EqualDynamic) GetType() string {
 	return "rules.int.equal.dynamic"
 }
 
-func (c *EqualDynamic) New() rules.RulesItf {
-	return new(EqualDynamic)
+func NewEqualDynamic() rules.RulesItf {
+	o := new(EqualDynamic)
+	o.RuleType = o.GetType()
+	return o
 }
 
 func (c *EqualDynamic) GetHash() string {
