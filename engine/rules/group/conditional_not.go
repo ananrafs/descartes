@@ -18,7 +18,7 @@ func (c *ConditionalNot) GetType() string {
 	return "rules.conditional.not"
 }
 
-func (c *ConditionalNot) New() rules.RulesItf {
+func NewConditionalNot() rules.RulesItf {
 	o := new(ConditionalNot)
 	o.ConditionalType = o.GetType()
 	return o
@@ -66,8 +66,7 @@ func (r *ConditionalNot) UnmarshalJSON(data []byte) (err error) {
 			if err := json.Unmarshal(val, &typeChecker); err != nil {
 				return err
 			}
-			rule := rules.Get(typeChecker.Type)
-			instance = rule.New()
+			instance = rules.Get(typeChecker.Type)
 			if err := json.Unmarshal(val, instance); err != nil {
 				return err
 			}

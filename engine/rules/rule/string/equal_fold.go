@@ -19,7 +19,7 @@ func (c *EqualFold) GetType() string {
 	return "rules.string.equal_fold"
 }
 
-func (c *EqualFold) New() rules.RulesItf {
+func NewEqualFold() rules.RulesItf {
 	o := new(EqualFold)
 	o.RuleType = o.GetType()
 	return o

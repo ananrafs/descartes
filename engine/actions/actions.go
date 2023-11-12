@@ -6,32 +6,33 @@ import (
 )
 
 var (
-	actionsMap map[string]ActionsItf = make(map[string]ActionsItf)
+	actionsMap map[string]Factory = make(map[string]Factory)
 )
+
+type Factory func() ActionsItf
 
 type ActionsItf interface {
 	common.TypeCheckerItf
-	New() ActionsItf
 	Do(facts.FactsItf) (interface{}, error)
 }
 
-func Init(acts ...ActionsItf) {
+func Init(acts ...Factory) {
 	for _, action := range acts {
-		actionsMap[action.GetType()] = action
+		actionsMap[action().GetType()] = action
 	}
 }
 
 func Get(rulesType string) ActionsItf {
 	act, ok := actionsMap[rulesType]
 	if ok {
-		return act
+		return act()
 	}
 
 	return nil
 }
 
-func GetCatalog() []ActionsItf {
-	res := make([]ActionsItf, 0, len(actionsMap))
+func GetCatalog() []Factory {
+	res := make([]Factory, 0, len(actionsMap))
 	for _, act := range actionsMap {
 		res = append(res, act)
 	}

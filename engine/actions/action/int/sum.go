@@ -16,7 +16,7 @@ func (c *Sum) GetType() string {
 	return "actions.int.sum"
 }
 
-func (c *Sum) New() actions.ActionsItf {
+func NewSum() actions.ActionsItf {
 	o := new(Sum)
 	o.Type = o.GetType()
 	o.Factors = make([]interface{}, 0)

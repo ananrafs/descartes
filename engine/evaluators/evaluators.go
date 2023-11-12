@@ -6,13 +6,13 @@ import (
 )
 
 var (
-	evaluatorMap map[string]EvaluatorsItf = make(map[string]EvaluatorsItf)
+	evaluatorMap map[string]Factory = make(map[string]Factory)
 )
+
+type Factory func() EvaluatorsItf
 
 type EvaluatorsItf interface {
 	common.TypeCheckerItf
-	New() EvaluatorsItf
-
 	Eval(facts.FactsItf) EvalResult
 }
 
@@ -22,24 +22,24 @@ type EvalResult struct {
 	Result  interface{}
 }
 
-func Init(evals ...EvaluatorsItf) {
+func Init(evals ...Factory) {
 	for _, evaluator := range evals {
-		evaluatorMap[evaluator.GetType()] = evaluator
+		evaluatorMap[evaluator().GetType()] = evaluator
 	}
 }
 
-func Get(evaluatorType string) (evaluator EvaluatorsItf) {
+func Get(evaluatorType string) (eval EvaluatorsItf) {
 	evaluator, ok := evaluatorMap[evaluatorType]
 	if ok {
-		return evaluator
+		return evaluator()
 	}
 	return
 }
 
 func GetCatalog() []EvaluatorsItf {
 	res := make([]EvaluatorsItf, 0, len(evaluatorMap))
-	for _, act := range evaluatorMap {
-		res = append(res, act)
+	for _, factory := range evaluatorMap {
+		res = append(res, factory())
 	}
 
 	return res

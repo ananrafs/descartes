@@ -6,27 +6,28 @@ import (
 )
 
 var (
-	ruleMap map[string]RulesItf = make(map[string]RulesItf)
+	ruleMap map[string]Factory = make(map[string]Factory)
 )
 
+type Factory func() RulesItf
+
 type RulesItf interface {
-	New() RulesItf
 	GetHash() string
 	common.TypeCheckerItf
 
 	IsMatch(facts.FactsItf) (bool, error)
 }
 
-func Init(rules ...RulesItf) {
+func Init(rules ...Factory) {
 	for _, rule := range rules {
-		ruleMap[rule.GetType()] = rule
+		ruleMap[rule().GetType()] = rule
 	}
 }
 
 func Get(rulesType string) (rule RulesItf) {
-	rule, ok := ruleMap[rulesType]
+	ruleFactory, ok := ruleMap[rulesType]
 	if ok {
-		return rule
+		return ruleFactory()
 	}
 
 	return
@@ -34,8 +35,8 @@ func Get(rulesType string) (rule RulesItf) {
 
 func GetCatalog() []RulesItf {
 	res := make([]RulesItf, 0, len(ruleMap))
-	for _, act := range ruleMap {
-		res = append(res, act)
+	for _, factory := range ruleMap {
+		res = append(res, factory())
 	}
 
 	return res

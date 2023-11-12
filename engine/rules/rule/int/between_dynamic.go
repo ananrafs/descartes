@@ -18,7 +18,7 @@ func (c *BetweenDynamic) GetType() string {
 	return "rules.int.between.dynamic"
 }
 
-func (c *BetweenDynamic) New() rules.RulesItf {
+func NewBetweenDynamic() rules.RulesItf {
 	o := new(BetweenDynamic)
 	o.RuleType = o.GetType()
 	return o

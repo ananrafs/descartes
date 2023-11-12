@@ -19,7 +19,7 @@ func (e *IterateEvaluator) GetType() string {
 	return "evaluator.iterate"
 }
 
-func (e *IterateEvaluator) New() evaluators.EvaluatorsItf {
+func NewIterateEvaluator() evaluators.EvaluatorsItf {
 	o := new(IterateEvaluator)
 	o.EvaluatorType = o.GetType()
 	return o
@@ -72,8 +72,7 @@ func (e *IterateEvaluator) UnmarshalJSON(data []byte) (err error) {
 				return
 			}
 
-			eval := evaluators.Get(typeChecker.Type)
-			instance := eval.New()
+			instance := evaluators.Get(typeChecker.Type)
 			if err = json.Unmarshal(val, instance); err != nil {
 				return
 			}

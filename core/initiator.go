@@ -33,11 +33,11 @@ type Factory struct {
 	TimeTypeCreateFunction
 }
 
-type RuleCreateFunction func() []rules.RulesItf
-type EvalCreateFunction func() []evaluators.EvaluatorsItf
-type ActionCreateFunction func() []actions.ActionsItf
-type CacheCreateFunction func() []cache.CacheItf
-type TimeTypeCreateFunction func() []rule_time.TimeConstItf
+type RuleCreateFunction func() []rules.Factory
+type EvalCreateFunction func() []evaluators.Factory
+type ActionCreateFunction func() []actions.Factory
+type CacheCreateFunction func() []cache.Factory
+type TimeTypeCreateFunction func() []rule_time.Factory
 
 func InitFactory(factories ...Factory) {
 	for _, factory := range factories {
@@ -72,7 +72,7 @@ func Register(laws ...law.Law) error {
 }
 
 func InitRule(funcs ...RuleCreateFunction) {
-	ruleList := make([]rules.RulesItf, 0)
+	ruleList := make([]rules.Factory, 0)
 	for _, ruleInstance := range funcs {
 		ruleList = append(ruleList, ruleInstance()...)
 	}
@@ -80,7 +80,7 @@ func InitRule(funcs ...RuleCreateFunction) {
 }
 
 func InitEvaluator(funcs ...EvalCreateFunction) {
-	evalList := make([]evaluators.EvaluatorsItf, 0)
+	evalList := make([]evaluators.Factory, 0)
 	for _, createFunc := range funcs {
 		evalList = append(evalList, createFunc()...)
 	}
@@ -88,7 +88,7 @@ func InitEvaluator(funcs ...EvalCreateFunction) {
 }
 
 func InitActions(funcs ...ActionCreateFunction) {
-	actionList := make([]actions.ActionsItf, 0)
+	actionList := make([]actions.Factory, 0)
 	for _, createFunc := range funcs {
 		actionList = append(actionList, createFunc()...)
 	}
@@ -96,7 +96,7 @@ func InitActions(funcs ...ActionCreateFunction) {
 }
 
 func InitCaches(funcs ...CacheCreateFunction) {
-	caches := make([]cache.CacheItf, 0)
+	caches := make([]cache.Factory, 0)
 	for _, createFunc := range funcs {
 		caches = append(caches, createFunc()...)
 	}
@@ -104,7 +104,7 @@ func InitCaches(funcs ...CacheCreateFunction) {
 }
 
 func InitTimeType(funcs ...TimeTypeCreateFunction) {
-	timeTypes := make([]rule_time.TimeConstItf, 0)
+	timeTypes := make([]rule_time.Factory, 0)
 	for _, createFunc := range funcs {
 		timeTypes = append(timeTypes, createFunc()...)
 	}
@@ -121,72 +121,69 @@ func WithDefaults() Factory {
 	}
 }
 
-func WithDefaultRules() []rules.RulesItf {
-	return []rules.RulesItf{
-		(&rulesgroup.ConditionalAnd{}).New(),
-		(&rulesgroup.ConditionalOr{}).New(),
-		(&rulesgroup.ConditionalNot{}).New(),
-		(&rule_int.Between{}).New(),
-		(&rule_int.Equal{}).New(),
-		(&rule_int.Greater{}).New(),
-		(&rule_int.Lesser{}).New(),
-		(&rule_int.BetweenDynamic{}).New(),
-		(&rule_int.EqualDynamic{}).New(),
-		(&rule_int.GreaterDynamic{}).New(),
-		(&rule_int.LesserDynamic{}).New(),
-		(&rule_string.Equal{}).New(),
-		(&rule_string.EqualDynamic{}).New(),
-		(&rule_string.EqualFold{}).New(),
-		(&rule_bool.Bool{}).New(),
-		(&rule_array.ArrayContains{}).New(),
-		(&rule.Exist{}).New(),
-		(&rule.RuleDefault{}).New(),
+func WithDefaultRules() []rules.Factory {
+	return []rules.Factory{
+		rulesgroup.NewConditionalAnd,
+		rulesgroup.NewConditionalOr,
+		rulesgroup.NewConditionalNot,
+		rule_int.NewBetween,
+		rule_int.NewEqual,
+		rule_int.NewGreater,
+		rule_int.NewLesser,
+		rule_int.NewBetweenDynamic,
+		rule_int.NewEqualDynamic,
+		rule_int.NewGreaterDynamic,
+		rule_int.NewLesserDynamic,
+		rule_string.NewEqual,
+		rule_string.NewEqualDynamic,
+		rule_string.NewEqualFold,
+		rule_bool.NewBool,
+		rule_array.NewArrayContains,
+		rule.NewExist,
+		rule.NewRuleDefault,
 	}
 }
 
-func WithDefaultEvaluators() []evaluators.EvaluatorsItf {
-	return []evaluators.EvaluatorsItf{
-		(&evaluator.Evaluator{}).New(),
-		(&group.FirstMatch{}).New(),
-		(&group.MultiMatch{}).New(),
-		(&group.MultiMatchOrdered{}).New(),
-		(&group.MultiMatchOrderedCycle{}).New(),
-		(&evaluator.IterateEvaluator{}).New(),
+func WithDefaultEvaluators() []evaluators.Factory {
+	return []evaluators.Factory{
+		evaluator.NewEvaluator,
+		group.NewFirstMatch,
+		group.NewMultiMatch,
+		group.NewMultiMatchOrdered,
+		group.NewMultiMatchOrderedCycle,
+		evaluator.NewIterateEvaluator,
 	}
 }
 
-func WithDefaultActions() []actions.ActionsItf {
-	return []actions.ActionsItf{
-		(&action.Action{}).New(),
-		(&actionsgroup.ActionGroup{}).New(),
-
-		(&action_int.Divide{}).New(),
-		(&action_int.Mod{}).New(),
-		(&action_int.Multiple{}).New(),
-		(&action_int.Substract{}).New(),
-		(&action_int.Sum{}).New(),
-
-		(&action_float.Divide{}).New(),
-		(&action_float.Multiple{}).New(),
-		(&action_float.Substract{}).New(),
-		(&action_float.Sum{}).New(),
-
-		(&action_map.Append{}).New(),
+func WithDefaultActions() []actions.Factory {
+	return []actions.Factory{
+		action.NewAction,
+		actionsgroup.NewActionGroup,
+		action_int.NewDivide,
+		action_int.NewMod,
+		action_int.NewMultiple,
+		action_int.NewSubstract,
+		action_int.NewSum,
+		action_float.NewDivide,
+		action_float.NewMultiple,
+		action_float.NewSubstract,
+		action_float.NewSum,
+		action_map.NewAppend,
 	}
 }
 
-func WithDefaultCaches() []cache.CacheItf {
-	return []cache.CacheItf{
-		(&cache.Cache{}).New(),
-		(&cache.NopCache{}).New(),
+func WithDefaultCaches() []cache.Factory {
+	return []cache.Factory{
+		cache.NewCache,
+		cache.NewNopCache,
 	}
 }
 
-func WithDefaultTimeType() []rule_time.TimeConstItf {
-	return []rule_time.TimeConstItf{
-		(&rule_time_type.TimeTypeAddDay{}).New(),
-		(&rule_time_type.TimeTypeAddMonth{}).New(),
-		(&rule_time_type.TimeTypeAddYear{}).New(),
-		(&rule_time_type.TimeTypeDynamic{}).New(),
+func WithDefaultTimeType() []rule_time.Factory {
+	return []rule_time.Factory{
+		rule_time_type.NewTimeTypeAddDay,
+		rule_time_type.NewTimeTypeAddMonth,
+		rule_time_type.NewTimeTypeAddYear,
+		rule_time_type.NewTimeTypeDynamic,
 	}
 }

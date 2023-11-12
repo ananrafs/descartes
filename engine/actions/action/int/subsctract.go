@@ -16,7 +16,7 @@ func (c *Substract) GetType() string {
 	return "actions.int.substract"
 }
 
-func (c *Substract) New() actions.ActionsItf {
+func NewSubstract() actions.ActionsItf {
 	o := new(Substract)
 	o.Type = o.GetType()
 	o.Factors = make([]interface{}, 0)

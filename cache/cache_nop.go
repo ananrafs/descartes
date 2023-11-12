@@ -6,7 +6,7 @@ func (c *NopCache) GetType() string {
 	return ""
 }
 
-func (c *NopCache) New() CacheItf {
+func NewNopCache() CacheItf {
 	return new(NopCache)
 }
 

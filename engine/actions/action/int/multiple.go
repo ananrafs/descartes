@@ -16,7 +16,7 @@ func (c *Multiple) GetType() string {
 	return "actions.int.multiple"
 }
 
-func (c *Multiple) New() actions.ActionsItf {
+func NewMultiple() actions.ActionsItf {
 	o := new(Multiple)
 	o.Type = o.GetType()
 	o.Factors = make([]interface{}, 0)

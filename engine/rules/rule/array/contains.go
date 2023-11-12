@@ -17,7 +17,7 @@ func (c *ArrayContains) GetType() string {
 	return "rules.array.contains"
 }
 
-func (c *ArrayContains) New() rules.RulesItf {
+func NewArrayContains() rules.RulesItf {
 	o := new(ArrayContains)
 	o.RuleType = o.GetType()
 	return o

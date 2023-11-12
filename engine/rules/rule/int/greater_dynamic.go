@@ -17,7 +17,7 @@ func (c *GreaterDynamic) GetType() string {
 	return "rules.int.greater.dynamic"
 }
 
-func (c *GreaterDynamic) New() rules.RulesItf {
+func NewGreaterDynamic() rules.RulesItf {
 	o := new(GreaterDynamic)
 	o.RuleType = o.GetType()
 	return o

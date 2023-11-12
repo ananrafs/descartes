@@ -20,7 +20,7 @@ func (c *Mod) GetType() string {
 	return "actions.int.mod"
 }
 
-func (c *Mod) New() actions.ActionsItf {
+func NewMod() actions.ActionsItf {
 	o := new(Mod)
 	o.Type = o.GetType()
 	return o

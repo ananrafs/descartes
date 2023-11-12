@@ -26,7 +26,7 @@ func (fm *MultiMatchOrderedCycle) GetType() string {
 	return "evaluator.group.multi_match_ordered_cycle"
 }
 
-func (fm *MultiMatchOrderedCycle) New() evaluators.EvaluatorsItf {
+func NewMultiMatchOrderedCycle() evaluators.EvaluatorsItf {
 	o := new(MultiMatchOrderedCycle)
 	o.EvaluatorType = o.GetType()
 	return o

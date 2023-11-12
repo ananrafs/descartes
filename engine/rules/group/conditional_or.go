@@ -16,7 +16,7 @@ func (c *ConditionalOr) GetType() string {
 	return "rules.conditional.or"
 }
 
-func (c *ConditionalOr) New() rules.RulesItf {
+func NewConditionalOr() rules.RulesItf {
 	o := new(ConditionalOr)
 	o.ConditionalType = o.GetType()
 	return o

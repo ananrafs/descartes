@@ -14,7 +14,7 @@ func (c Action) GetType() string {
 	return ""
 }
 
-func (c Action) New() actions.ActionsItf {
+func NewAction() actions.ActionsItf {
 	newAction := make(Action)
 	return &newAction
 }

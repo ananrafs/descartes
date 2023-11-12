@@ -17,7 +17,7 @@ func (c *Lesser) GetType() string {
 	return "rules.int.lesser"
 }
 
-func (c *Lesser) New() rules.RulesItf {
+func NewLesser() rules.RulesItf {
 	o := new(Lesser)
 	o.RuleType = o.GetType()
 	return o

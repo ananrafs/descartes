@@ -26,7 +26,7 @@ func (fm *MultiMatch) GetType() string {
 	return "evaluator.group.multi_match"
 }
 
-func (fm *MultiMatch) New() evaluators.EvaluatorsItf {
+func NewMultiMatch() evaluators.EvaluatorsItf {
 	o := new(MultiMatch)
 	o.EvaluatorType = o.GetType()
 	return o

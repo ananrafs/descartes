@@ -6,7 +6,7 @@ func (c *Cache) GetType() string {
 	return "cache.map"
 }
 
-func (c *Cache) New() CacheItf {
+func NewCache() CacheItf {
 	newCache := make(Cache, 0)
 	return &newCache
 }

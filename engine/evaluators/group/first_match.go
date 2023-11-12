@@ -14,7 +14,7 @@ func (fm *FirstMatch) GetType() string {
 	return "evaluator.group.first_match"
 }
 
-func (fm *FirstMatch) New() evaluators.EvaluatorsItf {
+func NewFirstMatch() evaluators.EvaluatorsItf {
 	o := new(FirstMatch)
 	o.EvaluatorType = o.GetType()
 	return o

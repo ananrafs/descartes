@@ -16,7 +16,7 @@ func (c *Exist) GetType() string {
 	return "rules.exist"
 }
 
-func (c *Exist) New() rules.RulesItf {
+func NewExist() rules.RulesItf {
 	o := new(Exist)
 	o.RuleType = o.GetType()
 	return o

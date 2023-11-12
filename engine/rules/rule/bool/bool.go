@@ -17,7 +17,7 @@ func (c *Bool) GetType() string {
 	return "rules.bool"
 }
 
-func (c *Bool) New() rules.RulesItf {
+func NewBool() rules.RulesItf {
 	o := new(Bool)
 	o.RuleType = o.GetType()
 	return o

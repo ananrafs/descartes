@@ -14,7 +14,7 @@ func (c *ActionGroup) GetType() string {
 	return "actions.group"
 }
 
-func (c *ActionGroup) New() actions.ActionsItf {
+func NewActionGroup() actions.ActionsItf {
 	o := new(ActionGroup)
 	o.Type = o.GetType()
 	return o

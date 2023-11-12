@@ -17,7 +17,7 @@ func (c *LesserDynamic) GetType() string {
 	return "rules.int.lesser.dynamic"
 }
 
-func (c *LesserDynamic) New() rules.RulesItf {
+func NewLesserDynamic() rules.RulesItf {
 	o := new(LesserDynamic)
 	o.RuleType = o.GetType()
 	return o

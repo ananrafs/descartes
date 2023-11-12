@@ -18,7 +18,7 @@ func (a *Append) GetType() string {
 	return "actions.map.append"
 }
 
-func (a *Append) New() actions.ActionsItf {
+func NewAppend() actions.ActionsItf {
 	o := new(Append)
 	o.Type = o.GetType()
 	o.Object = make(map[string]interface{})

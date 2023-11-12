@@ -17,7 +17,7 @@ func (c *Equal) GetType() string {
 	return "rules.int.equal"
 }
 
-func (c *Equal) New() rules.RulesItf {
+func NewEqual() rules.RulesItf {
 	o := new(Equal)
 	o.RuleType = o.GetType()
 	return o

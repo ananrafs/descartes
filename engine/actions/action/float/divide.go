@@ -17,7 +17,7 @@ func (c *Divide) GetType() string {
 	return "actions.float.divide"
 }
 
-func (c *Divide) New() actions.ActionsItf {
+func NewDivide() actions.ActionsItf {
 	o := new(Divide)
 	o.Type = o.GetType()
 	return o

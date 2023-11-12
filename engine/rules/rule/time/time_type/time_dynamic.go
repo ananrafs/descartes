@@ -19,8 +19,10 @@ func (r *TimeTypeDynamic) GetType() string {
 	return "time_type.dynamic"
 }
 
-func (r *TimeTypeDynamic) New() rule_time.TimeConstItf {
-	return new(TimeTypeDynamic)
+func NewTimeTypeDynamic() rule_time.TimeConstItf {
+	o := new(TimeTypeDynamic)
+	o.Type = o.GetType()
+	return o
 }
 
 func (r *TimeTypeDynamic) GetHash() string {
