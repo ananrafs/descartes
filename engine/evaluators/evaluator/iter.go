@@ -40,7 +40,8 @@ func (e IterateEvaluator) Eval(fact facts.FactsItf) (res evaluators.EvalResult) 
 
 	for _, iteratedObject := range iteratedObjects {
 		param[e.Field] = iteratedObject
-		res = e.Evaluator.Eval(fact)
+		response := e.Evaluator.Eval(fact)
+		res.Merge(response)
 	}
 
 	return

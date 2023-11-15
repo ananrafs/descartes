@@ -39,10 +39,9 @@ func (ic IntConverter) WithFromMap(mp map[string]interface{}) IntConverter {
 		numField := new(string)
 		// check if its using template
 		if match := ParseFromMustacheTemplate(source, numField); match {
-			var ok bool
-			source, ok = mp[*numField]
-			if !ok {
-				return ic(source, dest)
+			val, err := LookUpRecursiveMap(mp, *numField)
+			if err == nil {
+				return ic(val, dest)
 			}
 		}
 
@@ -83,12 +82,10 @@ func (ic FloatConverter) WithFromMap(mp map[string]interface{}) FloatConverter {
 		numField := new(string)
 		// check if its using template
 		if match := ParseFromMustacheTemplate(source, numField); match {
-			dotSplittedSlice := strings.Split(*numField, ".")
-			val, err := LookupMap(mp, 0, dotSplittedSlice)
+			val, err := LookUpRecursiveMap(mp, *numField)
 			if err == nil {
 				return ic(val, dest)
 			}
-
 		}
 
 		return ic(source, dest)
