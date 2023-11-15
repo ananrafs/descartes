@@ -46,7 +46,7 @@ func GetCatalog() []EvaluatorsItf {
 }
 
 func (e *EvalResult) Merge(with EvalResult) {
-	e.IsMatch = with.IsMatch
+	e.IsMatch = e.IsMatch || with.IsMatch
 
 	switch e.Result.(type) {
 	case int:
