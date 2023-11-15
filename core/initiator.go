@@ -162,11 +162,11 @@ func WithDefaultActions() []actions.Factory {
 		action_int.NewDivide,
 		action_int.NewMod,
 		action_int.NewMultiple,
-		action_int.NewSubstract,
+		action_int.NewSubtract,
 		action_int.NewSum,
 		action_float.NewDivide,
 		action_float.NewMultiple,
-		action_float.NewSubstract,
+		action_float.NewSubtract,
 		action_float.NewSum,
 		action_map.NewAppend,
 	}

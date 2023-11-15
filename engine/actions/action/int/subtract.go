@@ -6,24 +6,24 @@ import (
 	"github.com/ananrafs/descartes/engine/facts"
 )
 
-type Substract struct {
+type Subtract struct {
 	Type    string        `json:"type"`
 	Field   string        `json:"field"`
 	Factors []interface{} `json:"factors"`
 }
 
-func (c *Substract) GetType() string {
-	return "actions.int.substract"
+func (c *Subtract) GetType() string {
+	return "actions.int.subtract"
 }
 
-func NewSubstract() actions.ActionsItf {
-	o := new(Substract)
+func NewSubtract() actions.ActionsItf {
+	o := new(Subtract)
 	o.Type = o.GetType()
 	o.Factors = make([]interface{}, 0)
 	return o
 }
 
-func (c *Substract) Do(facts facts.FactsItf) (res interface{}, err error) {
+func (c *Subtract) Do(facts facts.FactsItf) (res interface{}, err error) {
 	param := facts.GetMap()
 	total := 0
 	for i, _param := range c.Factors {
