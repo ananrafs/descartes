@@ -40,13 +40,13 @@ func (c *Equal) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
 	}()
 	param := facts.GetMap()
 
-	v, err := common.LookUpRecursiveMap(param, c.Field)
+	v, err := common.LookUpMap(param, c.Field)
 	if err != nil {
 		return false, common.ErrorNotFoundOnMap(c.Field)
 	}
 
 	intv := new(int)
-	if err = common.ConvertToInt(v, intv); err != nil {
+	if err = common.Convert[int]()(v, intv); err != nil {
 		return false, err
 	}
 

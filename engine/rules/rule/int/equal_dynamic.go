@@ -45,7 +45,7 @@ func (c *EqualDynamic) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
 	_values := [2]int{0, 0}
 
 	for i, _param := range _params {
-		if err = common.ConvertInt().WithFromMap(param)(_param, &_values[i]); err != nil {
+		if err = common.Convert[int]().WithFromMap(param)(_param, &_values[i]); err != nil {
 			return false, err
 		}
 	}

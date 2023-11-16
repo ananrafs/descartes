@@ -30,12 +30,12 @@ func (c *Divide) Do(facts facts.FactsItf) (res interface{}, err error) {
 	param := facts.GetMap()
 
 	for i, _param := range _params {
-		if err = common.ConvertFloat().WithFromMap(param)(_param, &_values[i]); err != nil {
+		if err = common.Convert[float64]().WithFromMap(param)(_param, &_values[i]); err != nil {
 			return false, err
 		}
 	}
 
-	param[c.Field] = _values[0] / _values[1]
+	common.SetMap(param, c.Field, (_values[0] / _values[1]))
 
 	return
 }

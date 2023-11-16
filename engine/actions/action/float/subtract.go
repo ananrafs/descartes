@@ -28,7 +28,7 @@ func (c *Subtract) Do(facts facts.FactsItf) (res interface{}, err error) {
 	total := float64(0)
 	for i, _param := range c.Factors {
 		val := new(float64)
-		if err = common.ConvertFloat().WithFromMap(param)(_param, val); err != nil {
+		if err = common.Convert[float64]().WithFromMap(param)(_param, val); err != nil {
 			return false, err
 		}
 
@@ -39,7 +39,7 @@ func (c *Subtract) Do(facts facts.FactsItf) (res interface{}, err error) {
 		}
 	}
 
-	param[c.Field] = total
+	common.SetMap(param, c.Field, total)
 
 	return
 }

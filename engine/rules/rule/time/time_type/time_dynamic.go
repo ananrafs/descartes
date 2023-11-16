@@ -37,7 +37,7 @@ func (r *TimeTypeDynamic) GetTime(facts facts.FactsItf) (time.Time, error) {
 
 	param := facts.GetMap()
 	fields, valStr := new(string), r.From
-	if ok := common.ParseFromMustacheTemplate(r.From, fields); ok {
+	if ok := common.ParseFromTemplate(r.From, fields); ok {
 		val, ok := param[*fields]
 		if !ok {
 			return time.Time{}, common.ErrorNotFoundOnMap(r.From)
