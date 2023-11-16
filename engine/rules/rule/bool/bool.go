@@ -39,7 +39,7 @@ func (c *Bool) IsMatch(facts facts.FactsItf) (isMatch bool, err error) {
 		facts.GetCacheInstance().SetCache(c.GetHash(), isMatch)
 	}()
 	param := facts.GetMap()
-	v, err := common.LookUpRecursiveMap(param, c.Field)
+	v, err := common.LookUpMap(param, c.Field)
 	if err != nil {
 		return false, common.ErrorNotFoundOnMap(c.Field)
 	}

@@ -28,7 +28,7 @@ func (c *Multiple) Do(facts facts.FactsItf) (res interface{}, err error) {
 	total := 0
 	for i, _param := range c.Factors {
 		val := new(int)
-		if err = common.ConvertInt().WithFromMap(param)(_param, val); err != nil {
+		if err = common.Convert[int]().WithFromMap(param)(_param, val); err != nil {
 			return false, err
 		}
 		if i == 0 {
@@ -37,7 +37,7 @@ func (c *Multiple) Do(facts facts.FactsItf) (res interface{}, err error) {
 			total *= *val
 		}
 	}
-	param[c.Field] = total
+	common.SetMap(param, c.Field, total)
 
 	return
 }

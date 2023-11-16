@@ -43,8 +43,6 @@ func (a Append) Do(facts facts.FactsItf) (res interface{}, err error) {
 		return
 	}
 
-	// ObjectToAppend := common.CopyMap(a.Object)
-
 	for key, value := range a.Object {
 		var keyMapField interface{}
 		if match := common.DeepTemplateEvaluateFromMap(param, key, &keyMapField); match {
@@ -52,7 +50,7 @@ func (a Append) Do(facts facts.FactsItf) (res interface{}, err error) {
 		}
 
 		_map := map[string]interface{}{}
-		isObj := common.RecurringMap(value, &_map, func(_key *string, _val *interface{}) {
+		isObj := common.ExtractMap(value, &_map, func(_key *string, _val *interface{}) {
 			var valMapField interface{}
 			if match := common.DeepTemplateEvaluateFromMap(param, *_val, &valMapField); match {
 				*_val = valMapField
