@@ -33,6 +33,9 @@ func recursivelyLookupMap(mp map[string]interface{}, index int, source []string)
 			return val, nil
 		}
 		index++
+		if index >= len(source) {
+			return val, nil
+		}
 		lookup, err := recursivelyLookupMap(childMap, index, source)
 		if err != nil {
 			return nil, err
@@ -86,7 +89,7 @@ func SetMap(mp map[string]interface{}, key string, value interface{}) {
 //	will modify struct if a/b/c is not struct/map.
 //	will create nested struct if key not found
 func recursivelySetMap(mp map[string]interface{}, value interface{}, index int, keys ...string) {
-	if index > len(keys)-1 {
+	if index >= len(keys) {
 		return
 	}
 	var (
@@ -107,7 +110,7 @@ func recursivelySetMap(mp map[string]interface{}, value interface{}, index int, 
 	}
 
 	index++
-	if index > len(keys)-1 {
+	if index >= len(keys) {
 		mp[currentKey] = value
 		return
 	}
