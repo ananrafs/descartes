@@ -1,8 +1,6 @@
 package action_int
 
 import (
-	"fmt"
-
 	"github.com/ananrafs/descartes/common"
 	"github.com/ananrafs/descartes/engine/actions"
 	"github.com/ananrafs/descartes/engine/facts"
@@ -28,7 +26,6 @@ func NewSum() actions.ActionsItf {
 func (c *Sum) Do(facts facts.FactsItf) (res interface{}, err error) {
 	param := facts.GetMap()
 	total := 0
-	fmt.Println("sum on", c.Field)
 	for _, _param := range c.Factors {
 		val := new(int)
 		if err = common.Convert[int]().WithFromMap(param)(_param, val); err != nil {
