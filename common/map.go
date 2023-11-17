@@ -34,7 +34,7 @@ func recursivelyLookupMap(mp map[string]interface{}, index int, source []string)
 		}
 		index++
 		if index >= len(source) {
-			return val, nil
+			return CopyMap(childMap), nil
 		}
 		lookup, err := recursivelyLookupMap(childMap, index, source)
 		if err != nil {
