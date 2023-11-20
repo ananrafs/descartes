@@ -8,7 +8,7 @@ func MergeMap(src, dest map[string]interface{}) map[string]interface{} {
 	for k, v := range src {
 		(dest)[k] = v
 	}
-	return src
+	return dest
 }
 
 func CopyMap(src map[string]interface{}) (dest map[string]interface{}) {
