@@ -1,8 +1,7 @@
 package core
 
 import (
-	"fmt"
-
+	"github.com/ananrafs/descartes/errors"
 	"github.com/ananrafs/descartes/law"
 )
 
@@ -13,9 +12,8 @@ var (
 func Eval(fact law.Fact) (interface{}, error) {
 	lawSelected, ok := lawDictionary[fact.Slug]
 	if !ok {
-		return nil, fmt.Errorf("law %s not found", fact.Slug)
+		return nil, errors.ErrLawNotFound(fact.Slug)
 	}
 
 	return lawSelected.Judge(fact.Facts)
-
 }

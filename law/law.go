@@ -2,12 +2,12 @@ package law
 
 import (
 	"encoding/json"
-	"fmt"
 
 	"github.com/ananrafs/descartes/cache"
 	"github.com/ananrafs/descartes/common"
 	"github.com/ananrafs/descartes/engine/evaluators"
 	"github.com/ananrafs/descartes/engine/facts"
+	"github.com/ananrafs/descartes/errors"
 )
 
 type Law struct {
@@ -21,7 +21,7 @@ func (l Law) Judge(facts facts.FactsItf) (interface{}, error) {
 	evalRes := l.Evaluator.Eval(facts)
 
 	if !evalRes.IsMatch {
-		return nil, fmt.Errorf("not match on %s law", l.Slug)
+		return nil, errors.ErrFactsNotMatch(l.Slug)
 	}
 	return evalRes.Result, evalRes.Error
 }

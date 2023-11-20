@@ -118,3 +118,17 @@ func recursivelySetMap(mp map[string]interface{}, value interface{}, index int, 
 	mp[currentKey] = childMap
 	recursivelySetMap(childMap, value, index, keys...)
 }
+
+func DeepCopyMap(src map[string]interface{}, target map[string]interface{}) {
+	for key, val := range src {
+		var copiedValue = val
+		childMap, ok := val.(map[string]interface{})
+		if ok {
+			_nested := make(map[string]interface{})
+			DeepCopyMap(childMap, _nested)
+			copiedValue = _nested
+		}
+
+		target[key] = copiedValue
+	}
+}
