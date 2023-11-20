@@ -3,6 +3,7 @@ package law
 import (
 	"encoding/json"
 
+	"github.com/ananrafs/descartes/common"
 	"github.com/ananrafs/descartes/engine/facts"
 )
 
@@ -35,6 +36,16 @@ func (f *Fact) UnmarshalJSON(data []byte) (err error) {
 	return
 }
 
+func (b *Fact) MarshalJSON() ([]byte, error) {
+	return json.Marshal(&struct {
+		Slug  string                 `json:"slug"`
+		Param map[string]interface{} `json:"param"`
+	}{
+		Slug:  b.Slug,
+		Param: b.Facts.GetMap(),
+	})
+}
+
 func CreateFact(jsonStr string) (f Fact, err error) {
 	err = json.Unmarshal([]byte(jsonStr), &f)
 	if err != nil {
@@ -51,4 +62,45 @@ func CreateMultipleFact(jsonStr string) (fs []Fact, err error) {
 	}
 
 	return fs, nil
+}
+
+// FactMaker
+//
+//	to use :
+//	fact := MakeFact(yourmap)
+//	.AddFields(anothermap)
+//	...
+//	.Generate(yourlovelyslug)
+type FactMaker func(map[string]interface{})
+
+func MakeFact(mps ...map[string]interface{}) FactMaker {
+	return func(m map[string]interface{}) {
+		for _, mp := range mps {
+			common.MergeMap(mp, m)
+		}
+	}
+}
+
+// merge given map to current map
+func (fmake FactMaker) AddFields(mp map[string]interface{}) FactMaker {
+	return func(m map[string]interface{}) {
+		fmake(m)
+		common.MergeMap(mp, m)
+	}
+}
+
+func (fmake FactMaker) Generate(slug string) Fact {
+	var (
+		_default = make(map[string]interface{})
+		res      = make(map[string]interface{})
+	)
+	fmake(_default)
+	common.DeepCopyMap(_default, res)
+
+	return Fact{
+		Slug: slug,
+		Facts: &facts.Facts{
+			Fields: res,
+		},
+	}
 }
