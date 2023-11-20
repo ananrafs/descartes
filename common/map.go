@@ -5,8 +5,8 @@ import (
 )
 
 func MergeMap(src, dest map[string]interface{}) map[string]interface{} {
-	for k, v := range dest {
-		(src)[k] = v
+	for k, v := range src {
+		(dest)[k] = v
 	}
 	return src
 }
