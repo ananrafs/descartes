@@ -22,7 +22,7 @@ func main() {
 
 	core.InitFactory(core.WithDefaults())
 
-	l, err := law.CreateLaw(getStringFromFile(fmt.Sprintf("%s/%s.json", *folderLocation, *lawFile)))
+	l, err := law.CreateLawFromJsonByte(getByteFromFile(fmt.Sprintf("%s/%s.json", *folderLocation, *lawFile)))
 	if err != nil {
 		panic(err)
 	}
@@ -63,13 +63,17 @@ func getFromFile(fileLocation string) ([]byte, error) {
 
 }
 
-func getStringFromFile(fileLocation string) string {
+func getByteFromFile(fileLocation string) []byte {
 	strByte, err := getFromFile(fileLocation)
 	if err != nil {
 		panic(err)
 	}
 
-	return string(strByte)
+	return strByte
+}
+
+func getStringFromFile(fileLocation string) string {
+	return string(getByteFromFile(fileLocation))
 }
 
 func writeToFile(fileLocation string, obj interface{}) {

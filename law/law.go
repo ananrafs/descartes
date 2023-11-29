@@ -61,7 +61,11 @@ func (l *Law) UnmarshalJSON(data []byte) (err error) {
 }
 
 func CreateLaw(jsonStr string) (l Law, err error) {
-	err = json.Unmarshal([]byte(jsonStr), &l)
+	return CreateLawFromJsonByte([]byte(jsonStr))
+}
+
+func CreateLawFromJsonByte(jsonByte []byte) (l Law, err error) {
+	err = json.Unmarshal(jsonByte, &l)
 	if err != nil {
 		return
 	}
