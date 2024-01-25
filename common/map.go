@@ -4,18 +4,60 @@ import (
 	"strings"
 )
 
-func MergeMap(src, dest map[string]interface{}) map[string]interface{} {
+type mapManipulator func(map[string]interface{})
+
+func ManipulateMap(srcs ...map[string]interface{}) mapManipulator {
+	return func(m map[string]interface{}) {
+		for _, src := range srcs {
+			for k, v := range src {
+				m[k] = v
+			}
+		}
+	}
+}
+
+func (mm mapManipulator) ChainCopy(src map[string]interface{}) mapManipulator {
+	return func(m map[string]interface{}) {
+		mm(m)
+		mm.Copy(src)
+	}
+}
+
+func (mm mapManipulator) Copy(src map[string]interface{}) (dest map[string]interface{}) {
+	dest = make(map[string]interface{})
+	mm(dest)
+	for k, v := range src {
+		dest[k] = v
+	}
+	return
+}
+
+func (mm mapManipulator) DeepCopy(src map[string]interface{}) (dest map[string]interface{}) {
+	return deepCopyMap(src)
+}
+
+func (mm mapManipulator) Merge(src map[string]interface{}) (dest map[string]interface{}) {
+	dest = make(map[string]interface{})
+	mm(dest)
 	for k, v := range src {
 		(dest)[k] = v
 	}
 	return dest
 }
 
-func CopyMap(src map[string]interface{}) (dest map[string]interface{}) {
+func deepCopyMap(src map[string]interface{}) (dest map[string]interface{}) {
 	dest = make(map[string]interface{})
-	for k, v := range src {
-		dest[k] = v
+	for key, val := range src {
+		var copiedValue = val
+		childMap, ok := val.(map[string]interface{})
+		if ok {
+			_nested := deepCopyMap(childMap)
+			copiedValue = _nested
+		}
+
+		dest[key] = copiedValue
 	}
+
 	return
 }
 
@@ -57,7 +99,7 @@ func ExtractMap(source interface{}, dest *map[string]interface{}, modifiers ...f
 		return false
 	}
 
-	copiedMap := CopyMap(sMap)
+	copiedMap := ManipulateMap(map[string]interface{}{}).Copy(sMap)
 	for key, val := range copiedMap {
 		var _dest map[string]interface{}
 		isObj := ExtractMap(val, &_dest, modifiers...)
@@ -117,18 +159,4 @@ func recursivelySetMap(mp map[string]interface{}, value interface{}, index int, 
 
 	mp[currentKey] = childMap
 	recursivelySetMap(childMap, value, index, keys...)
-}
-
-func DeepCopyMap(src map[string]interface{}, target map[string]interface{}) {
-	for key, val := range src {
-		var copiedValue = val
-		childMap, ok := val.(map[string]interface{})
-		if ok {
-			_nested := make(map[string]interface{})
-			DeepCopyMap(childMap, _nested)
-			copiedValue = _nested
-		}
-
-		target[key] = copiedValue
-	}
 }

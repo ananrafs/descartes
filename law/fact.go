@@ -75,8 +75,8 @@ type FactMaker func(map[string]interface{})
 
 func MakeFact(mps ...map[string]interface{}) FactMaker {
 	return func(m map[string]interface{}) {
-		for _, mp := range mps {
-			common.MergeMap(mp, m)
+		for i, mp := range mps {
+			mps[i] = common.ManipulateMap(mp).Merge(m)
 		}
 	}
 }
@@ -85,7 +85,7 @@ func MakeFact(mps ...map[string]interface{}) FactMaker {
 func (fmake FactMaker) AddFields(mp map[string]interface{}) FactMaker {
 	return func(m map[string]interface{}) {
 		fmake(m)
-		common.MergeMap(mp, m)
+		mp = common.ManipulateMap(mp).Merge(m)
 	}
 }
 
@@ -95,12 +95,10 @@ func (fmake FactMaker) Generate(slug string) Fact {
 		res      = make(map[string]interface{})
 	)
 	fmake(_default)
-	common.DeepCopyMap(_default, res)
-
 	return Fact{
 		Slug: slug,
 		Facts: &facts.Facts{
-			Fields: res,
+			Fields: common.ManipulateMap(res).DeepCopy(_default),
 		},
 	}
 }
