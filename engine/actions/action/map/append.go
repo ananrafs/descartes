@@ -60,7 +60,7 @@ func (a Append) Do(facts facts.FactsItf) (res interface{}, err error) {
 			if currentMapValue, ok := objMapped[key]; ok {
 				existingMap, ok := currentMapValue.(map[string]interface{})
 				if ok {
-					objMapped[key] = common.ManipulateMap(_map).Merge(existingMap)
+					objMapped[key] = common.MergeMap(_map, existingMap)
 					continue
 				}
 			}

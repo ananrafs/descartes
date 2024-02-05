@@ -21,7 +21,7 @@ func NewAction() actions.ActionsItf {
 
 func (c Action) Do(facts facts.FactsItf) (res interface{}, err error) {
 	param := facts.GetMap()
-	response := common.ManipulateMap().Copy(map[string]interface{}(c))
+	response := common.CopyMap(map[string]interface{}(c))
 
 	for key, value := range c {
 
