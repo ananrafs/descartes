@@ -17,5 +17,4 @@ func ErrorNotFoundOnMap(field string) error {
 
 func ErrorOutOfBound(field string) error {
 	return fmt.Errorf("index out of bound for %s", field)
-
 }

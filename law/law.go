@@ -17,6 +17,10 @@ type Law struct {
 }
 
 func (l Law) Judge(facts facts.FactsItf) (interface{}, error) {
+	if l.Evaluator == nil {
+		return nil, errors.ErrNilEvaluator(l.Slug)
+	}
+
 	facts.SetCacheInstance(cache.Get(l.Cache))
 	evalRes := l.Evaluator.Eval(facts)
 
@@ -57,11 +61,19 @@ func (l *Law) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
+	if l.Evaluator == nil {
+		return errors.ErrInvalidOnCreation(l.Slug)
+	}
+
 	return
 }
 
 func CreateLaw(jsonStr string) (l Law, err error) {
-	err = json.Unmarshal([]byte(jsonStr), &l)
+	return CreateLawFromJsonByte([]byte(jsonStr))
+}
+
+func CreateLawFromJsonByte(jsonByte []byte) (l Law, err error) {
+	err = json.Unmarshal(jsonByte, &l)
 	if err != nil {
 		return
 	}
