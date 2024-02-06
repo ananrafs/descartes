@@ -71,21 +71,21 @@ func CreateMultipleFact(jsonStr string) (fs []Fact, err error) {
 //	.AddFields(anothermap)
 //	...
 //	.Generate(yourlovelyslug)
-type FactMaker func(map[string]interface{})
+type FactMaker func(*map[string]interface{})
 
 func MakeFact(mps ...map[string]interface{}) FactMaker {
-	return func(m map[string]interface{}) {
-		for i, mp := range mps {
-			mps[i] = common.ManipulateMap(mp).Merge(m)
+	return func(m *map[string]interface{}) {
+		for _, mp := range mps {
+			*m = common.ManipulateMap(*m).Merge(mp)
 		}
 	}
 }
 
 // merge given map to current map
 func (fmake FactMaker) AddFields(mp map[string]interface{}) FactMaker {
-	return func(m map[string]interface{}) {
+	return func(m *map[string]interface{}) {
 		fmake(m)
-		mp = common.ManipulateMap(mp).Merge(m)
+		*m = common.ManipulateMap(*m).Merge(mp)
 	}
 }
 
@@ -93,7 +93,8 @@ func (fmake FactMaker) Generate(slug string) Fact {
 	var (
 		_default = make(map[string]interface{})
 	)
-	fmake(_default)
+	fmake(&_default)
+
 	return Fact{
 		Slug: slug,
 		Facts: &facts.Facts{
