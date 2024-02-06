@@ -33,7 +33,9 @@ func (mm mapManipulator) Copy(src map[string]interface{}) (dest map[string]inter
 }
 
 func (mm mapManipulator) DeepCopy(src map[string]interface{}) (dest map[string]interface{}) {
-	return deepCopyMap(src)
+	d := make(map[string]interface{})
+	mm(d)
+	return deepCopyMap(d, src)
 }
 
 func (mm mapManipulator) Merge(src map[string]interface{}) (dest map[string]interface{}) {
@@ -45,13 +47,13 @@ func (mm mapManipulator) Merge(src map[string]interface{}) (dest map[string]inte
 	return dest
 }
 
-func deepCopyMap(src map[string]interface{}) (dest map[string]interface{}) {
-	dest = make(map[string]interface{})
+func deepCopyMap(init, src map[string]interface{}) (dest map[string]interface{}) {
+	dest = init
 	for key, val := range src {
 		var copiedValue = val
 		childMap, ok := val.(map[string]interface{})
 		if ok {
-			_nested := deepCopyMap(childMap)
+			_nested := deepCopyMap(make(map[string]interface{}), childMap)
 			copiedValue = _nested
 		}
 
