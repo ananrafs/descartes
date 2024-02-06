@@ -92,13 +92,12 @@ func (fmake FactMaker) AddFields(mp map[string]interface{}) FactMaker {
 func (fmake FactMaker) Generate(slug string) Fact {
 	var (
 		_default = make(map[string]interface{})
-		res      = make(map[string]interface{})
 	)
 	fmake(_default)
 	return Fact{
 		Slug: slug,
 		Facts: &facts.Facts{
-			Fields: common.ManipulateMap(res).DeepCopy(_default),
+			Fields: common.ManipulateMap().DeepCopy(_default),
 		},
 	}
 }
