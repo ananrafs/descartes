@@ -1,0 +1,146 @@
+{
+  "slug": "cashback_evaluation",
+  "cache": "cache.map",
+  "evaluator": {
+    "type": "evaluator.group.first_match",
+    "evaluators": [
+      {
+        "type": "evaluator",
+        "rule": {
+          "type": "rules.conditional.and",
+          "rules": [
+            {
+              "type": "rules.string.equal_or_all",
+              "field": "country",
+              "value": "id"
+            },
+            {
+              "type": "rules.string.equal_or_all",
+              "field": "platform",
+              "value": "ANDROID_APP"
+            },
+            {
+              "type": "rules.string.equal_or_all",
+              "field": "category",
+              "value": "ALL"
+            },
+            {
+              "type": "rules.string.equal_or_all",
+              "field": "user_segment",
+              "value": "ALL"
+            },
+            {
+              "type": "rules.boolean.equal",
+              "field": "active",
+              "value": true
+            }
+          ]
+        },
+        "action": {
+          "type": "actions.cashback.calculate",
+          "name": "ID - APP PROMO",
+          "cashback_rate": 0.5,
+          "max_cashback_amount": 100000,
+          "expiry_days": 45,
+          "order_amount_field": "order_amount"
+        }
+      },
+      {
+        "type": "evaluator",
+        "rule": {
+          "type": "rules.conditional.and",
+          "rules": [
+            {
+              "type": "rules.string.equal_or_all",
+              "field": "country",
+              "value": "id"
+            },
+            {
+              "type": "rules.string.equal_or_all",
+              "field": "platform",
+              "value": "ALL"
+            },
+            {
+              "type": "rules.string.equal_or_all",
+              "field": "category",
+              "value": "ML"
+            },
+            {
+              "type": "rules.string.equal_or_all",
+              "field": "user_segment",
+              "value": "ALL"
+            },
+            {
+              "type": "rules.boolean.equal",
+              "field": "active",
+              "value": true
+            }
+          ]
+        },
+        "action": {
+          "type": "actions.cashback.calculate",
+          "name": "ID - Mobile Legends",
+          "cashback_rate": 0.10,
+          "max_cashback_amount": 30000,
+          "expiry_days": 30,
+          "order_amount_field": "order_amount"
+        }
+      },
+      {
+        "type": "evaluator",
+        "rule": {
+          "type": "rules.conditional.and",
+          "rules": [
+            {
+              "type": "rules.string.equal_or_all",
+              "field": "country",
+              "value": "id"
+            },
+            {
+              "type": "rules.string.equal_or_all",
+              "field": "platform",
+              "value": "ALL"
+            },
+            {
+              "type": "rules.string.equal_or_all",
+              "field": "category",
+              "value": "ALL"
+            },
+            {
+              "type": "rules.string.equal_or_all",
+              "field": "user_segment",
+              "value": "new_login"
+            },
+            {
+              "type": "rules.boolean.equal",
+              "field": "active",
+              "value": true
+            }
+          ]
+        },
+        "action": {
+          "type": "actions.cashback.calculate",
+          "name": "ID - new login promo",
+          "cashback_rate": 0.5,
+          "max_cashback_amount": 100000,
+          "expiry_days": 45,
+          "order_amount_field": "order_amount"
+        }
+      },
+      {
+        "type": "evaluator",
+        "rule": {
+          "type": "rules.default"
+        },
+        "action": {
+          "type": "actions.cashback.calculate",
+          "name": "Default Cashback Rule",
+          "cashback_rate": 0.05,
+          "max_cashback_amount": 50000,
+          "expiry_days": 30,
+          "order_amount_field": "order_amount"
+        }
+      }
+    ]
+  }
+}
