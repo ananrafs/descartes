@@ -135,6 +135,8 @@ func WithDefaultRules() []rules.Factory {
 		rule_string.NewEqual,
 		rule_string.NewEqualDynamic,
 		rule_string.NewEqualFold,
+		rule_string.NewEqualWildcard,
+		rule_string.NewEqualWildcardDynamic,
 		rule_bool.NewBool,
 		rule_array.NewArrayContains,
 		rule.NewExist,

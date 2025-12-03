@@ -1,0 +1,148 @@
+{
+    "slug": "cashback_rules",
+    "evaluator": {
+        "type": "evaluator.group.first_match",
+        "evaluators": [
+            {
+                "name": "ID - Mobile Legends Specific",
+                "type": "evaluator",
+                "rule": {
+                    "type": "rules.conditional.and",
+                    "rules": [
+                        {
+                            "type": "rules.string.equal.wildcard",
+                            "field": "user_segment",
+                            "value": "ALL"
+                        },
+                        {
+                            "type": "rules.string.equal.wildcard",
+                            "field": "country",
+                            "value": "id"
+                        },
+                        {
+                            "type": "rules.string.equal.wildcard",
+                            "field": "platform",
+                            "value": "ALL"
+                        },
+                        {
+                            "type": "rules.string.equal.wildcard",
+                            "field": "category",
+                            "value": "ML"
+                        }
+                    ]
+                },
+                "action": {
+                    "rule_name": "ID - Mobile Legends",
+                    "cashback_rate": 0.10,
+                    "max_cashback": 30000,
+                    "matched": true
+                }
+            },
+            {
+                "name": "ID - Android App Promo",
+                "type": "evaluator",
+                "rule": {
+                    "type": "rules.conditional.and",
+                    "rules": [
+                        {
+                            "type": "rules.string.equal.wildcard",
+                            "field": "user_segment",
+                            "value": "ALL"
+                        },
+                        {
+                            "type": "rules.string.equal.wildcard",
+                            "field": "country",
+                            "value": "id"
+                        },
+                        {
+                            "type": "rules.string.equal.wildcard",
+                            "field": "platform",
+                            "value": "ANDROID_APP"
+                        },
+                        {
+                            "type": "rules.string.equal.wildcard",
+                            "field": "category",
+                            "value": "ALL"
+                        }
+                    ]
+                },
+                "action": {
+                    "rule_name": "ID - APP PROMO",
+                    "cashback_rate": 0.5,
+                    "max_cashback": 100000,
+                    "matched": true
+                }
+            },
+            {
+                "name": "ID - New Login Promo",
+                "type": "evaluator",
+                "rule": {
+                    "type": "rules.conditional.and",
+                    "rules": [
+                        {
+                            "type": "rules.string.equal.wildcard",
+                            "field": "user_segment",
+                            "value": "new_login"
+                        },
+                        {
+                            "type": "rules.string.equal.wildcard",
+                            "field": "country",
+                            "value": "id"
+                        },
+                        {
+                            "type": "rules.string.equal.wildcard",
+                            "field": "platform",
+                            "value": "ALL"
+                        },
+                        {
+                            "type": "rules.string.equal.wildcard",
+                            "field": "category",
+                            "value": "ALL"
+                        }
+                    ]
+                },
+                "action": {
+                    "rule_name": "ID - new login promo",
+                    "cashback_rate": 0.5,
+                    "max_cashback": 100000,
+                    "matched": true
+                }
+            },
+            {
+                "name": "Default Cashback Rule",
+                "type": "evaluator",
+                "rule": {
+                    "type": "rules.conditional.and",
+                    "rules": [
+                        {
+                            "type": "rules.string.equal.wildcard",
+                            "field": "user_segment",
+                            "value": "ALL"
+                        },
+                        {
+                            "type": "rules.string.equal.wildcard",
+                            "field": "country",
+                            "value": "ALL"
+                        },
+                        {
+                            "type": "rules.string.equal.wildcard",
+                            "field": "platform",
+                            "value": "ALL"
+                        },
+                        {
+                            "type": "rules.string.equal.wildcard",
+                            "field": "category",
+                            "value": "ALL"
+                        }
+                    ]
+                },
+                "action": {
+                    "rule_name": "Default Cashback Rule",
+                    "cashback_rate": 0.05,
+                    "max_cashback": 50000,
+                    "matched": true
+                }
+            }
+        ]
+    }
+}
