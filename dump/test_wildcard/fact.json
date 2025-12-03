@@ -1,0 +1,47 @@
+[
+    {
+        "slug": "cashback_rules",
+        "param": {
+            "user_segment": "standard",
+            "country": "id",
+            "platform": "WEB",
+            "category": "ML"
+        }
+    },
+    {
+        "slug": "cashback_rules",
+        "param": {
+            "user_segment": "premium",
+            "country": "id",
+            "platform": "ANDROID_APP",
+            "category": "FREEFIRE"
+        }
+    },
+    {
+        "slug": "cashback_rules",
+        "param": {
+            "user_segment": "new_login",
+            "country": "id",
+            "platform": "IOS_APP",
+            "category": "PUBG"
+        }
+    },
+    {
+        "slug": "cashback_rules",
+        "param": {
+            "user_segment": "vip",
+            "country": "sg",
+            "platform": "WEB",
+            "category": "VALORANT"
+        }
+    },
+    {
+        "slug": "cashback_rules",
+        "param": {
+            "user_segment": "ALL",
+            "country": "ALL",
+            "platform": "ALL",
+            "category": "ALL"
+        }
+    }
+]

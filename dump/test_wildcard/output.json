@@ -1,0 +1,32 @@
+[
+    {
+        "rule_name": "ID - Mobile Legends",
+        "cashback_rate": 0.10,
+        "max_cashback": 30000,
+        "matched": true
+    },
+    {
+        "rule_name": "ID - APP PROMO",
+        "cashback_rate": 0.5,
+        "max_cashback": 100000,
+        "matched": true
+    },
+    {
+        "rule_name": "ID - new login promo",
+        "cashback_rate": 0.5,
+        "max_cashback": 100000,
+        "matched": true
+    },
+    {
+        "rule_name": "Default Cashback Rule",
+        "cashback_rate": 0.05,
+        "max_cashback": 50000,
+        "matched": true
+    },
+    {
+        "rule_name": "Default Cashback Rule",
+        "cashback_rate": 0.05,
+        "max_cashback": 50000,
+        "matched": true
+    }
+]
