@@ -1,11 +1,10 @@
 package evaluator
 
 import (
-	"encoding/json"
-
 	"github.com/ananrafs/descartes/common"
 	"github.com/ananrafs/descartes/engine/evaluators"
 	"github.com/ananrafs/descartes/engine/facts"
+	json "github.com/json-iterator/go"
 )
 
 type IterateEvaluator struct {

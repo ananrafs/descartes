@@ -1,10 +1,9 @@
 package group
 
 import (
-	"encoding/json"
-
 	"github.com/ananrafs/descartes/common"
 	"github.com/ananrafs/descartes/engine/actions"
+	json "github.com/json-iterator/go"
 )
 
 type ActionsGroup []actions.ActionsItf

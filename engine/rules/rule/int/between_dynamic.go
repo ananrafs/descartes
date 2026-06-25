@@ -7,11 +7,11 @@ import (
 )
 
 type BetweenDynamic struct {
-	RuleType string      `json:"type"`
-	Mid      interface{} `json:"mid"`
-	Start    interface{} `json:"start"`
-	End      interface{} `json:"end"`
-	hash     *string
+	Type  string      `json:"type"`
+	Mid   interface{} `json:"mid"`
+	Start interface{} `json:"start"`
+	End   interface{} `json:"end"`
+	hash  *string
 }
 
 func (c *BetweenDynamic) GetType() string {
@@ -20,13 +20,13 @@ func (c *BetweenDynamic) GetType() string {
 
 func NewBetweenDynamic() rules.RulesItf {
 	o := new(BetweenDynamic)
-	o.RuleType = o.GetType()
+	o.Type = o.GetType()
 	return o
 }
 
 func (c *BetweenDynamic) GetHash() string {
 	for c.hash == nil {
-		hash := common.CreateHash(c.RuleType, c.Start, c.Mid, c.End)
+		hash := common.CreateHash(c.Type, c.Start, c.Mid, c.End)
 		c.hash = &hash
 	}
 	return *c.hash

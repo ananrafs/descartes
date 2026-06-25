@@ -1,17 +1,16 @@
 package group
 
 import (
-	"encoding/json"
-
 	"github.com/ananrafs/descartes/common"
 	"github.com/ananrafs/descartes/engine/facts"
 	"github.com/ananrafs/descartes/engine/rules"
+	json "github.com/json-iterator/go"
 )
 
 type ConditionalNot struct {
-	ConditionalType string         `json:"type"`
-	Rule            rules.RulesItf `json:"rule"`
-	hash            *string
+	Type string         `json:"type"`
+	Rule rules.RulesItf `json:"rule"`
+	hash *string
 }
 
 func (c *ConditionalNot) GetType() string {
@@ -20,13 +19,13 @@ func (c *ConditionalNot) GetType() string {
 
 func NewConditionalNot() rules.RulesItf {
 	o := new(ConditionalNot)
-	o.ConditionalType = o.GetType()
+	o.Type = o.GetType()
 	return o
 }
 
 func (c *ConditionalNot) GetHash() string {
 	for c.hash == nil {
-		hash := common.CreateHash(c.ConditionalType, c.Rule.GetHash())
+		hash := common.CreateHash(c.Type, c.Rule.GetHash())
 		c.hash = &hash
 	}
 	return *c.hash
@@ -57,7 +56,7 @@ func (r *ConditionalNot) UnmarshalJSON(data []byte) (err error) {
 
 		switch k {
 		case "type":
-			if err := json.Unmarshal(val, &r.ConditionalType); err != nil {
+			if err := json.Unmarshal(val, &r.Type); err != nil {
 				return err
 			}
 		case "rule":

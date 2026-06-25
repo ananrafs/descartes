@@ -8,8 +8,8 @@ import (
 )
 
 type RuleDefault struct {
-	RuleType string `json:"type"`
-	hash     *string
+	Type string `json:"type"`
+	hash *string
 }
 
 func (c *RuleDefault) GetType() string {
@@ -18,13 +18,13 @@ func (c *RuleDefault) GetType() string {
 
 func NewRuleDefault() rules.RulesItf {
 	o := new(RuleDefault)
-	o.RuleType = o.GetType()
+	o.Type = o.GetType()
 	return o
 }
 
 func (c *RuleDefault) GetHash() string {
 	for c.hash == nil {
-		hash := common.CreateHash(c.RuleType)
+		hash := common.CreateHash(c.Type)
 		c.hash = &hash
 	}
 	return *c.hash

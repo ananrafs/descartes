@@ -1,0 +1,36 @@
+[
+	{
+		"antagonist": true,
+		"gundam": "sazabi",
+		"pilot": "char",
+		"universe": "uc"
+	},
+	{
+		"antagonist": true,
+		"gundam": "epyon",
+		"pilot": "zech",
+		"universe": "ac"
+	},
+	{
+		"antagonist": true,
+		"gundam": "bael",
+		"pilot": "mcgils",
+		"universe": "pd"
+	},
+	{
+		"name": "durandal",
+		"status": "unidentified"
+	},
+	{
+		"antagonist": false,
+		"gundam": "freedom",
+		"pilot": "kira",
+		"universe": "ce"
+	},
+	{
+		"antagonist": false,
+		"gundam": "akatsuki",
+		"pilot": "neo",
+		"universe": "ce"
+	}
+]

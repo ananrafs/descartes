@@ -1,0 +1,11 @@
+[
+  {
+    "is_eligible": false
+  },
+  {
+    "is_eligible": true
+  },
+  {
+    "is_eligible": false
+  }
+]

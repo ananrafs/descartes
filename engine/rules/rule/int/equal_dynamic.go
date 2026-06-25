@@ -7,10 +7,10 @@ import (
 )
 
 type EqualDynamic struct {
-	RuleType string `json:"type"`
-	Left     string `json:"left"`
-	Right    int    `json:"right"`
-	hash     *string
+	Type  string `json:"type"`
+	Left  string `json:"left"`
+	Right int    `json:"right"`
+	hash  *string
 }
 
 func (c *EqualDynamic) GetType() string {
@@ -19,13 +19,13 @@ func (c *EqualDynamic) GetType() string {
 
 func NewEqualDynamic() rules.RulesItf {
 	o := new(EqualDynamic)
-	o.RuleType = o.GetType()
+	o.Type = o.GetType()
 	return o
 }
 
 func (c *EqualDynamic) GetHash() string {
 	for c.hash == nil {
-		hash := common.CreateHash(c.RuleType, c.Left, c.Right)
+		hash := common.CreateHash(c.Type, c.Left, c.Right)
 		c.hash = &hash
 	}
 	return *c.hash

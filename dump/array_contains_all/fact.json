@@ -1,0 +1,30 @@
+[
+  {
+    "slug": "use_dmp",
+    "param": {
+      "name": "henry",
+      "user_segment_dmp": ["un123"]
+    }
+  },
+  {
+    "slug": "use_dmp",
+    "param": {
+      "name": "stef",
+      "user_segment_dmp": ["un123", "un234"]
+    }
+  },
+  {
+    "slug": "use_dmp",
+    "param": {
+      "name": "victor",
+      "user_segment_dmp": ["un123", "un234", "un456"]
+    }
+  },
+  {
+    "slug": "use_dmp",
+    "param": {
+      "name": "eraz",
+      "user_segment_dmp": ["un234"]
+    }
+  }
+]

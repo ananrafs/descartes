@@ -7,9 +7,9 @@ import (
 )
 
 type ConditionalAnd struct {
-	ConditionalType string    `json:"type"`
-	Rules           RuleGroup `json:"rules"`
-	hash            *string
+	Type  string    `json:"type"`
+	Rules RuleGroup `json:"rules"`
+	hash  *string
 }
 
 func (c *ConditionalAnd) GetType() string {
@@ -18,14 +18,14 @@ func (c *ConditionalAnd) GetType() string {
 
 func NewConditionalAnd() rules.RulesItf {
 	o := new(ConditionalAnd)
-	o.ConditionalType = o.GetType()
+	o.Type = o.GetType()
 	return o
 }
 
 func (c *ConditionalAnd) GetHash() string {
 	for c.hash == nil {
 		hashs := make([]interface{}, 0, len(c.Rules)+1)
-		hashs = append(hashs, c.ConditionalType)
+		hashs = append(hashs, c.Type)
 		for _, rule := range c.Rules {
 			hashs = append(hashs, rule.GetHash())
 		}

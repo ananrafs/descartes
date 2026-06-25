@@ -1,10 +1,9 @@
 package group
 
 import (
-	"encoding/json"
-
 	"github.com/ananrafs/descartes/common"
 	"github.com/ananrafs/descartes/engine/evaluators"
+	json "github.com/json-iterator/go"
 )
 
 type EvaluatorGroup []evaluators.EvaluatorsItf

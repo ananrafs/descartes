@@ -13,15 +13,19 @@ import (
 var tableTest = []struct {
 	fileLocation string
 }{
-	{fileLocation: "dynamic"},
-	{fileLocation: "dynamic cache"},
-	{fileLocation: "static"},
-	{fileLocation: "static cache"},
-	{fileLocation: "test_slice"},
-	{fileLocation: "test_slice_struct"},
+	//{fileLocation: "dynamic"},
+	//{fileLocation: "dynamic cache"},
+	//{fileLocation: "static"},
+	//{fileLocation: "static cache"},
+	//{fileLocation: "test_slice"},
+	//{fileLocation: "test_slice_struct"},
 	// {fileLocation: "cache"},
 	// {fileLocation: "rule_random"},
-	// {fileLocation: "test_actiongroup"},
+	//{fileLocation: "test_actiongroup"},
+	//{fileLocation: "array_oneof"},
+	{fileLocation: "array_oneof_struct"},
+	{fileLocation: "array_contains_struct"},
+	{fileLocation: "array_contains_struct_iter"},
 }
 
 func BenchmarkJudgeLaw_Test(b *testing.B) {
@@ -39,12 +43,15 @@ func BenchmarkJudgeLaw_Test(b *testing.B) {
 			fmt.Println(err)
 			continue
 		}
+		for i, fact := range f {
+			b.ResetTimer()
+			b.Run(fmt.Sprintf("%s-fact-%d", tt.fileLocation, i), func(b *testing.B) {
+				for i := 0; i < b.N; i++ {
+					core.Eval(fact)
+				}
+			})
+		}
 
-		b.Run(tt.fileLocation, func(b *testing.B) {
-			for i := 0; i < b.N; i++ {
-				core.Eval(f[0])
-			}
-		})
 	}
 }
 

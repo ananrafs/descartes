@@ -1,0 +1,56 @@
+{
+  "slug": "recommendation",
+  "evaluator": {
+    "type": "evaluator.group.first_match",
+    "evaluators": [
+      {
+        "type": "evaluator",
+        "rule": {
+          "type": "rules.conditional.and",
+          "rules": [
+            {
+              "type": "rules.bool",
+              "field": "block_exclusive_price",
+              "value": true
+            }
+          ]
+        },
+        "action": {
+          "is_eligible": false
+        }
+      },
+      {
+        "type": "evaluator",
+        "rule": {
+          "type": "rules.conditional.and",
+          "rules": [
+            {
+              "type": "rules.oneof",
+              "field": "exclusive_price",
+              "value": [
+                "bau",
+                "v2",
+                "v3",
+                "v4",
+                "v5"
+              ]
+            }
+          ]
+        },
+        "action": {
+          "is_eligible": true
+        }
+      },
+      {
+        "name": "default",
+        "type": "evaluator",
+        "rule": {
+          "type": "rules.default"
+        },
+        "action": {
+          "is_eligible": false
+        }
+      }
+    ]
+  }
+}

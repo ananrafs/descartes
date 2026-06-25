@@ -1,0 +1,24 @@
+[
+  {
+    "slug": "recommendation",
+    "param": {
+      "nama": "blocked",
+      "block_exclusive_price": true,
+      "exclusive_price": "bau"
+    }
+  },
+  {
+    "slug": "recommendation",
+    "param": {
+      "nama": "allowed",
+      "exclusive_price": "bau"
+    }
+  },
+  {
+    "slug": "recommendation",
+    "param": {
+      "nama": "not eligible",
+      "exclusive_price": "v1"
+    }
+  }
+]

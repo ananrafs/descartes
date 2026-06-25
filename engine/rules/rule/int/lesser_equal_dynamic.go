@@ -7,10 +7,10 @@ import (
 )
 
 type LesserEqualDynamic struct {
-	RuleType string      `json:"type"`
-	Left     interface{} `json:"left"`
-	Right    interface{} `json:"right"`
-	hash     *string
+	Type  string      `json:"type"`
+	Left  interface{} `json:"left"`
+	Right interface{} `json:"right"`
+	hash  *string
 }
 
 func (c *LesserEqualDynamic) GetType() string {
@@ -19,13 +19,13 @@ func (c *LesserEqualDynamic) GetType() string {
 
 func NewLesserEqualDynamic() rules.RulesItf {
 	o := new(LesserEqualDynamic)
-	o.RuleType = o.GetType()
+	o.Type = o.GetType()
 	return o
 }
 
 func (c *LesserEqualDynamic) GetHash() string {
 	for c.hash == nil {
-		hash := common.CreateHash(c.RuleType, c.Left, c.Right)
+		hash := common.CreateHash(c.Type, c.Left, c.Right)
 		c.hash = &hash
 	}
 	return *c.hash

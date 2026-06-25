@@ -1,0 +1,32 @@
+{
+  "slug": "use_dmp",
+  "evaluator": {
+    "type": "evaluator.group.first_match",
+    "evaluators": [
+      {
+        "type": "evaluator",
+        "rule": {
+          "name": "dmp check",
+          "type": "rules.array.contains_any",
+          "field": "user_segment_dmp",
+          "value": ["un123","un234"]
+        },
+        "action": {
+          "name": "{{ name }}",
+          "is_eligible": true
+        }
+      },
+      {
+        "name": "default",
+        "type": "evaluator",
+        "rule": {
+          "type": "rules.default"
+        },
+        "action": {
+          "name": "{{ name }}",
+          "is_eligible": false
+        }
+      }
+    ]
+  }
+}

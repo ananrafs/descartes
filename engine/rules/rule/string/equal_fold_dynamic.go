@@ -10,10 +10,10 @@ import (
 )
 
 type EqualFoldDynamic struct {
-	RuleType string `json:"type"`
-	Left     string `json:"left"`
-	Right    string `json:"right"`
-	hash     *string
+	Type  string `json:"type"`
+	Left  string `json:"left"`
+	Right string `json:"right"`
+	hash  *string
 }
 
 func (c *EqualFoldDynamic) GetType() string {
@@ -22,13 +22,13 @@ func (c *EqualFoldDynamic) GetType() string {
 
 func NewEqualFoldDynamic() rules.RulesItf {
 	o := new(EqualFoldDynamic)
-	o.RuleType = o.GetType()
+	o.Type = o.GetType()
 	return o
 }
 
 func (c *EqualFoldDynamic) GetHash() string {
 	for c.hash == nil {
-		hash := common.CreateHash(c.RuleType, c.Left, c.Right)
+		hash := common.CreateHash(c.Type, c.Left, c.Right)
 		c.hash = &hash
 	}
 	return *c.hash

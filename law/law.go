@@ -1,13 +1,12 @@
 package law
 
 import (
-	"encoding/json"
-
 	"github.com/ananrafs/descartes/cache"
 	"github.com/ananrafs/descartes/common"
 	"github.com/ananrafs/descartes/engine/evaluators"
 	"github.com/ananrafs/descartes/engine/facts"
 	"github.com/ananrafs/descartes/errors"
+	json "github.com/json-iterator/go"
 )
 
 type Law struct {

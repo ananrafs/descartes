@@ -1,26 +1,26 @@
 [
-	{
-		"area": 121,
-		"object": "square"
-	},
-	{
-		"area": 55,
-		"object": "rectangle"
-	},
-	{
-		"area": 550,
-		"object": "rectangular cuboid"
-	},
-	{
-		"area": 72,
-		"object": "circle"
-	},
-	{
-		"area": 1000,
-		"object": "cube"
-	},
-	{
-		"area": "cant calculate",
-		"object": "gundam"
-	}
+  {
+    "area": 121,
+    "object": "square"
+  },
+  {
+    "area": 55,
+    "object": "rectangle"
+  },
+  {
+    "area": 550,
+    "object": "rectangular cuboid"
+  },
+  {
+    "area": 72,
+    "object": "circle"
+  },
+  {
+    "area": 1000,
+    "object": "cube"
+  },
+  {
+    "area": "cant calculate",
+    "object": "gundam"
+  }
 ]
