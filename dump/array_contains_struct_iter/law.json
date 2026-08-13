@@ -1,0 +1,123 @@
+{
+  "slug": "gundam_identifier",
+  "evaluator": {
+    "type": "evaluator.iterate",
+    "iterant": "gundam",
+    "field": "_gundam",
+    "evaluator": {
+      "type": "evaluator.group.first_match",
+      "evaluators": [
+        {
+          "type": "evaluator",
+          "rule": {
+            "name": "antagonist check",
+            "type": "rules.conditional.or",
+            "rules": [
+              {
+                "type": "rules.conditional.and",
+                "rules": [
+                  {
+                    "type": "rules.oneof",
+                    "field": "universe",
+                    "value": [
+                      "uc",
+                      "pd",
+                      "ac",
+                      "as",
+                      "ag"
+                    ]
+                  },
+                  {
+                    "type": "rules.bool",
+                    "field": "using_mask",
+                    "value": true
+                  }
+                ]
+              },
+              {
+                "type": "rules.conditional.and",
+                "rules": [
+                  {
+                    "type": "rules.bool",
+                    "field": "_gundam.signature",
+                    "value": true
+                  },
+                  {
+                    "type": "rules.conditional.or",
+                    "rules": [
+                      {
+                        "type": "rules.string.equal",
+                        "field": "_gundam.code",
+                        "value": "ORB-01"
+                      },
+                      {
+                        "type": "rules.string.equal",
+                        "field": "_gundam.code",
+                        "value": "GAT-X105"
+                      },
+                      {
+                        "type": "rules.string.equal",
+                        "field": "_gundam.code",
+                        "value": "EB-05s"
+                      },
+                      {
+                        "type": "rules.string.equal",
+                        "field": "_gundam.code",
+                        "value": "MSN-02"
+                      },
+                      {
+                        "type": "rules.string.equal",
+                        "field": "_gundam.code",
+                        "value": "RX-782"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "action": {
+            "antagonist": true,
+            "gundam": "{{ gundam }}",
+            "pilot": "{{ name }}",
+            "universe": "{{ universe }}"
+          }
+        },
+        {
+          "type": "evaluator",
+          "rule": {
+            "type": "rules.conditional.and",
+            "rules": [
+              {
+                "type": "rules.string.equal",
+                "field": "universe",
+                "value": "ce"
+              },
+              {
+                "type": "rules.exist",
+                "field": "gundam"
+              }
+            ]
+          },
+          "action": {
+            "antagonist": false,
+            "gundam": "{{ gundam }}",
+            "pilot": "{{ name }}",
+            "universe": "{{ universe }}"
+          }
+        },
+        {
+          "name": "default",
+          "type": "evaluator",
+          "rule": {
+            "type": "rules.default"
+          },
+          "action": {
+            "name": "{{ name }}",
+            "status": "unidentified"
+          }
+        }
+      ]
+    }
+  }
+}

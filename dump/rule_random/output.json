@@ -1,1 +1,6 @@
-[{"name":"budi","petunjuk":"dapat sepeda"}]
+[
+  {
+    "petunjuk": "dapat sepeda",
+    "name": "budi"
+  }
+]

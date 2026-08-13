@@ -7,9 +7,9 @@ import (
 )
 
 type Exist struct {
-	RuleType string `json:"type"`
-	Field    string `json:"field"`
-	hash     *string
+	Type  string `json:"type"`
+	Field string `json:"field"`
+	hash  *string
 }
 
 func (c *Exist) GetType() string {
@@ -18,13 +18,13 @@ func (c *Exist) GetType() string {
 
 func NewExist() rules.RulesItf {
 	o := new(Exist)
-	o.RuleType = o.GetType()
+	o.Type = o.GetType()
 	return o
 }
 
 func (c *Exist) GetHash() string {
 	for c.hash == nil {
-		hash := common.CreateHash(c.RuleType)
+		hash := common.CreateHash(c.Type)
 		c.hash = &hash
 	}
 	return *c.hash

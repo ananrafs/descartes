@@ -7,10 +7,10 @@ import (
 )
 
 type ArrayContains struct {
-	RuleType string      `json:"type"`
-	Field    string      `json:"field"`
-	Value    interface{} `json:"value"`
-	hash     *string
+	Type  string      `json:"type"`
+	Field string      `json:"field"`
+	Value interface{} `json:"value"`
+	hash  *string
 }
 
 func (c *ArrayContains) GetType() string {
@@ -19,13 +19,13 @@ func (c *ArrayContains) GetType() string {
 
 func NewArrayContains() rules.RulesItf {
 	o := new(ArrayContains)
-	o.RuleType = o.GetType()
+	o.Type = o.GetType()
 	return o
 }
 
 func (c *ArrayContains) GetHash() string {
 	for c.hash == nil {
-		hash := common.CreateHash(c.RuleType, c.Field, c.Value)
+		hash := common.CreateHash(c.Type, c.Field, c.Value)
 		c.hash = &hash
 	}
 	return *c.hash

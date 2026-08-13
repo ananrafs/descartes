@@ -81,11 +81,16 @@ func ConvertToBool(source interface{}, dest *bool) error {
 }
 
 func ConvertToArray(source interface{}, dest *[]interface{}) error {
-	intf, ok := source.([]interface{})
-	if !ok {
+	value := reflect.ValueOf(source)
+	if value.Kind() != reflect.Slice {
 		return ErrorCasting(source)
 	}
 
-	*dest = intf
+	result := make([]interface{}, value.Len())
+	for i := 0; i < value.Len(); i++ {
+		result[i] = value.Index(i).Interface()
+	}
+
+	*dest = result
 	return nil
 }

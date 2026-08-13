@@ -6,7 +6,7 @@ import (
 )
 
 type MultiMatch struct {
-	EvaluatorType string `json:"type"`
+	Type string `json:"type"`
 
 	// maximum matched evaluation allowed
 	MaxMatch int `json:"max"`
@@ -28,7 +28,7 @@ func (fm *MultiMatch) GetType() string {
 
 func NewMultiMatch() evaluators.EvaluatorsItf {
 	o := new(MultiMatch)
-	o.EvaluatorType = o.GetType()
+	o.Type = o.GetType()
 	return o
 }
 

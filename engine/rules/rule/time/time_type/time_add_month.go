@@ -1,7 +1,7 @@
 package rule_time_type
 
 import (
-	"encoding/json"
+	json "github.com/json-iterator/go"
 	"time"
 
 	"github.com/ananrafs/descartes/common"

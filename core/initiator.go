@@ -4,6 +4,7 @@ import (
 	"github.com/ananrafs/descartes/cache"
 	"github.com/ananrafs/descartes/engine/actions"
 	"github.com/ananrafs/descartes/engine/actions/action"
+	action_array "github.com/ananrafs/descartes/engine/actions/action/array"
 	action_float "github.com/ananrafs/descartes/engine/actions/action/float"
 	action_int "github.com/ananrafs/descartes/engine/actions/action/int"
 	action_map "github.com/ananrafs/descartes/engine/actions/action/map"
@@ -141,6 +142,11 @@ func WithDefaultRules() []rules.Factory {
 		rule_array.NewArrayContains,
 		rule.NewExist,
 		rule.NewRuleDefault,
+		rule.NewOneOf,
+		rule_array.NewArrayContainsStruct,
+		rule_array.NewStructContains,
+		rule_array.NewArrayContainsAny,
+		rule_array.NewArrayContainsAll,
 	}
 }
 
@@ -169,6 +175,7 @@ func WithDefaultActions() []actions.Factory {
 		action_float.NewSubtract,
 		action_float.NewSum,
 		action_map.NewAppend,
+		action_array.NewExtendEach,
 	}
 }
 

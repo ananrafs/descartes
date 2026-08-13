@@ -7,10 +7,10 @@ import (
 )
 
 type Equal struct {
-	RuleType string `json:"type"`
-	Field    string `json:"field"`
-	Value    int    `json:"value"`
-	hash     *string
+	Type  string `json:"type"`
+	Field string `json:"field"`
+	Value int    `json:"value"`
+	hash  *string
 }
 
 func (c *Equal) GetType() string {
@@ -19,13 +19,13 @@ func (c *Equal) GetType() string {
 
 func NewEqual() rules.RulesItf {
 	o := new(Equal)
-	o.RuleType = o.GetType()
+	o.Type = o.GetType()
 	return o
 }
 
 func (c *Equal) GetHash() string {
 	for c.hash == nil {
-		hash := common.CreateHash(c.RuleType, c.Field, c.Value)
+		hash := common.CreateHash(c.Type, c.Field, c.Value)
 		c.hash = &hash
 	}
 	return *c.hash

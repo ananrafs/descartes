@@ -1,4 +1,12 @@
-dump/target*
+# idea
+.claude
+.idea
+.vscode
 
-.claude/
-.idea/
+# app specific vendor
+vendor
+
+# github
+.github
+
+dump/target*

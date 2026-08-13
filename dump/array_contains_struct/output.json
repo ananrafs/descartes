@@ -1,0 +1,143 @@
+[
+	{
+		"antagonist": true,
+		"gundam": [
+			{
+				"code": "RX-178",
+				"name": "gundam mk-II"
+			},
+			{
+				"code": "MSN-00100",
+				"name": "Hyaku Shiki"
+			},
+			{
+				"code": "MSN-02",
+				"name": "Zeong"
+			},
+			{
+				"code": "MSN-04",
+				"name": "Sazabi",
+				"signature": true
+			}
+		],
+		"pilot": "char",
+		"universe": "uc"
+	},
+	{
+		"antagonist": true,
+		"gundam": [
+			{
+				"code": "OZ-00",
+				"name": "Tallgeese",
+				"signature": true
+			},
+			{
+				"code": "OZ-13",
+				"name": "Epyon"
+			}
+		],
+		"pilot": "zech",
+		"universe": "ac"
+	},
+	{
+		"antagonist": true,
+		"gundam": [
+			{
+				"code": "V08-1228",
+				"name": "Grimgerde",
+				"signature": true
+			},
+			{
+				"code": "EB-05s",
+				"name": "Schwalbe Graze"
+			},
+			{
+				"code": "ASW-G-01",
+				"name": "Bael",
+				"signature": true
+			}
+		],
+		"pilot": "mcgils",
+		"universe": "pd"
+	},
+	{
+		"antagonist": false,
+		"gundam": [
+			{
+				"code": "GAT-X105",
+				"name": "Strike"
+			},
+			{
+				"code": "ZGMF-X10A",
+				"name": "Freedom",
+				"signature": true
+			},
+			{
+				"code": "XGMF-X20A",
+				"name": "Strike Freedom",
+				"signature": true
+			},
+			{
+				"code": "STTS-909",
+				"name": "Rising Freedom"
+			},
+			{
+				"code": "ZGMF/A-262PD-P",
+				"name": "Rising Freedom",
+				"signature": true
+			}
+		],
+		"pilot": "kira",
+		"universe": "ce"
+	},
+	{
+		"antagonist": false,
+		"gundam": [
+			{
+				"code": "GAT-X303",
+				"name": "Aegis"
+			},
+			{
+				"code": "ZGMF-X09A",
+				"name": "Justice",
+				"signature": true
+			},
+			{
+				"code": "ZGMF-1000",
+				"name": "ZAKU Warrior"
+			},
+			{
+				"code": "ZGMF-X23S",
+				"name": "Saviour"
+			},
+			{
+				"code": "XGMF-X19A",
+				"name": "Infinite Justice",
+				"signature": true
+			},
+			{
+				"code": "XGMF-X191M2",
+				"name": "Infinite Justice Type II",
+				"signature": true
+			}
+		],
+		"pilot": "athurn",
+		"universe": "ce"
+	},
+	{
+		"antagonist": true,
+		"gundam": [
+			{
+				"code": "GAT-X105",
+				"name": "Strike"
+			},
+			{
+				"code": "ORB-01",
+				"name": "Akatsuki",
+				"signature": true
+			}
+		],
+		"pilot": "neo",
+		"universe": "ce"
+	}
+]

@@ -7,10 +7,10 @@ import (
 )
 
 type Bool struct {
-	RuleType string `json:"type"`
-	Field    string `json:"field"`
-	Value    bool   `json:"value"`
-	hash     *string
+	Type  string `json:"type"`
+	Field string `json:"field"`
+	Value bool   `json:"value"`
+	hash  *string
 }
 
 func (c *Bool) GetType() string {
@@ -19,13 +19,13 @@ func (c *Bool) GetType() string {
 
 func NewBool() rules.RulesItf {
 	o := new(Bool)
-	o.RuleType = o.GetType()
+	o.Type = o.GetType()
 	return o
 }
 
 func (c *Bool) GetHash() string {
 	for c.hash == nil {
-		hash := common.CreateHash(c.RuleType, c.Field, c.Value)
+		hash := common.CreateHash(c.Type, c.Field, c.Value)
 		c.hash = &hash
 	}
 	return *c.hash

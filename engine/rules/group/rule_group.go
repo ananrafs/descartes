@@ -1,10 +1,9 @@
 package group
 
 import (
-	"encoding/json"
-
 	"github.com/ananrafs/descartes/common"
 	"github.com/ananrafs/descartes/engine/rules"
+	json "github.com/json-iterator/go"
 )
 
 type RuleGroup []rules.RulesItf

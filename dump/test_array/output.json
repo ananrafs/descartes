@@ -1,18 +1,18 @@
 [
-	{
-		"name": "anto",
-		"petunjuk": "dicariin ibunya"
-	},
-	{
-		"name": "dwi",
-		"petunjuk": "dicariin bapaknya"
-	},
-	{
-		"name": [
-			"joni",
-			"dadang",
-			"faris"
-		],
-		"petunjuk": "ngga kenal"
-	}
+  {
+    "name": "anto",
+    "petunjuk": "dicariin ibunya"
+  },
+  {
+    "name": "dwi",
+    "petunjuk": "dicariin bapaknya"
+  },
+  {
+    "name": [
+      "joni",
+      "dadang",
+      "faris"
+    ],
+    "petunjuk": "ngga kenal"
+  }
 ]

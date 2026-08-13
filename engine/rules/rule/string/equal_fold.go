@@ -9,10 +9,10 @@ import (
 )
 
 type EqualFold struct {
-	RuleType string `json:"type"`
-	Field    string `json:"field"`
-	Value    string `json:"value"`
-	hash     *string
+	Type  string `json:"type"`
+	Field string `json:"field"`
+	Value string `json:"value"`
+	hash  *string
 }
 
 func (c *EqualFold) GetType() string {
@@ -21,13 +21,13 @@ func (c *EqualFold) GetType() string {
 
 func NewEqualFold() rules.RulesItf {
 	o := new(EqualFold)
-	o.RuleType = o.GetType()
+	o.Type = o.GetType()
 	return o
 }
 
 func (c *EqualFold) GetHash() string {
 	for c.hash == nil {
-		hash := common.CreateHash(c.RuleType, c.Field, c.Value)
+		hash := common.CreateHash(c.Type, c.Field, c.Value)
 		c.hash = &hash
 	}
 	return *c.hash

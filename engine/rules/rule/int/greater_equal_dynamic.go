@@ -7,10 +7,10 @@ import (
 )
 
 type GreaterEqualDynamic struct {
-	RuleType string `json:"type"`
-	Left     string `json:"left"`
-	Right    string `json:"right"`
-	hash     *string
+	Type  string `json:"type"`
+	Left  string `json:"left"`
+	Right string `json:"right"`
+	hash  *string
 }
 
 func (c *GreaterEqualDynamic) GetType() string {
@@ -19,13 +19,13 @@ func (c *GreaterEqualDynamic) GetType() string {
 
 func NewGreaterEqualDynamic() rules.RulesItf {
 	o := new(GreaterEqualDynamic)
-	o.RuleType = o.GetType()
+	o.Type = o.GetType()
 	return o
 }
 
 func (c *GreaterEqualDynamic) GetHash() string {
 	for c.hash == nil {
-		hash := common.CreateHash(c.RuleType, c.Left, c.Right)
+		hash := common.CreateHash(c.Type, c.Left, c.Right)
 		c.hash = &hash
 	}
 	return *c.hash

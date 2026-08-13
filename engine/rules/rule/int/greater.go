@@ -7,10 +7,10 @@ import (
 )
 
 type Greater struct {
-	RuleType string `json:"type"`
-	Field    string `json:"field"`
-	Value    int    `json:"value"`
-	hash     *string
+	Type  string `json:"type"`
+	Field string `json:"field"`
+	Value int    `json:"value"`
+	hash  *string
 }
 
 func (c *Greater) GetType() string {
@@ -19,13 +19,13 @@ func (c *Greater) GetType() string {
 
 func NewGreater() rules.RulesItf {
 	o := new(Greater)
-	o.RuleType = o.GetType()
+	o.Type = o.GetType()
 	return o
 }
 
 func (c *Greater) GetHash() string {
 	for c.hash == nil {
-		hash := common.CreateHash(c.RuleType, c.Field, c.Value)
+		hash := common.CreateHash(c.Type, c.Field, c.Value)
 		c.hash = &hash
 	}
 	return *c.hash

@@ -1,0 +1,18 @@
+[
+  {
+    "name": "henry",
+    "is_eligible": true
+  },
+  {
+    "name": "stef",
+    "is_eligible": true
+  },
+  {
+    "name": "victor",
+    "is_eligible": false
+  },
+  {
+    "name": "eraz",
+    "is_eligible": true
+  }
+]

@@ -1,19 +1,18 @@
 package evaluator
 
 import (
-	"encoding/json"
-
 	"github.com/ananrafs/descartes/common"
 	"github.com/ananrafs/descartes/engine/actions"
 	"github.com/ananrafs/descartes/engine/evaluators"
 	"github.com/ananrafs/descartes/engine/facts"
 	"github.com/ananrafs/descartes/engine/rules"
+	json "github.com/json-iterator/go"
 )
 
 type Evaluator struct {
-	EvaluatorType string             `json:"type"`
-	Rules         rules.RulesItf     `json:"rule"`
-	Action        actions.ActionsItf `json:"action"`
+	Type   string             `json:"type"`
+	Rules  rules.RulesItf     `json:"rule"`
+	Action actions.ActionsItf `json:"action"`
 }
 
 func (e *Evaluator) GetType() string {
@@ -22,7 +21,7 @@ func (e *Evaluator) GetType() string {
 
 func NewEvaluator() evaluators.EvaluatorsItf {
 	o := new(Evaluator)
-	o.EvaluatorType = o.GetType()
+	o.Type = o.GetType()
 	return o
 }
 
@@ -54,7 +53,7 @@ func (e *Evaluator) UnmarshalJSON(data []byte) (err error) {
 
 		switch k {
 		case "type":
-			if err := json.Unmarshal(val, &e.EvaluatorType); err != nil {
+			if err := json.Unmarshal(val, &e.Type); err != nil {
 				return err
 			}
 		case "action":

@@ -1,11 +1,10 @@
 package rule_time
 
 import (
-	"encoding/json"
-
 	"github.com/ananrafs/descartes/common"
 	"github.com/ananrafs/descartes/engine/facts"
 	"github.com/ananrafs/descartes/engine/rules"
+	json "github.com/json-iterator/go"
 )
 
 type Between struct {

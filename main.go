@@ -1,9 +1,9 @@
 package main
 
 import (
-	"encoding/json"
 	"flag"
 	"fmt"
+	json "github.com/json-iterator/go"
 	"io"
 	"os"
 
@@ -77,8 +77,8 @@ func getStringFromFile(fileLocation string) string {
 }
 
 func writeToFile(fileLocation string, obj interface{}) {
-	// Marshal the interface{} to JSON.
-	jsonData, err := json.MarshalIndent(obj, "", "	")
+	// Marshal the interface{} to json.
+	jsonData, err := json.MarshalIndent(obj, "", "  ")
 	if err != nil {
 		fmt.Println("Error marshaling data to JSON:", err)
 		return

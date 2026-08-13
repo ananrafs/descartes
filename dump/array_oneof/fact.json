@@ -1,0 +1,54 @@
+[
+  {
+    "slug": "gundam_identifier",
+    "param": {
+      "name": "char",
+      "using_mask": true,
+      "gundam": "sazabi",
+      "universe": "uc"
+    }
+  },
+  {
+    "slug": "gundam_identifier",
+    "param": {
+      "name": "zech",
+      "using_mask": true,
+      "gundam": "epyon",
+      "universe": "ac"
+    }
+  },
+  {
+    "slug": "gundam_identifier",
+    "param": {
+      "name": "mcgils",
+      "using_mask": true,
+      "gundam": "bael",
+      "universe": "pd"
+    }
+  },
+  {
+    "slug": "gundam_identifier",
+    "param": {
+      "name": "durandal",
+      "occupation": "supreme council",
+      "universe": "ce"
+    }
+  },
+  {
+    "slug": "gundam_identifier",
+    "param": {
+      "name": "kira",
+      "gundam": "freedom",
+      "universe": "ce"
+    }
+  },
+  {
+    "slug": "gundam_identifier",
+    "param": {
+      "name": "neo",
+      "using_mask": true,
+      "gundam": "akatsuki",
+      "universe": "ce"
+    }
+  }
+]

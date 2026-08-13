@@ -1,0 +1,32 @@
+{
+  "slug": "use_dmp",
+  "evaluator": {
+    "type": "evaluator.group.first_match",
+    "evaluators": [
+      {
+        "type": "evaluator",
+        "rule": {
+          "name": "dmp check",
+          "type": "rules.array.contains_all",
+          "field": "user_segment_dmp",
+          "value": ["un123","un234"]
+        },
+        "action": {
+          "name": "{{ name }}",
+          "has_all_segments": true
+        }
+      },
+      {
+        "name": "default",
+        "type": "evaluator",
+        "rule": {
+          "type": "rules.default"
+        },
+        "action": {
+          "name": "{{ name }}",
+          "has_all_segments": false
+        }
+      }
+    ]
+  }
+}

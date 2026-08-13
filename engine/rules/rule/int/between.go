@@ -7,11 +7,11 @@ import (
 )
 
 type Between struct {
-	RuleType string `json:"type"`
-	Field    string `json:"field"`
-	Start    int    `json:"start"`
-	End      int    `json:"end"`
-	hash     *string
+	Type  string `json:"type"`
+	Field string `json:"field"`
+	Start int    `json:"start"`
+	End   int    `json:"end"`
+	hash  *string
 }
 
 func (c *Between) GetType() string {
@@ -20,13 +20,13 @@ func (c *Between) GetType() string {
 
 func NewBetween() rules.RulesItf {
 	o := new(Between)
-	o.RuleType = o.GetType()
+	o.Type = o.GetType()
 	return o
 }
 
 func (c *Between) GetHash() string {
 	for c.hash == nil {
-		hash := common.CreateHash(c.RuleType, c.Field, c.Start, c.End)
+		hash := common.CreateHash(c.Type, c.Field, c.Start, c.End)
 		c.hash = &hash
 	}
 	return *c.hash

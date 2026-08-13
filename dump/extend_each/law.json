@@ -1,0 +1,118 @@
+{
+  "slug": "gundam_identifier",
+  "evaluator": {
+    "type": "evaluator.group.first_match",
+    "evaluators": [
+      {
+        "type": "evaluator",
+        "rule": {
+          "name": "antagonist check",
+          "type": "rules.conditional.or",
+          "rules": [
+            {
+              "type": "rules.conditional.and",
+              "rules": [
+                {
+                  "type": "rules.array.oneof",
+                  "field": "universe",
+                  "value": [
+                    "uc",
+                    "pd",
+                    "ac",
+                    "as",
+                    "ag"
+                  ]
+                },
+                {
+                  "type": "rules.bool",
+                  "field": "using_mask",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "type": "rules.array.contains.struct",
+              "field": "gundam",
+              "value": {
+                "signature": true,
+                "code": [
+                  "ORB-01",
+                  "GAT-X105",
+                  "EB-05s",
+                  "MSN-02",
+                  "RX-782"
+                ]
+              }
+            }
+          ]
+        },
+        "action": {
+          "type": "actions.group",
+          "actions": [
+            {
+              "type": "actions.array.extend.each",
+              "field": "gundam",
+              "object": {
+                "checked": true,
+                "version": 41231
+              }
+            },
+            {
+              "antagonist": true,
+              "gundam": "{{ gundam }}",
+              "pilot": "{{ name }}",
+              "universe": "{{ universe }}"
+            }
+          ]
+        }
+      },
+      {
+        "type": "evaluator",
+        "rule": {
+          "type": "rules.conditional.and",
+          "rules": [
+            {
+              "type": "rules.string.equal",
+              "field": "universe",
+              "value": "ce"
+            },
+            {
+              "type": "rules.exist",
+              "field": "gundam"
+            }
+          ]
+        },
+        "action": {
+          "type": "actions.group",
+          "actions": [
+            {
+              "type": "actions.array.extend.each",
+              "field": "debut",
+              "object": {
+                "pilot": true
+              }
+            },
+            {
+              "antagonist": false,
+              "gundam": "{{ gundam }}",
+              "pilot": "{{ name }}",
+              "universe": "{{ universe }}",
+              "debut": "{{ debut }}"
+            }
+          ]
+        }
+      },
+      {
+        "name": "default",
+        "type": "evaluator",
+        "rule": {
+          "type": "rules.default"
+        },
+        "action": {
+          "name": "{{ name }}",
+          "status": "unidentified"
+        }
+      }
+    ]
+  }
+}
